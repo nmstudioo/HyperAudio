@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- HyperAudio © 2026 Noushad M. All rights reserved. -->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Noushad M.">
+<meta name="copyright" content="© 2026 Noushad M. All rights reserved.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="HyperAudio: browser tool that builds QA-checked convolver impulse responses, EEL2 Liveprog scripts and Viper DDC files for RootlessJamesDSP.">
+<meta name="color-scheme" content="dark light">
+<title>HyperAudio — RootlessJamesDSP Engine Workstation</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h2M7 7v10M11 3v18M15 8v8M19 10v4M22 12h-1"/></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/></symbol>
+<symbol id="i-speaker" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><circle cx="12" cy="14.5" r="3.5"/><circle cx="12" cy="7" r="1"/></symbol>
+<symbol id="i-tune" viewBox="0 0 24 24"><path d="M5 4v16M12 4v16M19 4v16"/><circle cx="5" cy="14" r="2" fill="var(--surface)"/><circle cx="12" cy="8" r="2" fill="var(--surface)"/><circle cx="19" cy="15" r="2" fill="var(--surface)"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M4 15c3 0 3-9 6-9s3 11 6 11 2-5 4-5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-rate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+<symbol id="i-qa" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5L15.5 10"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/></symbol>
+</defs></svg>
+<!-- === HEADER === -->
+<header class="top"><div class="brand"><span class="logo"><svg class="ic" aria-hidden="true"><use href="#i-wave"/></svg></span><div><b>HyperAudio</b><small>RootlessJamesDSP · engine v5.1</small></div></div>
+<div class="sp"><span class="chip hp">Xiaomi Redmi 12 · Android 15</span><a class="chip" id="hdrQA" href="#qa">QA …</a><button class="ibtn" id="themeBtn" type="button" aria-label="Switch to light theme" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-gear"/></svg></button></div></header>
+<div class="shell">
+<nav class="side" aria-label="Sections"><ul>
+<li><a href="#choose"><svg class="ic sm" aria-hidden="true"><use href="#i-headphones"/></svg>Profile</a></li>
+<li><a href="#inspect"><svg class="ic sm" aria-hidden="true"><use href="#i-chart"/></svg>Response</a></li>
+<li><a href="#export"><svg class="ic sm" aria-hidden="true"><use href="#i-download"/></svg>Export</a></li>
+<li><a href="#qa"><svg class="ic sm" aria-hidden="true"><use href="#i-qa"/></svg>Quality checks</a></li>
+<li><a href="#advanced"><svg class="ic sm" aria-hidden="true"><use href="#i-gear"/></svg>Advanced</a></li></ul></nav>
+<main id="main">
+<!-- === SETUP === -->
+<section class="hero" aria-labelledby="h-title">
+<p class="eyebrow">RootlessJamesDSP engine workstation</p>
+<h1 id="h-title">HyperAudio</h1>
+<p class="byline">Designed, tuned and device-tested by <b>Noushad M.</b> on a KZ EDX Pro and a Xiaomi Redmi 12.</p>
+<p class="lead">Build equalizer impulse responses, Liveprog scripts and Viper DDC files for the KZ EDX Pro and the Redmi 12 loudspeaker. Choose a profile, check its response, then export.</p>
+<ol class="steps" aria-label="Workflow"><li><span class="stepno">1</span>Choose</li><li><span class="stepno">2</span>Inspect</li><li><span class="stepno">3</span>Export</li></ol>
+</section>
+
+<section class="step" id="choose" aria-labelledby="h-choose">
+<div class="step-h"><span class="stepno" aria-hidden="true">1</span><div><h2 id="h-choose">Choose your profile</h2><p>Each profile is a ready-made correction for one output. Pick the one that matches how you listen.</p></div><span class="badge b-cyan" id="wsBadge"></span></div>
+<div class="profiles" id="profiles" role="group" aria-label="Profile"></div>
+<div class="ctl-row"><span id="fsLabel" class="meta">Sample rate</span><div class="seg" id="fsSeg" role="group" aria-labelledby="fsLabel"><button type="button" data-fs="48000" aria-pressed="true">48 kHz</button><button type="button" data-fs="44100" aria-pressed="false">44.1 kHz</button></div><span class="meta">Set RootlessJamesDSP to the same rate as the impulse.</span></div>
+</section>
+
+<section class="step" id="inspect" aria-labelledby="h-inspect">
+<div class="step-h"><span class="stepno" aria-hidden="true">2</span><div><h2 id="h-inspect">Inspect the response</h2><p>Curves are normalized at 1 kHz and exclude preamp. Hover, touch, or use ← → to read values.</p></div></div>
+<div class="stats" id="wsStats"></div>
+<div class="limbar" id="wsLim" role="group" aria-label="Limiter levels"></div>
+<div class="chartbox" id="wsChart" tabindex="0" role="group" aria-label="Frequency response chart; use left and right arrow keys to read values"></div>
+<div class="legend" id="wsLegend"></div><p class="sr" id="wsSum" aria-live="polite"></p>
+<details class="plain"><summary><svg class="ic sm" aria-hidden="true"><use href="#i-tune"/></svg>Filter chain (<span id="wsFcount">0</span>)<svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+<div class="tw mt"><table><caption class="sr">Filter chain</caption><thead><tr><th>#</th><th>Type</th><th>Fc (Hz)</th><th>Gain (dB)</th><th>Q</th></tr></thead><tbody id="wsFilters"></tbody></table></div></details>
+</section>
+
+<!-- === APPLY === -->
+<section class="step" id="export" aria-labelledby="h-export">
+<div class="step-h"><span class="stepno" aria-hidden="true">3</span><div><h2 id="h-export">Export</h2><p>Downloads are generated in your browser and only offered when every quality check passes.</p></div></div>
+<div class="export">
+<div>
+<h3>Deployment kit</h3>
+<button class="btn pri" id="wsAll" type="button"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg><span class="tx"><span class="lbl">Download all</span><span class="fn"></span></span></button>
+<div class="kit" role="group" aria-label="Files in this kit">
+<button class="btn" id="wsWav" type="button"><svg class="ic" aria-hidden="true"><use href="#i-wave"/></svg><span class="tx"><span class="lbl">Download impulse response</span><span class="fn"></span></span></button>
+<button class="btn" id="wsEel" type="button"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">Download Liveprog script</span><span class="fn"></span></span></button>
+<button class="btn" id="wsDdc" type="button"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">Download Viper DDC</span><span class="fn"></span></span></button>
+</div>
+<div class="row"><button class="copy" id="wsPeq" type="button"><svg class="ic sm" aria-hidden="true"><use href="#i-copy"/></svg><span class="lbl">Copy PEQ</span></button><button class="copy" id="wsGeq" type="button"><svg class="ic sm" aria-hidden="true"><use href="#i-copy"/></svg><span class="lbl">Copy GraphicEQ</span></button></div>
+<p class="status" id="exportStatus" role="status" aria-live="polite" data-k="idle"></p>
+</div>
+<div><h3>Load into RootlessJamesDSP</h3><div id="deployBody"></div></div>
+</div>
+</section>
+
+<section class="step" id="qa" aria-labelledby="h-qa">
+<div class="step-h"><span class="stepno" aria-hidden="true">✓</span><div><h2 id="h-qa">Quality checks</h2><p>Browser-side checks on the exact file that would be downloaded.</p></div><span class="badge b-muted" id="qa_badge">Initializing…</span></div>
+<div id="qaSummary" aria-live="polite"></div>
+<details class="plain"><summary><svg class="ic sm" aria-hidden="true"><use href="#i-info"/></svg>What is checked, and diagnostic log<svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+<div class="adv-body"><div class="console" id="qa_console" role="log" tabindex="0" aria-label="QA log">Initializing…</div>
+<p class="note"><b>Gates (per preset, at 48 and 44.1 kHz):</b> RIFF/IEEE-Float32/stereo header, no NaN/Inf, peak ≤ 0 dBFS, tail RMS ≤ −90 dBFS and tail peak ≤ −80 dBFS over the last 2048 frames, IIR↔FIR difference ≤ 0.25 dB at log-spaced landmarks, filter centres and DC (DC values below −90 dB count as equal), and headroom margin ≥ the preset safety margin (0.50 dB for fits). Margin is −(peak magnitude response of the exported impulse, preamp included, 20 Hz–20 kHz), shown unrounded to 3 decimals and compared without rounding. The fitter, this audit, the registry and the download all use that one measurement. The limiter figure is the fixed ceiling (−1.0 dBFS IEM, −0.5 dBFS speaker) minus that same peak response, and the load-time check confirms each Master v2.0 script carries its ceiling.</p>
+<p class="note warn"><b>Scope:</b> browser-side math only; it does not test native RootlessJamesDSP behavior. Headroom is the peak sine-wave gain, not a bound for arbitrary broadband peaks.</p></div></details>
+</section>
+
+<section class="step" id="advanced" aria-labelledby="h-adv">
+<div class="step-h"><span class="stepno" aria-hidden="true"><svg class="ic sm"><use href="#i-gear"/></svg></span><div><h2 id="h-adv">Advanced tools</h2><p>Export every profile, scripts and DDC files, fit your own measurements, read the registry and device notes.</p></div></div>
+<div class="adv-list">
+
+<!-- === FILES === -->
+<details class="adv" id="convolver"><summary><svg class="ic" aria-hidden="true"><use href="#i-wave"/></svg><span class="sum-t"><b>All convolver impulse responses</b><small>Every profile at 44.1 and 48 kHz</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body">
+<p class="desc">IEEE Float32 stereo WAV (identical L/R), 8192 taps, 44.1 or 48 kHz, 128-sample half-cosine tail taper. Each download is built and audited first, and is blocked if any QA gate fails.</p>
+<div class="grid" id="wav_export_grid"></div></div></details>
+
+<details class="adv" id="scripts"><summary><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg><span class="sum-t"><b>EEL2 scripts and DDC files</b><small>Master v2.0 setup, S+ standalone scripts, Viper DDC</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body">
+<p class="desc">Chain order is convolver, then Liveprog: the impulse does the EQ, the script does dynamics, tone and safety. The two Master v2.0 scripts and the two DDC files belong to that setup, and their limiter ceilings are fixed: −1.0 dBFS for the IEM, −0.5 dBFS for the speaker. The two S+ scripts are standalone, built for use outside the convolver, Liveprog and DDC setup. Descriptions and values below are read from the file contents. This page does not execute EEL2; native load status is operator-reported under Device evidence.</p>
+<h3>Harmonized setup</h3>
+<div class="grid">
+<button class="btn" id="e_iem" type="button" data-k="IEM HyperAudio™ Master v2.0.eel" data-file="IEM HyperAudio™ Master v2.0.eel"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">IEM HyperAudio™ Master v2.0.eel</span><span class="sub"></span></span></button>
+<button class="btn" id="e_spk" type="button" data-k="Speaker HyperAudio™ Master v2.0.eel" data-file="Speaker HyperAudio™ Master v2.0.eel"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">Speaker HyperAudio™ Master v2.0.eel</span><span class="sub"></span></span></button>
+<button class="btn" id="d_iem" type="button" data-k="IEM HyperAudio™ DDC.vdc" data-file="IEM HyperAudio™ DDC.vdc"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">IEM HyperAudio™ DDC.vdc</span><span class="sub"></span></span></button>
+<button class="btn" id="d_spk" type="button" data-k="Speaker HyperAudio™ DDC.vdc" data-file="Speaker HyperAudio™ DDC.vdc"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">Speaker HyperAudio™ DDC.vdc</span><span class="sub"></span></span></button>
+</div>
+<h3>Standalone (S+)</h3>
+<div class="grid">
+<button class="btn" id="e_splus_iem" type="button" data-k="S+ IEM HyperAudio™ Master.eel" data-file="S+ IEM HyperAudio™ Master.eel"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">S+ IEM HyperAudio™ Master.eel</span><span class="sub"></span><span class="badge b-amber">Standalone</span></span></button>
+<button class="btn" id="e_splus_spk" type="button" data-k="S+ Speaker HyperAudio™ Master.eel" data-file="S+ Speaker HyperAudio™ Master.eel"><svg class="ic sm" aria-hidden="true"><use href="#i-file"/></svg><span class="tx"><span class="lbl">S+ Speaker HyperAudio™ Master.eel</span><span class="sub"></span><span class="badge b-amber">Standalone</span></span></button>
+</div></div></details>
+
+<!-- === LAB === -->
+<details class="adv" id="fitter"><summary><svg class="ic" aria-hidden="true"><use href="#i-tune"/></svg><span class="sum-t"><b>AutoEQ fitter</b><small>Fit a new profile from a measurement</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body">
+<p class="desc">Forward greedy selection: for each candidate (fc, Q) the gain is the single-filter least-squares projection of the current residual, and the candidate with the lowest residual is kept; then four passes of ±step coordinate descent adjust gains only (fc and Q fixed). This is not a joint least-squares solve. Constraints: ≥ 0.4 octave between any two centres, ≥ 0.8 octave between a boost and a cut (anti-cancellation), ±12 dB gain, Q 0.5–6, fc/Q ≥ 12 Hz (so the 8192-tap IR can represent the filter), speaker fc ≥ 308 Hz. RMS and max error are measured on 220 log-spaced points, 20 Hz–20 kHz, against the 1 kHz-normalized full filter response (fixed HPF + PEQ), preamp excluded. For the speaker a second RMS covers ≥ 250 Hz; residual bass error comes from the fixed 220 Hz 2nd-order high-pass. Fits are computed at 48 kHz and appear as profiles in the workspace; each export is audited at its own sample rate. Preamp is the least attenuation (never a boost), in 0.001 dB steps, whose exported impulse meets the 0.50 dB safety margin at both 44.1 and 48 kHz, using the same headroom measurement as QA.</p>
+<div class="file-row"><label>Filter count (4–16)<br><input type="number" id="num_filters" class="narrow" value="10" min="4" max="16"></label>
+<button class="action" id="btn_fit_kz" type="button">Fit KZ EDX Pro</button><button class="action" id="btn_fit_spk" type="button">Fit Redmi 12 Speaker</button><button class="action" id="btn_clear_fits" type="button">Clear fits</button></div>
+<div><label class="lbl-block" for="target_input">Target curve — GraphicEQ format (default: Harman IE 2019; edit to use your own)</label><textarea class="lg" id="target_input"></textarea></div>
+<div class="file-row"><label>KZ EDX Pro measurement CSV<input type="file" id="raw_kz_input" accept=".csv,.txt"></label><label>Redmi 12 speaker measurement CSV<input type="file" id="raw_spk_input" accept=".csv,.txt"></label><button class="copy" id="btn_reset_defaults" type="button">Reset to embedded data</button></div>
+<div class="canvas-wrap"><canvas id="fit_canvas" width="960" height="380" role="img" aria-label="Raw measurements, target and fitted responses"></canvas></div>
+<div class="console" id="fit_log" aria-live="polite">Embedded target and measurements loaded. Run a fit.</div><div id="fit_table"></div>
+</div></details>
+
+<details class="adv" id="registry"><summary><svg class="ic" aria-hidden="true"><use href="#i-qa"/></svg><span class="sum-t"><b>Preset registry and headroom</b><small>Peak, preamp, margin and IIR↔FIR deviation per profile</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body">
+<div class="tw"><table class="stack"><thead><tr><th>Preset</th><th>Class</th><th>Filter peak (48k)</th><th>Calc min pre</th><th>Applied pre</th><th>Margin (48/44.1)</th><th>IIR↔FIR Δ (dB)</th></tr></thead><tbody id="reg"></tbody></table></div></div></details>
+
+<details class="adv" id="filters"><summary><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><span class="sum-t"><b>Filter exports</b><small>PEQ and GraphicEQ text for every profile</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body"><div id="exports"></div></div></details>
+
+<details class="adv" id="device-evidence"><summary><svg class="ic" aria-hidden="true"><use href="#i-cpu"/></svg><span class="sum-t"><b>Device evidence</b><small>Operator-reported ADB diagnostic, not independent certification</small></span><svg class="ic sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="adv-body">
+<div class="console" id="evidence"></div>
+<p class="note warn">A point-in-time ADB observation supplied by the operator. It is not independent certification and does not guarantee compatibility with every Android device, ROM or RootlessJamesDSP release.</p></div></details>
+</div>
+</section>
+<footer><p><b>© 2026 Noushad M.</b> All rights reserved.</p><p>HyperAudio engine v5.1 · all computation runs locally in your browser</p></footer>
+</main></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div class="bar" role="region" aria-label="Quick download"><div class="seg" id="fsSegBar" role="group" aria-label="Sample rate"><button type="button" data-fs="48000" aria-pressed="true">48 kHz</button><button type="button" data-fs="44100" aria-pressed="false">44.1 kHz</button></div><button class="btn pri" id="wsAllBar" type="button"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg><span class="tx"><span class="lbl">Download all</span></span></button></div>
+<!-- === ENGINE === -->
+<script id="ha-core" src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
