@@ -1,11 +1,63 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Compare profiles · HyperAudio</title>
-<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml"><script src="assets/js/theme-init.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css"><link rel="stylesheet" href="assets/css/site.css"><link rel="stylesheet" href="assets/css/nav.css"></head><body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 4.6 2.9 17.4A2 2 0 0 0 4.6 20.4h14.8a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/></symbol></defs></svg>
-<main class="pg" id="main"><h1>Compare profiles</h1><p class="lead">Overlay two profiles' predicted response. Calculated from files, not measured.</p>
-<div class="sel"><select id="a" aria-label="Profile A"></select><select id="b" aria-label="Profile B"></select></div>
-<div class="chartbox" id="ch" tabindex="0" role="group" aria-label="Predicted response comparison"></div><div class="tgt" id="lg"></div>
-<div class="cmpg" id="pk"></div><p class="note" id="err" hidden>Data could not be loaded. Serve the folder over http.</p>
-<script src="assets/js/chart.js"></script><script src="assets/js/pages.js"></script><script>HAP.compare()</script></main><script src="assets/js/nav.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Compare profiles · HyperAudio</title>
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <script src="assets/js/theme-init.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <link rel="stylesheet" href="assets/css/nav.css" />
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-warn" viewBox="0 0 24 24">
+          <path
+            d="M10.3 4.6 2.9 17.4A2 2 0 0 0 4.6 20.4h14.8a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0z"
+          />
+          <path d="M12 9.5v4M12 17h.01" />
+        </symbol>
+      </defs>
+    </svg>
+    <main class="pg" id="main">
+      <h1>Compare profiles</h1>
+      <p class="lead">
+        Overlay two profiles' predicted response. Calculated from files, not
+        measured.
+      </p>
+      <div class="sel">
+        <select id="a" aria-label="Profile A"></select
+        ><select id="b" aria-label="Profile B"></select>
+      </div>
+      <div
+        class="chartbox"
+        id="ch"
+        tabindex="0"
+        role="group"
+        aria-label="Predicted response comparison"
+      ></div>
+      <div class="tgt" id="lg"></div>
+      <div class="cmpg" id="pk"></div>
+      <p class="note" id="err" hidden>
+        Data could not be loaded. Serve the folder over http.
+      </p>
+      <script src="assets/js/chart.js"></script>
+      <script src="assets/js/pages.js"></script>
+      <script>
+        HAP.compare();
+      </script>
+    </main>
+    <script src="assets/js/nav.js"></script>
+  </body>
+</html>
