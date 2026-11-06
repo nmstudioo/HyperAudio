@@ -70,13 +70,6 @@
   while (wrap.firstChild) frag.appendChild(wrap.firstChild);
   B.insertBefore(frag, main);
 
-  var foot = D.createElement('div');
-  foot.className = 'sf'; foot.setAttribute('role', 'contentinfo');
-  foot.innerHTML = '<div class="sf-in"><p class="sf-v"><b>HyperAudio</b><span class="n-ver"></span></p>' +
-    '<p class="sf-e"><i aria-hidden="true"></i>Device-tested · responses calculated, not measured</p>' +
-    '<p class="sf-c">Tested by Noushad Mostafa</p>' +
-    '<p class="sf-l"><a href="' + GH + '" target="_blank" rel="noopener noreferrer">GitHub</a></p></div>';
-  B.appendChild(foot);
 
   var bb = D.createElement('div');
   bb.className = 'bb'; bb.setAttribute('role', 'navigation'); bb.setAttribute('aria-label', 'Primary');
