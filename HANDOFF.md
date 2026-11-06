@@ -30,6 +30,3 @@ When the assets/instruments are available:
 2. Run python3 build/build.py to generate the new profiles.
 3. Run tst (or python3 tests/check.py) to verify.
 4. Update VERSION and commit.
-   MD_EOF
-
-echo "Markdown files updated to premium v6 standard."

@@ -486,7 +486,7 @@ const FAQ = [
 [
 "Speaker boost",
 "Why do the speaker profiles not reach the full target?",
-"Total boost is capped at +8 dB and everything below 110 Hz is high-passed to protect the small driver. Against the uncapped target the speaker profiles therefore sit 3 to 5 dB low between 100 and 2000 Hz.",
+"Total boost is capped at +8 dB and everything below 110 Hz is high-passed to protect the small driver. Against the uncapped target the speaker profiles the speaker profiles therefore sit about 2 dB below it on average between 100 and 2000 Hz, and up to about 12 dB below it near 500 Hz.",
 ],
 [
 "True Peak Detect",

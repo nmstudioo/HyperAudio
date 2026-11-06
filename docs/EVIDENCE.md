@@ -13,3 +13,6 @@ Legacy v5 claims ("IEM passed") are recorded as `untested` per build until re-ru
 - `eel.compile`, `limiter.*`, `tail`, `nan_soak` now run through tests/eel (eel2py). Tier note: this is an independent interpreter, not the WDL/JSFX runtime; assumptions are listed in eel2py.py. Treat as strong offline evidence, not device proof.
 - `vdc.sr_consistency` is `warn` for iem-v4, iem-v10, spk-v8, spk-v10 (44.1 vs 48 kHz bank 0.9 to 1.6 dB at 20 kHz). `cpu` stays `not_run` (needs a device).
 - Speaker cap: applied peak boost is +7.3 to +8.2 dB vs +10.7 to +11.6 dB needed. Mean shortfall over 100-2000 Hz is about -2.0 dB (the "3 to 5 dB" figure is not reproduced); worst single point is -11 to -12 dB.
+
+## True-peak limits (eel2py, 8x oversampled)
+Tones, clicks and square waves overshoot the ceiling by about +0.20 dB. Broadband noise driven 6 dB over the ceiling overshoots by about +1.9 dB (test guard 2.5 dB). Sample peaks never exceed the ceiling (hard clamp). These come from a subset interpreter, not the WDL runtime; the device check is the final authority.

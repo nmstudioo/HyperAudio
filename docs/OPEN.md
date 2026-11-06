@@ -1,6 +1,6 @@
 # Open v6 items
 
-Status as of this package. Nothing here is released; v5.0.0 files are unchanged.
+Status for v6.0.0. The shipped profile files are byte-identical to v5.0.0; v6 changes tooling, tests, docs and the site.
 
 | # | Item | State | Needs |
 |---|------|-------|-------|
