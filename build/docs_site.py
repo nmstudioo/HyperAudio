@@ -1,26 +1,21 @@
 #!/usr/bin/env python3
-"""Render docs/*.md to site/docs/*.html so doc links exist on the published site.
-python3 build/docs_site.py          write
-python3 build/docs_site.py --check  exit 1 if site/docs is stale"""
+"""Render docs/*.md to site/docs/*.html so doc links exist on the published site."""
 import html, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GH = 'https://github.com/nmstudioo/HyperAudio/blob/main/'
 DOCS = sorted(f[:-3] for f in os.listdir(f'{ROOT}/docs') if f.endswith('.md'))
-
 def url(u):
     m = re.match(r'^(?:\./|\.\./|/)?(.*?)(#.*)?$', u); p, h = m[1], m[2] or ''
     if re.match(r'^(https?:|mailto:|#)', u): return u
     if p.endswith('.md') and p[:-3].split('/')[-1] in DOCS and not p.startswith(('src', 'releases')): return p[:-3].split('/')[-1] + '.html' + h
     if p.startswith('docs/') and p.endswith('.md') and p[5:-3] in DOCS: return p[5:-3] + '.html' + h
     return GH + p + h
-
 def inline(s):
     s = html.escape(s, quote=False); codes = []
     s = re.sub(r'`([^`]+)`', lambda m: codes.append(m[1]) or '\0%d\0' % (len(codes) - 1), s)
     s = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: '<a href="%s"%s>%s</a>' % (html.escape(url(m[2])), ' target="_blank" rel="noopener"' if url(m[2]).startswith('http') else '', m[1]), s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s); s = re.sub(r'(?<![\w*])\*([^*]+)\*(?![\w*])', r'<i>\1</i>', s)
     return re.sub(r'\0(\d+)\0', lambda m: '<code>%s</code>' % html.escape(codes[int(m[1])], quote=False), s)
-
 def md(text):
     out, L, i, title = [], text.split('\n'), 0, None
     while i < len(L):
@@ -48,7 +43,6 @@ def md(text):
             out.append('<p>%s</p>' % inline(' '.join(p)) if p else ''); i += 0 if p else 1; continue
         i += 1
     return '\n'.join(out), title or 'Docs'
-
 PAGE = '''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>%(t)s · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">

@@ -748,3 +748,8 @@ body footer.ft .ft-l a[rel~="external"]::after {
     padding-bottom: 40px;
   }
 }
+
+/* v6-evidence */
+.v6ev{margin-top:20px;padding:16px 18px;border:1px solid var(--bd);border-radius:16px}
+.v6ev h3{margin:0 0 6px;font:700 17px var(--sans)}.v6ev p{margin:0 0 10px;color:var(--tx2);font-size:14px}
+.v6ev ul{margin:0;padding-left:18px;display:grid;gap:6px}.v6ev a{color:var(--acc);font-weight:600}

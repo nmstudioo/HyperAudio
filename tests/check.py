@@ -37,6 +37,9 @@ with tempfile.TemporaryDirectory() as t:
 html = open(f'{ROOT}/site/index.html', encoding='utf-8').read()
 for u in re.findall(r'(?:href|src)="([^"#:]+)"', html):
     need(os.path.exists(f'{ROOT}/site/{u.split("?")[0]}'), f'broken link in index.html: {u}')
+# 3b docs pages up to date, links resolve, 404 exists
+r = subprocess.run([sys.executable, f'{ROOT}/build/docs_site.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
+r = subprocess.run(['node', f'{ROOT}/tests/links.js'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')

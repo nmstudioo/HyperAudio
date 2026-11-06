@@ -1,0 +1,59 @@
+{
+ "schema": "docs/EVIDENCE.md",
+ "entries": [
+  {
+   "release": "v5.0.0",
+   "build": "iem-hd",
+   "device": "KZ EDX Pro",
+   "date": null,
+   "test": "listening pass",
+   "result": "untested",
+   "notes": "v5 author claim was \"IEM passed\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v5.0.0",
+   "build": "iem-v4",
+   "device": "KZ EDX Pro",
+   "date": null,
+   "test": "listening pass",
+   "result": "untested",
+   "notes": "v5 author claim was \"IEM passed\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v5.0.0",
+   "build": "iem-v10",
+   "device": "KZ EDX Pro",
+   "date": null,
+   "test": "listening pass",
+   "result": "untested",
+   "notes": "v5 author claim was \"IEM passed\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v5.0.0",
+   "build": "spk-v6",
+   "device": "Redmi 12 speaker",
+   "date": null,
+   "test": "no crackle",
+   "result": "untested",
+   "notes": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v5.0.0",
+   "build": "spk-v8",
+   "device": "Redmi 12 speaker",
+   "date": null,
+   "test": "no crackle",
+   "result": "untested",
+   "notes": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v5.0.0",
+   "build": "spk-v10",
+   "device": "Redmi 12 speaker",
+   "date": null,
+   "test": "no crackle",
+   "result": "untested",
+   "notes": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+  }
+ ]
+}

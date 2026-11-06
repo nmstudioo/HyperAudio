@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-"""Idempotent: put the v6 evidence links inside #evidence of site/index.html (removing any misplaced copy),
-add its CSS, regenerate docs pages. Run from the repo root."""
 import re, subprocess, sys, os
 IDX, CSS = 'site/index.html', 'site/assets/css/site.css'
 BEGIN, END = '<!-- v6-evidence:start -->', '<!-- v6-evidence:end -->'
@@ -24,10 +22,8 @@ CSS_ADD = '''
 .v6ev ul{margin:0;padding-left:18px;display:grid;gap:6px}.v6ev a{color:var(--acc);font-weight:600}
 '''
 s = open(IDX, encoding='utf-8').read()
-s = re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END) + r'\s*', '', s, flags=re.S)   # drop our previous copy
-
+s = re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END) + r'\s*', '', s, flags=re.S)
 def enclosing(s, pos):
-    """Smallest section/div/article/aside that contains pos and a docs link; returns (start, end) or None."""
     for m in reversed([m for m in re.finditer(r'<(section|div|article|aside)\b[^>]*>', s[:pos])]):
         tag, depth = m[1], 0
         for t in re.finditer(r'<(/?)%s\b[^>]*>' % tag, s[m.start():]):

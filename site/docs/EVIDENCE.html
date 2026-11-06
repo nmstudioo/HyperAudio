@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Evidence · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<script src="../assets/js/theme-init.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css">
+<style>.dtop{display:flex;gap:14px;align-items:center;flex-wrap:wrap;max-width:820px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 0;font:600 13px var(--mono)}.dtop a{color:var(--tx2);text-decoration:none}.dtop a:hover{color:var(--acc)}
+.dc{max-width:820px;margin:0 auto;padding:12px 16px max(48px,env(safe-area-inset-bottom))}.dc h1{font:800 clamp(26px,6vw,34px)/1.15 var(--sans);margin:.6em 0 .4em}.dc h2{font:700 21px var(--sans);margin:1.6em 0 .4em}.dc h3{font:700 17px var(--sans);margin:1.3em 0 .3em}
+.dc p,.dc li{color:var(--tx2);line-height:1.65}.dc a{color:var(--acc);font-weight:600}.dc code{font:500 .9em var(--mono);background:rgba(128,128,128,.14);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}.dc pre{overflow-x:auto;padding:14px;border:1px solid var(--bd);border-radius:12px}.dc pre code{background:none;padding:0}.dc .tw{overflow-x:auto}</style></head>
+<body><nav class="dtop" aria-label="Docs"><a href="../">&larr; HyperAudio</a><a href="./">Docs</a><a href="../archive.html">Archive</a><a href="../changelog.html">Changelog</a></nav>
+<main class="dc" id="main">
+<h1>Evidence</h1>
+<p>Three tiers, never mixed on the site:</p>
+<ol><li><b>Offline, automated</b> (<code>releases/&amp;lt;v&amp;gt;/acceptance.json</code>, produced by <code>build/build.py</code>): file validity, VDC banks/sections, IRS format and peak vs metadata, EEL static lint. Status is <code>pass</code>, <code>fail</code> or <code>not_run</code>.</li></ol>
+<p><code>not_run</code> today: eel.compile, limiter.ceiling, response_error, tail, cpu, nan_soak. They need an EEL runtime and the test harness, which are not in the repo yet. They are listed, not faked.</p>
+<ol><li><b>Device-reported</b> (<code>docs/evidence/device-tests.json</code>): one entry per build, device, date, result.</li><li><b>Acoustic measurement</b>: none yet. Site keeps saying "calculated".</li></ol>
+<p>Entry schema: <code>{"release","build","device","date","test","result":"pass|fail|untested","notes"}</code>. Legacy v5 claims ("IEM passed") are recorded as <code>untested</code> per build until re-run individually.</p>
+<h2>v6 prep results (docs/evidence/acceptance-src-v5.0.0.json, generated from src/, v5.0.0 unchanged)</h2>
+<ul><li><code>response.*</code> now run (build/response.py): shipped VDC x IRS reproduces each stored <code>correction</code> curve to 0.03 dB RMS on all six builds, so the earlier "files do not reproduce curves" finding is closed. Convention in the module docstring. <code>predicted</code> = raw + correction + a constant level alignment.</li><li><code>eel.compile</code>, <code>limiter.*</code>, <code>tail</code>, <code>nan_soak</code> now run through tests/eel (eel2py). Tier note: this is an independent interpreter, not the WDL/JSFX runtime; assumptions are listed in eel2py.py. Treat as strong offline evidence, not device proof.</li><li><code>vdc.sr_consistency</code> is <code>warn</code> for iem-v4, iem-v10, spk-v8, spk-v10 (44.1 vs 48 kHz bank 0.9 to 1.6 dB at 20 kHz). <code>cpu</code> stays <code>not_run</code> (needs a device).</li><li>Speaker cap: applied peak boost is +7.3 to +8.2 dB vs +10.7 to +11.6 dB needed. Mean shortfall over 100-2000 Hz is about -2.0 dB (the "3 to 5 dB" figure is not reproduced); worst single point is -11 to -12 dB.</li></ul>
+</main></body></html>
