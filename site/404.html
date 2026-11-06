@@ -8,50 +8,79 @@
 <title>Page not found · HyperAudio</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b13a' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 8c2.2 0 2.2-2.5 4.5-2.5S9.8 8 12 8s2.2-2.5 4.5-2.5S18.8 8 21 8M3 13c2.2 0 2.2-2.5 4.5-2.5S9.8 13 12 13s2.2-2.5 4.5-2.5S18.8 13 21 13M3 18c2.2 0 2.2-2.5 4.5-2.5S9.8 18 12 18s2.2-2.5 4.5-2.5S18.8 18 21 18'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('ha-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}catch(e){}</script>
+<script>
+try{document.documentElement.dataset.theme=localStorage.getItem('ha-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}catch(e){}
+</script>
 <style>
-:root{--bg:#000;--card:#0b0b0b;--bd:rgba(255,255,255,.09);--tx:#f4f1ea;--tx2:#b9b4a8;--mut:#8a857a;--acc:#f2b13a;--sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:root{
+--bg:#000;--card:#0b0b0b;--bd:rgba(255,255,255,.09);--tx:#f4f1ea;--tx2:#b9b4a8;--mut:#8a857a;--acc:#f2b13a;
+--sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 :root[data-theme=light]{--bg:#f7f5ef;--card:#fff;--bd:rgba(0,0,0,.1);--tx:#17140d;--tx2:#4d483c;--mut:#7a7465;--acc:#b36f00}
-*{box-sizing:border-box}html,body{margin:0}
-body{min-height:100vh;display:grid;place-items:center;padding:max(20px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));background:radial-gradient(60% 40% at 50% 0,rgba(242,177,58,.12),transparent 70%),var(--bg);color:var(--tx);font:400 16px/1.6 var(--sans)}
-.card{width:100%;max-width:520px;text-align:center;background:var(--card);border:1px solid var(--bd);border-radius:28px;padding:32px 22px 24px}
-.logo{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:16px;border:1px solid var(--bd);background:linear-gradient(160deg,rgba(242,177,58,.14),transparent)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+min-height:100vh;display:grid;place-items:center;
+padding:max(20px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));
+background:radial-gradient(60% 40% at 50% 0,rgba(242,177,58,.12),transparent 70%),var(--bg);color:var(--tx);
+font:400 16px/1.6 var(--sans)}
+.card{
+width:100%;max-width:520px;text-align:center;background:var(--card);border:1px solid var(--bd);border-radius:28px;
+padding:32px 22px 24px}
+.logo{
+display:inline-grid;place-items:center;width:56px;height:56px;border-radius:16px;border:1px solid var(--bd);
+background:linear-gradient(160deg,rgba(242,177,58,.14),transparent)}
 .logo svg{width:28px;height:28px;fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round}
-.eyebrow{margin:18px 0 0;font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);display:flex;gap:8px;justify-content:center;align-items:center}
+.eyebrow{
+margin:18px 0 0;font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);display:flex;gap:8px;
+justify-content:center;align-items:center}
 .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--acc)}
 .curve{display:block;width:100%;max-width:360px;height:auto;margin:14px auto 6px}
 .curve .g{stroke:var(--bd);stroke-width:1;fill:none}
-.curve .l{fill:none;stroke:var(--acc);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:700;stroke-dashoffset:700;animation:dr 1.3s .1s ease forwards}
+.curve .l{
+fill:none;stroke:var(--acc);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:700;
+stroke-dashoffset:700;animation:dr 1.3s .1s ease forwards}
 .curve text{font:500 10px var(--mono);fill:var(--mut);letter-spacing:.08em}
-@keyframes dr{to{stroke-dashoffset:0}}
-@media(prefers-reduced-motion:reduce){.curve .l{animation:none;stroke-dashoffset:0}}
+@keyframes dr{
+to{stroke-dashoffset:0}
+}
+@media(prefers-reduced-motion:reduce){
+.curve .l{animation:none;stroke-dashoffset:0}
+}
 h1{margin:6px 0 8px;font:800 clamp(26px,7vw,34px)/1.15 var(--sans);letter-spacing:-.02em}
 .sub{margin:0 auto;max-width:42ch;color:var(--tx2);font-size:15px}
-.req{margin:18px 0 0;padding:10px 12px;border-radius:12px;background:rgba(128,128,128,.1);text-align:left;font:400 12.5px/1.5 var(--mono);overflow-wrap:anywhere}
+.req{
+margin:18px 0 0;padding:10px 12px;border-radius:12px;background:rgba(128,128,128,.1);text-align:left;
+font:400 12.5px/1.5 var(--mono);overflow-wrap:anywhere}
 .req span{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-.dym{margin:14px 0 0;font-size:14px;color:var(--tx2)}.dym a{color:var(--acc);font-weight:600}
+.dym{margin:14px 0 0;font-size:14px;color:var(--tx2)}
+.dym a{color:var(--acc);font-weight:600}
 .act{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 0}
-.btn{min-height:48px;padding:0 20px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;font:600 15px var(--sans);text-decoration:none;cursor:pointer;border:1px solid var(--bd);background:none;color:var(--tx)}
+.btn{
+min-height:48px;padding:0 20px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;
+font:600 15px var(--sans);text-decoration:none;cursor:pointer;border:1px solid var(--bd);background:none;color:var(--tx)}
 .btn.pri{background:var(--acc);border-color:var(--acc);color:#111}
 .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 0}
-.chips a{font:500 12px var(--mono);color:var(--tx2);text-decoration:none;border:1px solid var(--bd);border-radius:999px;padding:7px 13px}
+.chips a{
+font:500 12px var(--mono);color:var(--tx2);text-decoration:none;border:1px solid var(--bd);border-radius:999px;padding:7px 13px}
 .chips a:hover,.btn:hover{border-color:var(--acc)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-.foot{margin:22px 0 0;font:400 11.5px var(--mono);color:var(--mut)}.foot a{color:var(--tx2)}
+.foot{margin:22px 0 0;font:400 11.5px var(--mono);color:var(--mut)}
+.foot a{color:var(--tx2)}
 </style>
 </head>
 <body>
 <main class="card">
- <a class="logo" id="logo" href="/HyperAudio/" aria-label="HyperAudio home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8c2.2 0 2.2-2.5 4.5-2.5S9.8 8 12 8s2.2-2.5 4.5-2.5S18.8 8 21 8M3 13c2.2 0 2.2-2.5 4.5-2.5S9.8 13 12 13s2.2-2.5 4.5-2.5S18.8 13 21 13M3 18c2.2 0 2.2-2.5 4.5-2.5S9.8 18 12 18s2.2-2.5 4.5-2.5S18.8 18 21 18"/></svg></a>
- <p class="eyebrow"><i></i><span id="eb">Error 404</span></p>
- <svg class="curve" viewBox="0 0 320 90" role="img" aria-label="A frequency response curve with a deep dropout"><path class="g" d="M0 45H320M0 15H320M0 75H320"/><path class="l" d="M0 46C30 46 42 36 72 38S122 52 152 46S188 44 194 48L200 84L206 48S250 40 280 42S310 46 320 46"/><text x="212" y="82">NO SIGNAL</text></svg>
- <h1 id="t">This path has no signal.</h1>
- <p class="sub" id="d">That page isn’t part of HyperAudio. The link may be old or mistyped, or the page may have moved.</p>
- <p class="req"><span>Requested</span><code id="path"></code></p>
- <p class="dym" id="dym" hidden>Did you mean <a id="dymA" href="#"></a>?</p>
- <div class="act"><a class="btn pri" id="home" href="/HyperAudio/">Back to HyperAudio</a><button class="btn" id="back" type="button">Go back</button></div>
- <nav class="chips" id="chips" aria-label="Pages"></nav>
- <p class="foot">Broken link? <a id="rep" href="https://github.com/nmstudioo/HyperAudio/issues/new">Report it</a></p>
+<a class="logo" id="logo" href="/HyperAudio/" aria-label="HyperAudio home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8c2.2 0 2.2-2.5 4.5-2.5S9.8 8 12 8s2.2-2.5 4.5-2.5S18.8 8 21 8M3 13c2.2 0 2.2-2.5 4.5-2.5S9.8 13 12 13s2.2-2.5 4.5-2.5S18.8 13 21 13M3 18c2.2 0 2.2-2.5 4.5-2.5S9.8 18 12 18s2.2-2.5 4.5-2.5S18.8 18 21 18"/></svg></a>
+<p class="eyebrow"><i></i><span id="eb">Error 404</span></p>
+<svg class="curve" viewBox="0 0 320 90" role="img" aria-label="A frequency response curve with a deep dropout"><path class="g" d="M0 45H320M0 15H320M0 75H320"/><path class="l" d="M0 46C30 46 42 36 72 38S122 52 152 46S188 44 194 48L200 84L206 48S250 40 280 42S310 46 320 46"/><text x="212" y="82">NO SIGNAL</text></svg>
+<h1 id="t">This path has no signal.</h1>
+<p class="sub" id="d">That page isn’t part of HyperAudio. The link may be old or mistyped, or the page may have moved.</p>
+<p class="req"><span>Requested</span><code id="path"></code></p>
+<p class="dym" id="dym" hidden>Did you mean <a id="dymA" href="#"></a>?</p>
+<div class="act"><a class="btn pri" id="home" href="/HyperAudio/">Back to HyperAudio</a><button class="btn" id="back" type="button">Go back</button></div>
+<nav class="chips" id="chips" aria-label="Pages"></nav>
+<p class="foot">Broken link? <a id="rep" href="https://github.com/nmstudioo/HyperAudio/issues/new">Report it</a></p>
 </main>
 <script>
 (function(){
