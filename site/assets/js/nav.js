@@ -173,7 +173,7 @@
   foot.setAttribute("role", "contentinfo");
   foot.innerHTML =
     '<div class="sf-in"><p class="sf-v"><b>HyperAudio</b><span class="n-ver"></span></p>' +
-    '<p class="sf-e"><i aria-hidden="true"></i>Device-tested · responses calculated, not measured</p>' +
+    '<p class="sf-e"><i aria-hidden="true"></i>v5.0.0 Stable · v6 candidates in progress</p>' +
     '<p class="sf-c">Tested by Noushad Mostafa</p>' +
     '<p class="sf-l"><a href="' +
     GH +
