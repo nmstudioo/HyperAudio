@@ -1,0 +1,6 @@
+HyperAudio {{VERSION}} - KZ EDX Pro · Spatial V4
+RootlessJamesDSP order: VDC > Convolver (IRS) > Liveprog (EEL).
+1) ViPER-DDC: load EDX_v4.vdc
+2) Convolver: load EDX_v4_HRIRxCrossfeed.irs, optimization Original
+3) Liveprog: load EDX_v4.eel
+Convolver preamp 0 dB, EEL post gain 0 dB. Leave True Peak Detect on.

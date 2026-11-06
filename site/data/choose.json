@@ -1,0 +1,78 @@
+{
+ "choose": {
+  "iem-hd": "You want the established, safe IEM default with light crossfeed.",
+  "iem-v4": "You want a wider, more spatial image and accept HRIR crossfeed colouring.",
+  "iem-v10": "You want straight dual-mono with no crossfeed, closest to the plain target.",
+  "spk-v6": "You want the most protective speaker setup, led by convolver correction.",
+  "spk-v8": "You mostly watch video and want clearer dialogue and some width.",
+  "spk-v10": "You want maximum loudness from the speaker and accept more limiter activity."
+ },
+ "tags": {
+  "iem-hd": {
+   "device": "iem",
+   "goal": [
+    "balanced"
+   ]
+  },
+  "iem-v4": {
+   "device": "iem",
+   "goal": [
+    "space"
+   ]
+  },
+  "iem-v10": {
+   "device": "iem",
+   "goal": [
+    "pure"
+   ]
+  },
+  "spk-v6": {
+   "device": "spk",
+   "goal": [
+    "safe"
+   ]
+  },
+  "spk-v8": {
+   "device": "spk",
+   "goal": [
+    "dialogue"
+   ]
+  },
+  "spk-v10": {
+   "device": "spk",
+   "goal": [
+    "loud"
+   ]
+  }
+ },
+ "goals": {
+  "iem": [
+   [
+    "balanced",
+    "Balanced default"
+   ],
+   [
+    "space",
+    "Wider stage"
+   ],
+   [
+    "pure",
+    "No crossfeed"
+   ]
+  ],
+  "spk": [
+   [
+    "safe",
+    "Speaker safety first"
+   ],
+   [
+    "dialogue",
+    "Dialogue and film"
+   ],
+   [
+    "loud",
+    "Loudness"
+   ]
+  ]
+ }
+}
