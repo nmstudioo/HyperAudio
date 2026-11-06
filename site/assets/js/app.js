@@ -439,7 +439,7 @@ $("#stats").innerHTML = [
 [
 "script",
 "Release",
-"v5.0.0",
+"v6.0.0",
 "Stable · " + DATA.released,
 "var(--violet)",
 ],
