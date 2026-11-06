@@ -16,6 +16,8 @@ jobs:
           npm install playwright
           npx playwright install --with-deps chromium
           node tests/overflow.js
+      - name: Hashes, rebuild reproducibility, links, JS syntax
+        run: python3 tests/check.py
       - name: Build current release and fail on drift
         run: |
           python3 build/build.py --out /tmp/rel

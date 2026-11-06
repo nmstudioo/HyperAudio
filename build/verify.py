@@ -29,7 +29,7 @@ def eel_lint(path):
         if code.count(a) != code.count(b): err.append('unbalanced ' + a + b)
     return err
 
-def acceptance(pdir, p):
+def acceptance(pdir, p, runtime=True):
     """Per-build checks computable offline. Checks needing an EEL runtime are reported not_run, never faked."""
     out = []
     def add(n, ok, d=''): out.append(dict(check=n, status='pass' if ok else 'fail', detail=d))
@@ -47,6 +47,16 @@ def acceptance(pdir, p):
             add('irs.peak_matches_meta', abs(i['peak'] - p['stats']['irsPeak']) < 0.006, 'file %.3f meta %.2f' % (i['peak'], p['stats']['irsPeak']))
         elif k == 'eel':
             e = eel_lint(path); add('eel.lint', not e, '; '.join(e))
-    for n in ('eel.compile', 'limiter.ceiling', 'response_error', 'tail', 'cpu', 'nan_soak'):
-        out.append(dict(check=n, status='not_run', detail='needs EEL runtime / test harness (see docs/EVIDENCE.md)'))
+    import sys; root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        import numpy; sys.path.insert(0, os.path.dirname(__file__)); import response
+        meta = json.load(open(f'{root}/src/profiles.meta.json')); out += response.checks(pdir, p, numpy.array(meta['freq']))
+        if runtime:
+            sys.path.insert(0, f'{root}/tests/eel'); import limiter_tests
+            out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'])
+        else:
+            for n in ('eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='skipped (--no-runtime)'))
+    except ImportError as ex:
+        for n in ('response.correction_match', 'eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='needs numpy/scipy: ' + str(ex)))
+    out.append(dict(check='cpu', status='not_run', detail='needs on-device measurement; interpreter timing is not representative'))
     return out

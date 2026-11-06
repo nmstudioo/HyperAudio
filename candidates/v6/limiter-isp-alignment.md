@@ -1,5 +1,4 @@
-# True-peak alignment (candidate, unreleased)
-The 8-tap true-peak window is centred 3.5 samples behind the newest sample, so its request reaches the sliding minimum about 4 samples late.
-Change in the shared limiter core: `L_N = L_D + 1;` -> `L_N = L_D + 5;` (moving-average length `L_D` unchanged; +0.08 ms latency at 48 kHz).
-Python model of the core, ceiling -1 dB: 12 kHz tone +0.09 -> +0.05 dB over; fs/4 at 45 deg +0.05 -> +0.01 dB over; 997 Hz unchanged.
-Not verified on the real EEL or device.
+# True-peak alignment candidate `L_N = L_D + 5`: REJECTED (measured on the real EEL)
+tests/eel runs the shipped .eel through eel2py (independent subset interpreter). v5 baseline reproduces the author's figure: +0.20 dB at 997 Hz (48 kHz).
+Worst tone/click true-peak overshoot, v5 -> candidate: iem/spk builds 0.82 -> 1.08 dB at 48 kHz, 0.37 -> 1.06 dB at 44.1 kHz (square included in this early run; excluding the square, whose Gibbs ringing is a test artefact, the candidate still did not improve 997 Hz or 44.1 kHz cases). The earlier Python-model gain did not carry over. Decision per plan: leave the limiter unchanged. Sample peak never exceeds the ceiling; limited-tone THD residual is -47.5 dB.
+Known limit: +6 dB overload noise overshoots about +1.9 dB (guard 2.5 dB). Re-run `python3 tests/eel/limiter_tests.py <file.eel>` after any change.

@@ -5,7 +5,7 @@ acceptance.json, DIFF.md to releases/<ver>/ and publishes them to site/."""
 import argparse, json, os, shutil, sys, zipfile
 sys.path.insert(0, os.path.dirname(__file__)); from verify import sha, acceptance
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); ap.add_argument('--no-runtime', action='store_true'); a = ap.parse_args()
 ver = open(f'{ROOT}/VERSION').read().strip()
 meta = json.load(open(f'{ROOT}/src/profiles.meta.json'))
 rel = a.out or f'{ROOT}/releases/{ver}'
@@ -31,7 +31,7 @@ for p in meta['profiles']:
     bundle = zipit(f'{rel}/HyperAudio_{ver}_{pid}.zip', items + [('SETUP.txt', setup)])
     all_items += [(f'{pid}/{n}', d) for n, d in items]
     q = {k: v for k, v in p.items() if k != 'file_order'}; q['files'] = files; q['bundle'] = bundle; profs.append(q)
-    acc[pid] = acceptance(dst, p)
+    acc[pid] = acceptance(dst, p, not a.no_runtime)
 allz = zipit(f'{rel}/HyperAudio_{ver}_all.zip', all_items)
 data = {k: meta[k] for k in ('released', 'status', 'freq')}; data = {'version': ver, **data, 'all': allz, 'profiles': profs}
 sums.sort(key=lambda s: s.split('  ')[1])

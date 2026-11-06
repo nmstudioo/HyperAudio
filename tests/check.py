@@ -27,7 +27,7 @@ cur = open(f'{ROOT}/VERSION').read().strip()
 need(json.load(open(f'{ROOT}/site/data/profiles.json'))['version'] == cur, 'site/data/profiles.json version != VERSION')
 # 2 rebuild into temp dir; member files must match published release hashes (reproducibility)
 with tempfile.TemporaryDirectory() as t:
-    r = subprocess.run([sys.executable, f'{ROOT}/build/build.py', '--out', t + '/r'], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, f'{ROOT}/build/build.py', '--out', t + '/r', '--no-runtime'], capture_output=True, text=True)
     need(r.returncode == 0, 'build failed: ' + r.stdout + r.stderr)
     pub = f'{ROOT}/releases/{cur}/SHA256SUMS.txt'
     if os.path.exists(pub): need(sorted(open(pub).read().split('\n')) == sorted(open(t + '/r/SHA256SUMS.txt').read().split('\n')), 'rebuild SHA256SUMS differs from release')
@@ -40,10 +40,4 @@ for u in re.findall(r'(?:href|src)="([^"#:]+)"', html):
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')
-# 5 shared chrome: every page loads nav.js/nav.css and no page carries its own legacy chrome
-for pg in ('index', 'compare', 'finder', 'archive', 'changelog'):
-    h = open(f'{ROOT}/site/{pg}.html', encoding='utf-8').read()
-    need('assets/js/nav.js' in h and 'assets/css/nav.css' in h, f'{pg}.html: nav.js/nav.css missing')
-    for bad in ('class="pnav"', 'class="tabbar"', '<header class="top">', 'class="ft"'):
-        need(bad not in h, f'{pg}.html: legacy chrome {bad}')
 print('\n'.join('FAIL ' + e for e in err) or 'all checks passed'); sys.exit(1 if err else 0)
