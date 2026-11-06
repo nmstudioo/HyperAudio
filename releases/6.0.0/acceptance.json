@@ -1,0 +1,407 @@
+{
+ "version": "6.0.0",
+ "results": {
+  "iem-hd": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 2851 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.694 meta 0.69"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "iem-v4": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 1024 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.603 meta 0.60"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "iem-v10": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.842 meta 0.84"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v6": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 4096 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.411 meta 0.41"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 7, 48000: 7}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v8": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.785 meta 0.78"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v10": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.917 meta 0.92"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "eel.compile",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "tail",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "nan_soak",
+    "status": "not_run",
+    "detail": "needs numpy/scipy: No module named 'numpy'"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ]
+ }
+}
