@@ -99,15 +99,3 @@ body footer.ft .ft-l a[rel~=external]::after{content:"\2197";margin-left:6px;opa
 @media(min-width:720px){body footer.ft{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px}body footer.ft .ft-l{justify-content:flex-end}body footer.ft .ft-l a{min-height:36px}}
 @media(min-width:1024px){body footer.ft{padding-bottom:40px}}
 
-/* header logo follows the theme */
-.brand .logo{background:linear-gradient(180deg,#1d1709,#070707);border-color:rgba(255,255,255,.12);color:var(--acc)}
-[data-theme=light] .brand .logo{background:linear-gradient(180deg,#fffdf7,#f1e9d8);border-color:color-mix(in srgb,var(--acc) 30%,var(--bd2));color:var(--acc);box-shadow:0 1px 0 #fff inset,0 8px 18px -10px color-mix(in srgb,var(--acc) 55%,transparent)}
-/* footer v6b: class-independent (the :not(#_) trick out-ranks every older footer rule without !important) */
-footer:not(#_){position:relative;display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:8px 10px;margin:var(--s7,48px) 0 0;padding:28px 0 calc(var(--tbh,64px) + 28px + env(safe-area-inset-bottom));border-top:1px solid var(--bd);text-align:left;font-family:inherit;font-size:13px;font-weight:400;line-height:1.55;letter-spacing:0;text-transform:none;color:var(--tx2)}
-footer:not(#_)::before,footer:not(#_)>span::before{display:none}
-footer:not(#_)>span,footer:not(#_)>p{flex:1 1 100%;display:block;margin:0;text-align:left;font:inherit;letter-spacing:0;text-transform:none;text-wrap:pretty;color:var(--tx2)}
-footer:not(#_)>span:first-child{font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--tx)}
-footer:not(#_) a{display:inline-flex;align-items:center;min-height:44px;margin:0;padding:0 16px;border:1px solid var(--bd2);border-radius:99px;background:var(--surface);color:var(--tx);font-size:13px;font-weight:500;letter-spacing:0;text-transform:none;text-decoration:none}
-footer:not(#_) a:hover{border-color:color-mix(in srgb,var(--acc) 55%,var(--bd2))}
-footer:not(#_) nav{display:flex;flex-wrap:wrap;gap:8px;order:0}
-@media(min-width:1024px){footer:not(#_){padding-bottom:40px}}
