@@ -23,5 +23,6 @@ jobs:
           npm install playwright
           npx playwright install --with-deps chromium
           node tests/overflow.js http://localhost:8765/
+          node tests/footer.js http://localhost:8765/
       - uses: actions/upload-artifact@v4
         with: { name: acceptance, path: /tmp/rel/acceptance.json }
