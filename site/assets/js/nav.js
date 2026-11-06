@@ -172,10 +172,15 @@
   foot.className = "sf";
   foot.setAttribute("role", "contentinfo");
   foot.innerHTML =
-    '<div class="sf-in"><p class="sf-v"><b>HyperAudio</b><span class="n-ver"></span></p>' +
-    '<p class="sf-e"><i aria-hidden="true"></i>v5.0.0 Stable · v6 candidates in progress</p>' +
+    '<div class="sf-in">' +
+    '<div class="sf-brand"><span class="sf-mark" role="img" aria-label="HyperAudio">' +
+    '<img class="sf-logo sf-logo-dark" src="assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
+    '<img class="sf-logo sf-logo-light" src="assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
+    '</span><span class="n-ver"></span></div>' +
+    '<p class="sf-e">Device-tested · responses calculated, not measured</p>' +
     '<p class="sf-c">Tested by Noushad Mostafa</p>' +
-    '<p class="sf-l"><a href="' +
+    '<p class="sf-l"><a href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer">Website</a>' +
+    '<a href="' +
     GH +
     '" target="_blank" rel="noopener noreferrer">GitHub</a></p></div>';
   B.appendChild(foot);
