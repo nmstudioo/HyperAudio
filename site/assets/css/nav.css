@@ -978,3 +978,35 @@ body.n-pg .sf-in {
     justify-content: center;
   }
 }
+
+/* == Footer Brand Logo & Links == */
+.sf-brand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+.sf-logo {
+  height: 28px;
+  width: auto;
+  display: none;
+}
+.sf-logo-dark { display: block; }
+[data-theme="light"] .sf-logo-dark { display: none; }
+[data-theme="light"] .sf-logo-light { display: block; }
+.n-ver {
+  font: 600 11px/1 var(--mono);
+  color: var(--acc);
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  .sf-brand { justify-content: center; }
+  .sf-l { 
+    display: flex; 
+    justify-content: center; 
+    gap: 16px; 
+    flex-wrap: wrap;
+  }
+}
