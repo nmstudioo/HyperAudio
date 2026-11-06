@@ -9,17 +9,19 @@ jobs:
         with: { node-version: 20 }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: Build (temp dir) + hash, link, JS and parity checks
-        run: python3 tests/check.py
-      - name: Layout gate (no horizontal overflow, nav a11y)
-        run: |
-          npm install playwright
-          npx playwright install --with-deps chromium
-          node tests/overflow.js
+      - run: pip install numpy scipy
       - name: Hashes, rebuild reproducibility, links, JS syntax
         run: python3 tests/check.py
-      - name: Build current release and fail on drift
+      - name: Full build with runtime acceptance (response, EEL parse, limiter, tail, NaN soak) and drift diff
         run: |
           python3 build/build.py --out /tmp/rel
           cat /tmp/rel/DIFF.md 2>/dev/null || true
-      # EEL compile + limiter tests: enable once tests/eel/ (runtime + harness) is added; see docs/EVIDENCE.md
+      - name: Layout gate (no horizontal overflow, nav a11y)
+        run: |
+          python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
+          sleep 2
+          npm install playwright
+          npx playwright install --with-deps chromium
+          node tests/overflow.js http://localhost:8765/
+      - uses: actions/upload-artifact@v4
+        with: { name: acceptance, path: /tmp/rel/acceptance.json }
