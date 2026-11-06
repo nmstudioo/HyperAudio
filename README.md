@@ -77,6 +77,6 @@ Evidence & Testing
 <div align="center">
 <sub>Tested by Noushad Mostafa · Built with a focus on calibrated, measured audio.</sub>
 <br><br>
-<img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="74" height="74">
+<img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="90" height="90">
 <br>
 </div>
