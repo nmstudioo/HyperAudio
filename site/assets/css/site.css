@@ -82,3 +82,19 @@ html{scrollbar-color:var(--bd2) transparent}
 .ver-l li.legacy{border-style:dashed;opacity:.8;background:repeating-linear-gradient(135deg,transparent 0 8px,var(--bd) 8px 9px)}
 .ver-l li.v1{border-color:var(--mut)}.ver-l li.v2{border-color:var(--s-raw)}
 .ver-l small{color:var(--mut)}.ver-l ul{margin:6px 0 0;padding-left:18px;font-size:14px}
+
+/* ---- footer v6 (overrides the older footer rules above; remove those if you want) ---- */
+body footer.ft{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start;margin:var(--s7,48px) 0 0;padding:28px 0 calc(var(--tbh,64px) + 28px + env(safe-area-inset-bottom));border-top:1px solid var(--bd);text-align:left;font-family:inherit;font-size:13px;font-weight:400;line-height:1.6;letter-spacing:0;text-transform:none;color:var(--tx2)}
+body footer.ft::before{display:none}
+body footer.ft .ft-brand{display:grid;gap:6px;min-width:0}
+body footer.ft .ft-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+body footer.ft .ft-name{font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--tx)}
+body footer.ft .ft-ver{font:600 11px/1 var(--mono);letter-spacing:.04em;padding:5px 9px;border-radius:99px;border:1px solid color-mix(in srgb,var(--acc) 50%,var(--bd2));color:var(--acc)}
+body footer.ft p{margin:0;max-width:46ch;text-wrap:pretty}
+body footer.ft .ft-by{font-size:12px;color:var(--mut)}
+body footer.ft .ft-l{order:0;display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+body footer.ft .ft-l a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--bd2);border-radius:99px;background:var(--surface);color:var(--tx);font-size:13px;font-weight:500;text-decoration:none;transition:border-color .18s,background .18s}
+body footer.ft .ft-l a:hover{border-color:color-mix(in srgb,var(--acc) 55%,var(--bd2))}
+body footer.ft .ft-l a[rel~=external]::after{content:"\2197";margin-left:6px;opacity:.6}
+@media(min-width:720px){body footer.ft{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px}body footer.ft .ft-l{justify-content:flex-end}body footer.ft .ft-l a{min-height:36px}}
+@media(min-width:1024px){body footer.ft{padding-bottom:40px}}
