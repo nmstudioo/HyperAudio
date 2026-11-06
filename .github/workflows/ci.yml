@@ -14,6 +14,7 @@ jobs:
         run: python3 tests/check.py
       - name: Full build with runtime acceptance (response, EEL parse, limiter, tail, NaN soak) and drift diff
         run: |
+          python3 build/docs_site.py
           python3 build/build.py --out /tmp/rel
           cat /tmp/rel/DIFF.md 2>/dev/null || true
       - name: Layout gate (no horizontal overflow, nav a11y)
@@ -24,5 +25,6 @@ jobs:
           npx playwright install --with-deps chromium
           node tests/overflow.js http://localhost:8765/
           node tests/footer.js http://localhost:8765/
+          node tests/links.js http://localhost:8765/
       - uses: actions/upload-artifact@v4
         with: { name: acceptance, path: /tmp/rel/acceptance.json }
