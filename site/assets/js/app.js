@@ -16,9 +16,6 @@ async function copyText(t,btn){let ok=false;try{await navigator.clipboard.writeT
  if(btn){btn.dataset.state=ok?'done':'error';setTimeout(()=>{delete btn.dataset.state},1800)}
  ok?toast('Copied'):toast('Copy failed. Select the text and copy it manually.',true);return ok}
 
-/* ---------- theme ---------- */
-(function(){const th=$('#themeBtn');const sync=()=>{const l=document.documentElement.dataset.theme==='light';th.setAttribute('aria-pressed',l);th.setAttribute('aria-label',l?'Switch to dark theme':'Switch to light theme')};
- th.onclick=()=>{const n=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=n;store.set('ha-theme',n);sync()};sync()})();
 
 /* ---------- charts ---------- */
 function spark(c,W=300,H=56){const lo=Math.min(...c),hi=Math.max(...c),X=i=>i/(c.length-1)*W,Y=v=>4+(hi-v)/((hi-lo)||1)*(H-8),d=c.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(''),z=Y(Math.min(Math.max(0,lo),hi));
@@ -101,7 +98,7 @@ function buildFaq(){$('#faqList').innerHTML=FAQ.map((q,i)=>`<details class="faq-
 
 /* ---------- selection ---------- */
 function select(id,quiet){const p=PROF.find(x=>x.id===id);if(!p)return;prof=p;store.set('ha-profile',id);
- $('#hdrProfile span').textContent=p.name;$('#heroN').textContent=String(PROF.length);
+ document.querySelectorAll('.n-chip-t').forEach(n=>{n.textContent=p.name});$('#heroN').textContent=String(PROF.length);
  renderOuts();renderSnd();renderGet();renderApply();markRec();drawHero();drawCompare();
  if(!quiet){const u=new URL(location.href);u.searchParams.set('p',id);history.replaceState(null,'',u)}}
 document.addEventListener('click',e=>{
@@ -111,7 +108,6 @@ document.addEventListener('click',e=>{
  const d=e.target.closest('[data-dl]');if(d){toast('Downloading '+d.dataset.dl);return}
  const g=e.target.closest('#getBtn');if(g){toast('Downloading '+prof.bundle.name)}});
 $('#shareBtn').onclick=e=>{const u=new URL(location.href);u.searchParams.set('p',prof.id);u.hash='setup';copyText(u.toString(),e.currentTarget)};
-$('#tabbar').addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;$$('#tabbar a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','true')});
 document.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const b=e.target.closest('.seg button');if(!b)return;const all=$$('button',b.parentElement),i=all.indexOf(b),n=e.key==='Home'?0:e.key==='End'?all.length-1:(i+(e.key==='ArrowRight'?1:-1)+all.length)%all.length;e.preventDefault();all[n].focus();all[n].click()});
 
 /* ---------- boot ---------- */

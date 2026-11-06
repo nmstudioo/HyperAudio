@@ -11,6 +11,11 @@ jobs:
         with: { python-version: '3.12' }
       - name: Build (temp dir) + hash, link, JS and parity checks
         run: python3 tests/check.py
+      - name: Layout gate (no horizontal overflow, nav a11y)
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+          python3 tests/overflow.py
       - name: Build current release and fail on drift
         run: |
           python3 build/build.py --out /tmp/rel

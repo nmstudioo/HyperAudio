@@ -40,4 +40,10 @@ for u in re.findall(r'(?:href|src)="([^"#:]+)"', html):
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')
+# 5 shared chrome: every page loads nav.js/nav.css and no page carries its own legacy chrome
+for pg in ('index', 'compare', 'finder', 'archive', 'changelog'):
+    h = open(f'{ROOT}/site/{pg}.html', encoding='utf-8').read()
+    need('assets/js/nav.js' in h and 'assets/css/nav.css' in h, f'{pg}.html: nav.js/nav.css missing')
+    for bad in ('class="pnav"', 'class="tabbar"', '<header class="top">', 'class="ft"'):
+        need(bad not in h, f'{pg}.html: legacy chrome {bad}')
 print('\n'.join('FAIL ' + e for e in err) or 'all checks passed'); sys.exit(1 if err else 0)
