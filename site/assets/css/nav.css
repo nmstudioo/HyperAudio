@@ -108,3 +108,103 @@ body.n-pg .sf-in{max-width:880px;padding-inline:16px}
 @media(max-width:767px){.sf-in{flex-direction:row;flex-wrap:wrap;align-items:center;padding-inline:16px;padding-bottom:calc(24px + 64px);gap:12px 16px}.sf-l{margin-left:0!important;width:100%}}
 @media(prefers-reduced-motion:reduce){.sb,.sheet-p,.sheet-bg,.nl,[data-tip]::after{transition:none!important}}
 @media print{.sb,.sb-scrim,.mh,.bb,.sheet,.sf-l{display:none!important}body.n-on{padding-left:0}}
+
+/* ---- UNIFIED PERFECT FOOTER ---- */
+.sf {
+  margin-top: auto;
+  border-top: 1px solid var(--bd);
+  position: relative;
+}
+.sf::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bd2) 20%, var(--bd2) 80%, transparent);
+}
+.sf-in {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px var(--pp, 28px) 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  min-width: 0;
+}
+.sf p {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font: 500 10.5px/1.7 var(--mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+.sf-v {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--tx2) !important;
+}
+.sf-v b {
+  font-weight: 600;
+}
+.sf-e {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.sf-e i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acc);
+  flex: none;
+  margin-top: 6px; /* Aligns dot perfectly with text */
+}
+.sf-l {
+  margin-left: auto !important;
+}
+.sf-l a {
+  color: var(--tx);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---- PERFECT MOBILE LAYOUT ---- */
+@media (max-width: 767px) {
+  .sf {
+    /* Exactly clears the 62px bottom nav + gives exactly 32px of breathing room */
+    padding-bottom: calc(var(--tbh, 62px) + 32px + env(safe-area-inset-bottom)) !important;
+    margin-top: 32px;
+  }
+  .sf-in {
+    flex-direction: column;
+    align-items: center; /* Centers the block */
+    text-align: center;  /* Centers the text */
+    gap: 16px;           /* Perfect vertical rhythm */
+    padding: 0 16px !important; 
+  }
+  .sf p {
+    text-align: center;
+    width: 100%;
+  }
+  .sf-e {
+    justify-content: center;
+    display: flex;
+  }
+  .sf-l {
+    margin-left: 0 !important;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .sf-l a {
+    justify-content: center;
+  }
+}
