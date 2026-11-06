@@ -1,14 +1,58 @@
-# HyperAudio
-Calibrated DSP profiles for RootlessJamesDSP. Current: see `VERSION`.
+<div align="center">
+  <img src="site/assets/brand/github-cover.svg" alt="HyperAudio Cover" width="100%">
+  
+  <br><br>
 
+  <img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="64" height="64">
+  
+  <h1>HyperAudio</h1>
+  
+  <p><strong>Calibrated DSP profiles for RootlessJamesDSP.</strong></p>
+  
+  <p>
+    <a href="https://nmstudioo.github.io/HyperAudio/"><strong>Live Site</strong></a> &nbsp;·&nbsp;
+    <a href="site/docs/">Documentation</a> &nbsp;·&nbsp;
+    <a href="docs/METHOD.md">Method</a> &nbsp;·&nbsp;
+    <a href="docs/EVIDENCE.md">Evidence</a>
+  </p>
+  
+  <p>
+    <img src="https://img.shields.io/badge/Version-6.0.0-f2b13a?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/badge/Status-Stable%20·%20Device--Tested-success?style=flat-square" alt="Status">
+  </p>
+</div>
+
+---
+
+## Repository Structure
+
+```text
+HyperAudio/
+├── .github/workflows/   # CI (layout gates, links) and Pages deployment
+├── build/               # Build scripts (build.py, response.py, docs_site.py)
+├── candidates/          # Experimental profiles
+├── docs/                # Source Markdown (rendered to site/docs/)
+├── releases/            # Frozen, versioned releases (v5.0.0)
+├── site/                # The live web interface (HTML/CSS/JS)
+├── src/                 # Source DSP profiles and metadata
+├── tests/               # Validation (check.py, eel/, overflow.js, links.js)
+├── tools/               # Formatters and CI patchers
+├── index.html           # Root redirect to /site/
+├── VERSION              # Current version string
+└── README.md            # This file
 ```
-src/        profile artifacts + metadata (DSP generators to be added)
-build/      build.py (one command) and verify.py
-site/       the web page and published downloads
-docs/       METHOD, LIMITS, EVIDENCE, REPRODUCING, CHANGELOG, evidence/
-releases/   per-version files, SHA256SUMS.txt, profiles.json, acceptance.json, DIFF.md
-tests/      check.py (CI gate)
+
+Rebuild & Test
+
+```bash
+# 1. Rebuild the site, docs, and artifacts
+python3 build/build.py
+python3 build/docs_site.py
+
+# 2. Run static checks (syntax, structure, links, docs freshness)
+python3 tests/check.py
+
+# 3. Run layout gates (requires Playwright)
+node tests/overflow.js
 ```
-Rebuild: `python3 build/build.py && python3 tests/check.py`. See docs/REPRODUCING.md.
-Page notes: site/README.md.
-Runtime tests: `pip install numpy scipy; python3 tests/eel/limiter_tests.py src/profiles/iem-hd/EDX_HD.eel`.
+

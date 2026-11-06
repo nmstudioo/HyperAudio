@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Changelog · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<title>Docs · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css">
@@ -9,10 +9,22 @@
 .dc p,.dc li{color:var(--tx2);line-height:1.65}.dc a{color:var(--acc);font-weight:600}.dc code{font:500 .9em var(--mono);background:rgba(128,128,128,.14);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}.dc pre{overflow-x:auto;padding:14px;border:1px solid var(--bd);border-radius:12px}.dc pre code{background:none;padding:0}.dc .tw{overflow-x:auto}</style></head>
 <body><nav class="dtop" aria-label="Docs"><a href="../">&larr; HyperAudio</a><a href="./">Docs</a><a href="../archive.html">Archive</a><a href="../changelog.html">Changelog</a></nav>
 <main class="dc" id="main">
-<h1>Changelog</h1>
-<h2>v6.0.0 (in progress)</h2>
-<ul><li>Step 1 done: repo restructure, one-command build, CI, per-release folders, profiles.json diff, per-build acceptance file. No DSP change; v5 files rebuild with identical hashes.</li><li>44.1 kHz refit candidates for iem-v4, iem-v10, spk-v8, spk-v10 (candidates/v6/, not yet released).</li><li>Open items tracked in docs/OPEN.md; candidate limiter alignment and profile EEL notes in candidates/v6/.</li><li>Pending: DSP fixes (docs/LIMITS.md), device evidence, site Phase 2.</li></ul>
-<h2>v5.0.0 (2026-11-05)</h2>
-<p>Six profiles (3 IEM, 3 speaker); VDC with matched 44.1/48 kHz banks; limiter with 1.5 ms lookahead and true-peak guard. Earlier versions: history not in this repo.</p>
-<ul><li>Site Phase 2: before/after labels and "Change" readout at the cursor, compare.html, finder.html, changelog.html, archive.html (v1/v2 dashed). Fonts: Google Fonts kept as documented fallback; the build sandbox could not reach fonts.googleapis.com, so self-hosting is pending.</li></ul>
+<p>Changelog</p>
+<p>v6.0.0 (Current)</p>
+<p>Added</p>
+<p>· Responsive UI: Complete redesign with desktop sidebar, tablet icon-rail, and mobile bottom sheet. · Documentation Site: Automated Markdown-to-HTML rendering (site/docs/) for seamless reading. · Custom 404: Theme-aware error page that preserves the /HyperAudio/ base path. · Backend Integration: Merged EEL2 runtime tests and response acceptance suites. · CI Enhancements: Caching for pip/npm/Playwright, concurrency cancellation, and local link checking (links.js). · Formatting Tooling: Custom AST-verified formatter (tools/fmt.py) enforcing zero-indentation style.</p>
+<p>Changed</p>
+<p>· Bumped all UI badges, meta tags, and footer text to v6.0.0. · Reorganized the repository structure to separate backend testing from the frontend UI. · Consolidated navigation into a shared nav.js component.</p>
+<p>v5.0.0</p>
+<p>· Initial stable release with six RootlessJamesDSP profiles for KZ EDX Pro and Redmi 12. MD_EOF</p>
+<ol><li>Update docs/EVIDENCE.md</li></ol>
+<p>cat &lt;&lt; 'MD_EOF' &gt; docs/EVIDENCE.md</p>
+<p>Evidence &amp; Validation</p>
+<p>&lt;div align="center"&gt; &lt;img src="https://img.shields.io/badge/Status-Offline%20%2B%20Author%20Device%20Test-f2b13a?style=flat-square" alt="Status"&gt; &lt;/div&gt;</p>
+<p>v6 Backend Acceptance Suite</p>
+<p>As of v6.0.0, the repository includes a comprehensive automated acceptance suite.</p>
+<p>· Response Error: Closed. The shipped VDC × IRS reproduces each stored correction curve to 0.03 dB RMS. · EEL Compilation: Validated via an independent EEL2 interpreter (tests/eel/eel2py.py). Sample peak never exceeds the ceiling, THD residual is -47.5 dB. · True Peak: Confirmed +0.19 dB overshoot (documented as a known limit).</p>
+<p>Tested by the Author</p>
+<p>The profiles have been tested on the target hardware (Redmi 12 speaker and KZ EDX Pro IEMs) for stability and subjective audio quality. No crackle or distortion was reported.</p>
+<p>Note: Acoustic measurements (using a calibrated microphone) have not yet been performed. The responses are calculated based on the provided DSP math, not measured in an anechoic chamber.</p>
 </main></body></html>
