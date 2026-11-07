@@ -285,3 +285,7 @@ body footer.ft{padding-bottom:40px}
 
 a[href="./"],a[href$="EVIDENCE.html"],a[href$="OPEN.html"],a[href$="CHANGELOG.html"],.act a,.act button,button[data-k="all"]{
 color:var(--tx)}
+
+[data-theme="light"] .act,[data-theme="light"] .act *,[data-theme="light"] .rec .dl-ic > em{color:#000000!important}
+
+[data-theme="dark"] .act,[data-theme="dark"] .act *,[data-theme="dark"] .rec .dl-ic > em{color:#ffffff!important}
