@@ -20,6 +20,7 @@ box: '<path d="M4 7h16v3H4zM5.5 10v9h13v-9M10 14h4"/>',
 book: '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>',
 doc: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
 log: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/>',
+menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
 more: '<circle cx="5.5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18.5" cy="12" r="1.2"/>',
 eq: '<path d="M6 4v3M6 11v9M12 4v9M12 17v3M18 4v1M18 9v11"/><circle cx="6" cy="9" r="2"/><circle cx="12" cy="15" r="2"/><circle cx="18" cy="7" r="2"/>',
 sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/>',
@@ -130,12 +131,15 @@ B.insertBefore(s, B.firstChild);
 }
 var wrap = D.createElement("div");
 wrap.innerHTML =
-'<header class="mh"><a class="mh-b" href="' +
+'<header class="mh"><button type="button" class="mh-m" aria-expanded="false" aria-controls="sb" aria-label="Open menu">' +
+ic("menu") +
+"</button>" +
+'<a class="mh-b" href="' +
 gHref("setup") +
 '" aria-label="HyperAudio home">' +
 LOGO +
-"<b>HyperAudio</b></a>" +
-chip +
+'<span class="mh-t"><b>HyperAudio</b><small class="mh-sub n-prof" aria-label="Active profile"></small></span></a>' +
+themeBtn("nb mh-th") +
 "</header>" +
 '<aside class="sb" id="sb" aria-label="Site">' +
 '<div class="sb-top"><a class="sb-brand" href="' +
@@ -144,10 +148,11 @@ chip +
 LOGO +
 '<span class="sb-bt"><b>HyperAudio</b><small class="n-ver"></small></span></a>' +
 '<button type="button" class="sb-tg" aria-expanded="false" aria-controls="sb" aria-label="Expand sidebar">' +
-ic("side") +
+ic("side", "tg-s") +
+ic("x", "tg-x") +
 "</button></div>" +
 '<p class="sb-badge"><i aria-hidden="true"></i><span class="nt">Stable · device-tested</span></p>' +
-'<div class="sb-scroll" tabindex="0" tabindex="0">' +
+'<div class="sb-scroll">' +
 '<div role="navigation" aria-labelledby="sbg"><p class="sb-h nt" id="sbg">Guide</p>' +
 gLinks("nl") +
 "</div>" +
@@ -189,47 +194,6 @@ base +
 GH +
 '" target="_blank" rel="noopener noreferrer">GitHub</a></p></div>';
 B.appendChild(foot);
-var bb = D.createElement("div");
-bb.className = "bb";
-bb.setAttribute("role", "navigation");
-bb.setAttribute("aria-label", "Primary");
-bb.innerHTML =
-gLinks("bl") +
-'<button type="button" class="bl bb-more" aria-haspopup="dialog" aria-expanded="false" aria-controls="sheet"' +
-(home ? "" : ' aria-current="true"') +
-">" +
-ic("more") +
-'<span class="nt">More</span></button>';
-B.appendChild(bb);
-var sheet = D.createElement("div");
-sheet.className = "sheet";
-sheet.id = "sheet";
-sheet.hidden = true;
-sheet.setAttribute("role", "dialog");
-sheet.setAttribute("aria-modal", "true");
-sheet.setAttribute("aria-label", "More");
-sheet.innerHTML =
-'<div class="sheet-bg" data-close></div><div class="sheet-p"><div class="sheet-h"><span class="sheet-grab" aria-hidden="true"></span><p>More</p>' +
-'<button type="button" class="nb" data-close aria-label="Close">' +
-ic("x") +
-"</button></div>" +
-'<div role="navigation" aria-label="Tools" class="sheet-l">' +
-tLinks("sl") +
-'<a class="sl" href="' +
-GH +
-'" target="_blank" rel="noopener noreferrer">' +
-ic("gh") +
-'<span class="nt">GitHub</span>' +
-ic("ext", "sl-x") +
-"</a>" +
-'<button type="button" class="sl" data-n-theme>' +
-'<span class="n-sun">' +
-ic("sun") +
-'</span><span class="n-moon">' +
-ic("moon") +
-'</span><span class="nt n-tl">Theme</span></button>' +
-"</div></div>";
-B.appendChild(sheet);
 function themeSync() {
 var l = R.dataset.theme === "light";
 D.querySelectorAll("[data-n-theme]").forEach(function (b) {
@@ -254,68 +218,47 @@ localStorage.setItem("ha-theme", n);
 themeSync();
 });
 themeSync();
-var more = bb.querySelector(".bb-more"),
-closeT;
-function sheetOpen() {
-clearTimeout(closeT);
-sheet.hidden = false;
-R.classList.add("nav-lock");
-more.setAttribute("aria-expanded", "true");
-requestAnimationFrame(function () {
-sheet.classList.add("open");
-var f = sheet.querySelector(".sl");
-if (f) f.focus();
-});
-}
-function sheetClose(back) {
-if (sheet.hidden) return;
-sheet.classList.remove("open");
-R.classList.remove("nav-lock");
-more.setAttribute("aria-expanded", "false");
-closeT = setTimeout(function () {
-sheet.hidden = true;
-}, 220);
-if (back !== false) more.focus();
-}
-more.addEventListener("click", function () {
-sheet.hidden ? sheetOpen() : sheetClose();
-});
-sheet.addEventListener("click", function (e) {
-if (e.target.closest("[data-close]")) sheetClose();
-else if (e.target.closest("a.sl")) sheetClose(false);
-});
 var sb = D.getElementById("sb"),
 tg = sb.querySelector(".sb-tg"),
 scrim = D.querySelector(".sb-scrim");
+var mm = D.querySelector(".mh-m"),
+mob = matchMedia("(max-width:767px)");
 function rail(open) {
 sb.dataset.open = open ? "true" : "false";
 scrim.hidden = !open;
 tg.setAttribute("aria-expanded", open);
-tg.setAttribute("aria-label", open ? "Collapse sidebar" : "Expand sidebar");
+tg.setAttribute("aria-label", mob.matches ? "Close menu" : open ? "Collapse sidebar" : "Expand sidebar");
+mm.setAttribute("aria-expanded", open);
+mm.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+R.classList.toggle("nav-lock", open && mob.matches);
+if (open && mob.matches) tg.focus();
 }
+mm.addEventListener("click", function () {
+var o = sb.dataset.open !== "true";
+rail(o);
+if (!o) mm.focus();
+});
 tg.addEventListener("click", function () {
 rail(sb.dataset.open !== "true");
 });
 scrim.addEventListener("click", function () {
 rail(false);
-tg.focus();
+(mob.matches ? mm : tg).focus();
 });
 sb.addEventListener("click", function (e) {
 if (e.target.closest("a.nl") && sb.dataset.open === "true") rail(false);
 });
 D.addEventListener("keydown", function (e) {
 if (e.key === "Escape") {
-if (!sheet.hidden) {
-sheetClose();
-e.preventDefault();
-} else if (sb.dataset.open === "true") {
+if (sb.dataset.open === "true") {
 rail(false);
-tg.focus();
+(mob.matches ? mm : tg).focus();
+e.preventDefault();
 }
 return;
 }
-if (e.key === "Tab" && !sheet.hidden) {
-var f = sheet.querySelectorAll("a[href],button");
+if (e.key === "Tab" && mob.matches && sb.dataset.open === "true") {
+var f = sb.querySelectorAll("a[href],button");
 if (!f.length) return;
 var a = f[0],
 z = f[f.length - 1];
@@ -332,10 +275,21 @@ var mq = matchMedia("(min-width:768px)");
 (mq.addEventListener
 ? mq.addEventListener.bind(mq, "change")
 : mq.addListener.bind(mq))(function () {
-sheetClose(false);
 rail(false);
 });
 rail(false);
+var mh = D.querySelector(".mh"), ly = 0, hk = false;
+addEventListener("scroll", function () {
+if (hk) return;
+hk = true;
+requestAnimationFrame(function () {
+hk = false;
+var y = scrollY, d = y - ly;
+if (y < 80 || d < -6) mh.classList.remove("hide");
+else if (d > 8 && mob.matches && sb.dataset.open !== "true") mh.classList.add("hide");
+ly = y;
+});
+}, { passive: true });
 function setCur(k) {
 D.querySelectorAll("[data-k]").forEach(function (a) {
 if (a.dataset.k === k) a.setAttribute("aria-current", "true");
@@ -394,27 +348,10 @@ var p =
 (d.profiles || []).filter(function (q) {
 return q.id === id;
 })[0] || (d.profiles || [])[0];
-D.querySelectorAll(".n-chip-t").forEach(function (n) {
-if (p && n.textContent === "Profile") n.textContent = p.name;
+D.querySelectorAll(".n-chip-t,.n-prof").forEach(function (n) {
+if (p && (n.textContent === "Profile" || n.classList.contains("n-prof"))) n.textContent = p.name;
 });
 })
 .catch(function () {});
-setTimeout(() => {
-document.querySelectorAll('*').forEach(el => {
-const st = window.getComputedStyle(el);
-if ((st.overflowX === 'auto' || st.overflowX === 'scroll' || st.overflowY === 'auto' || st.overflowY === 'scroll') && !el.hasAttribute('tabindex')) {
-el.setAttribute('tabindex', '0');
-}
-});
-}, 500);
 })();
-;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}
-setTimeout(() => {
-document.querySelectorAll('*').forEach(el => {
-const st = window.getComputedStyle(el);
-if ((st.overflowX === 'auto' || st.overflowX === 'scroll' || st.overflowY === 'auto' || st.overflowY === 'scroll') && !el.hasAttribute('tabindex')) {
-el.setAttribute('tabindex', '0');
-}
-});
-}, 500);
-})();
+;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}})();
