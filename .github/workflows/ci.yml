@@ -43,6 +43,9 @@ jobs:
           node tests/a11y.js http://localhost:8765/
           node tests/budget.js http://localhost:8765/
       - name: Lighthouse CI (a11y >= 0.95 is a hard gate)
-        run: npx --yes @lhci/cli@0.14.0 autorun --config=.lighthouserc.json
+        run: |
+          python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
+          sleep 2
+          npx --yes @lhci/cli@0.14.0 autorun --config=.lighthouserc.json
       - uses: actions/upload-artifact@v4
         with: { name: acceptance, path: /tmp/rel/acceptance.json }
