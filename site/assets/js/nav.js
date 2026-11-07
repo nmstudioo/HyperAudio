@@ -147,7 +147,7 @@ LOGO +
 ic("side") +
 "</button></div>" +
 '<p class="sb-badge"><i aria-hidden="true"></i><span class="nt">Stable · device-tested</span></p>' +
-'<div class="sb-scroll">' +
+'<div class="sb-scroll" tabindex="0">' +
 '<div role="navigation" aria-labelledby="sbg"><p class="sb-h nt" id="sbg">Guide</p>' +
 gLinks("nl") +
 "</div>" +
