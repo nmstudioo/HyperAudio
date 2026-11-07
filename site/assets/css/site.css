@@ -327,20 +327,21 @@ transition:border-color 0.2s ease,box-shadow 0.2s ease}
 
 .fc-meta{display:flex;align-items:center;gap:12px;font:500 12px var(--mono);color:var(--mut)}
 
-/* == EVIDENCE TABLE AS CARDS == */
-.tw{display:block;overflow-x:auto}
+/* == EVIDENCE TABLE (Horizontal Scroll) == */
+.tw{
+width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;border:1px solid var(--bd);
+background:var(--surface);margin-top:16px}
 
-.tw table{display:block;width:100%}
+.evt{width:100%;border-collapse:collapse;text-align:left;font-size:14px;min-width:800px}
 
-.tw thead{display:none}
+.evt th{
+background:var(--bg);color:var(--mut);font:600 11px var(--mono);letter-spacing:0.05em;text-transform:uppercase;padding:16px 20px;
+border-bottom:1px solid var(--bd);white-space:nowrap}
 
-.tw tbody{display:grid;grid-template-columns:1fr;gap:16px}
+.evt td{padding:16px 20px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle}
 
-@media (min-width: 768px){
-.tw tbody{grid-template-columns:1fr 1fr}
-}
+.evt tr:last-child td{border-bottom:none}
 
-.tw tr{
-display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--bd);border-radius:16px;padding:20px;gap:12px}
+.evt tr:hover td{background:color-mix(in srgb,var(--tx) 3%,transparent)}
 
-.tw td{display:flex;justify-content:space-between;font-size:14px;border:none!important;padding:4px 0!important}
+.evt td svg{width:20px;height:20px;display:block}
