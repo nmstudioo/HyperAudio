@@ -1,9 +1,7 @@
 <div align="center">
   <img src="site/assets/brand/github-cover.svg" alt="HyperAudio Cover" width="100%">
   
-  <br><br>
-
-  <img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="64" height="64">
+  <br>
   
   <h1>HyperAudio</h1>
   
@@ -56,3 +54,9 @@ python3 tests/check.py
 node tests/overflow.js
 ```
 
+<br>
+<div align="center">
+  <img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="100" height="84">
+  <br>
+  <sub>Designed &amp; tuned by <b>Noushad M.</b> - © 2026 HyperAudio</sub>
+</div>
