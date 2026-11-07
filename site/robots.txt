@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://nmstudioo.github.io/HyperAudio/sitemap.xml
