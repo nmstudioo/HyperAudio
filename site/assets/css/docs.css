@@ -304,8 +304,6 @@ vertical-align:middle;padding:0;height:46px;border-bottom:1px solid color-mix(in
 
 .evx-m tbody td{width:var(--cw);min-width:var(--cw)}
 
-.evx-m tbody td::after{display:none}
-
 .evx-m tbody tr:hover th,.evx-m tbody tr:hover td{background:color-mix(in srgb,var(--tx) 3.5%,transparent)}
 
 .evx-m tbody tr:last-child th,.evx-m tbody tr:last-child td{border-bottom:0}

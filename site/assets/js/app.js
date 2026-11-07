@@ -153,7 +153,7 @@ sv.setAttribute(
 $("#heroRead").innerHTML =
 `<b>${fmtF(f[pk])}</b> ${v > 0 ? "+" : "−"}${Math.abs(v).toFixed(1)} dB ${v > 0 ? "lift" : "cut"}`;
 $("#heroOut").textContent =
-prof.device === "iem" ? "Wired 3.5 mm" : "Internal speaker";
+prof.device === "iem" ? "Wired 3.5\u00a0mm" : "Internal speaker";
 }
 function drawCompare() {
 const f = DATA.freq,
@@ -364,7 +364,7 @@ renderApply();
 function buildHub() {
 const row = (p, x) => {
 const k = KIND[x.kind];
-return `<li class="dl-row fc-f" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + p.device).toLowerCase())}"><span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span><div class="fc-fm"><span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind}</span></span><span class="fc-fs">${FS[x.kind]} · ${kb(x.bytes)}</span></div><a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a></li>`;
+return `<li class="dl-row fc-f" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + (p.device === "iem" ? "iem earphones" : "speaker spk")).toLowerCase())}"><span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span><div class="fc-fm"><span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind}</span></span><span class="fc-fs">${FS[x.kind]} · ${kb(x.bytes)}</span></div><a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a></li>`;
 };
 const ORDER = ["vdc", "irs", "eel"], FS = { vdc: "Filter bank", irs: "Impulse response", eel: "Liveprog script" };
 $("#dlGroups").innerHTML = PROF.map((p) => {
