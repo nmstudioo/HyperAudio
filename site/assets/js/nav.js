@@ -353,5 +353,30 @@ if (p && (n.textContent === "Profile" || n.classList.contains("n-prof"))) n.text
 });
 })
 .catch(function () {});
+const focusTables = () => {
+document.querySelectorAll('.tw').forEach(el => {
+if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+});
+};
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', focusTables);
+} else {
+focusTables();
+}
+setTimeout(focusTables, 500);
+setTimeout(focusTables, 1500);
 })();
-;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}})();
+;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}
+const focusTables = () => {
+document.querySelectorAll('.tw').forEach(el => {
+if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+});
+};
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', focusTables);
+} else {
+focusTables();
+}
+setTimeout(focusTables, 500);
+setTimeout(focusTables, 1500);
+})();
