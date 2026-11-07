@@ -355,15 +355,32 @@ renderApply();
 function buildHub() {
 const row = (p, x) => {
 const k = KIND[x.kind];
-return `<li class="dl-row" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + p.device).toLowerCase())}"><span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span>
-  <div class="dl-main"><span class="dl-title">${esc(p.name)}</span><span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind === "irs" ? "irs" : x.kind}</span></span><span class="dl-sub">${k.what}<span class="rec-tag">Recommended</span></span></div>
-  <div class="dl-meta"><span class="chip">${k.fmt}</span><span class="dl-size">${kb(x.bytes)}</span></div>
-  <div class="dl-act"><a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a></div>
-  <details class="dl-more"><summary>${ic("chev", 'style="width:14px;height:14px"')}Details</summary><p class="dm">SHA-256 <code class="sha">${x.sha256}</code></p>${x.kind === "eel" ? `<p>Sliders: ${p.sliders.map(esc).join(", ")}.</p>` : ""}</details></li>`;
+return `<div class="file-card" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + p.device).toLowerCase())}">
+    <div class="fc-head">
+      <span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span>
+      <div class="fc-title">
+        <span class="dl-title">${esc(p.name)}</span>
+        <span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind === "irs" ? "irs" : x.kind}</span></span>
+      </div>
+      <div class="dl-act">
+        <a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a>
+      </div>
+    </div>
+    <div class="fc-meta">
+      <span class="chip">${k.fmt}</span>
+      <span class="dl-size">${kb(x.bytes)}</span>
+      <span class="rec-tag">Recommended</span>
+    </div>
+    <details class="dl-more">
+      <summary>${ic("chev", 'style="width:14px;height:14px"')}Details</summary>
+      <p class="dm">SHA-256 <code class="sha">${x.sha256}</code></p>
+      ${x.kind === "eel" ? `<p>Sliders: ${p.sliders.map(esc).join(", ")}.</p>` : ""}
+    </details>
+  </div>`;
 };
 $("#dlGroups").innerHTML = PROF.map(
 (p) =>
-`<div class="dl-group" data-g="${p.id}"><div class="dl-gh"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div><span class="dl-gc">${p.files.length} files</span><a class="btn sm" href="${p.bundle.path}" download data-dl="${esc(p.bundle.name)}">${ic("download")}<span>Zip</span></a></div><ul class="dl-list">${p.files
+`<div class="dl-group" data-g="${p.id}"><div class="dl-gh"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div><span class="dl-gc">${p.files.length} files</span><a class="btn sm" href="${p.bundle.path}" download data-dl="${esc(p.bundle.name)}">${ic("download")}<span>Zip</span></a></div><div class="files-grid">${p.files
           .slice()
           .sort(
             (a, b) =>
@@ -371,7 +388,7 @@ $("#dlGroups").innerHTML = PROF.map(
               ["vdc", "irs", "eel"].indexOf(b.kind),
           )
           .map((x) => row(p, x))
-          .join("")}</ul></div>`,
+          .join("")}</div></div>`,
 ).join("");
 $("#dlCount").textContent =
 PROF.length * 3 + " files · " + PROF.length + " bundles";
