@@ -286,3 +286,7 @@ body footer.ft{padding-bottom:40px}
 [data-theme="dark"]{--mut:#d1d1d1!important}
 
 [data-theme="light"]{--mut:#333333!important;--acc:#8a5300!important}
+
+main *,footer *{color:#000!important}
+
+[data-theme="dark"] main *,[data-theme="dark"] footer *{color:#fff!important}

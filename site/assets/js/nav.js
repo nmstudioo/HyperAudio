@@ -399,5 +399,22 @@ if (p && n.textContent === "Profile") n.textContent = p.name;
 });
 })
 .catch(function () {});
+setTimeout(() => {
+document.querySelectorAll('*').forEach(el => {
+const st = window.getComputedStyle(el);
+if ((st.overflowX === 'auto' || st.overflowX === 'scroll' || st.overflowY === 'auto' || st.overflowY === 'scroll') && !el.hasAttribute('tabindex')) {
+el.setAttribute('tabindex', '0');
+}
+});
+}, 500);
 })();
-;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}})();
+;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}
+setTimeout(() => {
+document.querySelectorAll('*').forEach(el => {
+const st = window.getComputedStyle(el);
+if ((st.overflowX === 'auto' || st.overflowX === 'scroll' || st.overflowY === 'auto' || st.overflowY === 'scroll') && !el.hasAttribute('tabindex')) {
+el.setAttribute('tabindex', '0');
+}
+});
+}, 500);
+})();
