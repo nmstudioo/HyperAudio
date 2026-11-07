@@ -15,7 +15,7 @@ document.querySelectorAll('input:not([type=hidden]),select,textarea').forEach(e=
 const ids={};document.querySelectorAll('[id]').forEach(e=>ids[e.id]=(ids[e.id]||0)+1);Object.keys(ids).filter(k=>ids[k]>1).forEach(k=>o.push('duplicate id '+k));
 document.querySelectorAll('[aria-labelledby],[aria-describedby]').forEach(e=>(e.getAttribute('aria-labelledby')||e.getAttribute('aria-describedby')).split(/\s+/).forEach(i=>{if(!document.getElementById(i))o.push('aria ref to missing id '+i)}));
 return o});
-let ax=[];if(axe){await p.addScriptTag({content:axe.source});ax=await p.evaluate(async()=>(await axe.run(document,{runOnly:['wcag2a','wcag2aa']})).violations.map(v=>v.id+' ('+v.nodes.length+')'))}
+let ax=[];if(axe){await p.addScriptTag({content:axe.source});ax=await p.evaluate(async()=>(await axe.run(document,{runOnly:['wcag2a','wcag2aa']})).violations.map(v=>v.id+' ('+v.nodes.length+') on '+JSON.stringify(v.nodes.map(n=>n.target))))}
 const all=[...new Set([...r,...ax.map(x=>'axe: '+x)])];if(all.length){bad++;console.log('A11Y',pg,w,th,'\n  '+all.slice(0,6).join('\n  '))}
 await p.close()}
 await c.close()}
