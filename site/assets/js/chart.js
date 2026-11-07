@@ -31,6 +31,29 @@ return a[1] + (b[1] - a[1]) * t;
 }
 return p[p.length - 1][1];
 }
+function smooth(P) {
+const n = P.length;
+if (n < 3) return P.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join("");
+const dx = [], m = [], t = new Array(n);
+for (let i = 0; i < n - 1; i++) {
+dx[i] = P[i + 1][0] - P[i][0] || 1e-6;
+m[i] = (P[i + 1][1] - P[i][1]) / dx[i];
+}
+t[0] = m[0];
+t[n - 1] = m[n - 2];
+for (let i = 1; i < n - 1; i++) t[i] = m[i - 1] * m[i] <= 0 ? 0 : (m[i - 1] + m[i]) / 2;
+for (let i = 0; i < n - 1; i++) {
+if (m[i] === 0) { t[i] = t[i + 1] = 0; continue; }
+const a = t[i] / m[i], b = t[i + 1] / m[i], h = a * a + b * b;
+if (h > 9) { const k = 3 / Math.sqrt(h); t[i] = k * a * m[i]; t[i + 1] = k * b * m[i]; }
+}
+let d = "M" + P[0][0].toFixed(1) + " " + P[0][1].toFixed(1);
+for (let i = 0; i < n - 1; i++) {
+const h = dx[i] / 3;
+d += "C" + (P[i][0] + h).toFixed(1) + " " + (P[i][1] + t[i] * h).toFixed(1) + " " + (P[i + 1][0] - h).toFixed(1) + " " + (P[i + 1][1] - t[i + 1] * h).toFixed(1) + " " + P[i + 1][0].toFixed(1) + " " + P[i + 1][1].toFixed(1);
+}
+return d;
+}
 function unav(host, c, msg) {
 host._c = c;
 host._s = null;
@@ -89,39 +112,40 @@ X = (v) => m.l + ((L(v) - L(x0)) / (L(x1) - L(x0))) * (W - m.l - m.r),
 Y = (v) => m.t + ((y1 - v) / (y1 - y0)) * (H - m.t - m.b);
 host._s = { X, Y, W, H, m, x0, x1 };
 let g = `<rect x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}" rx="8" fill="url(#pb${host.id})"/>`,
-df = `<linearGradient id="pb${host.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--tx)" stop-opacity=".05"/><stop offset="1" stop-color="var(--tx)" stop-opacity="0"/></linearGradient><filter id="gl${host.id}" x="-5%" y="-30%" width="110%" height="160%"><feGaussianBlur stdDeviation="3.4"/></filter>`;
+df = `<linearGradient id="pb${host.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--tx)" stop-opacity=".06"/><stop offset="1" stop-color="var(--tx)" stop-opacity=".01"/></linearGradient><filter id="gl${host.id}" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="4"/></filter>`;
 const ha = c.series.some((x) => x.area);
 const ys = y1 - y0 > 24 ? 6 : 3;
 const P = (v) => Math.round(v) + 0.5;
+const pw = W - m.l - m.r, bh = H - m.t - m.b;
+[[20, 250, "BASS"], [250, 4000, "MIDS"], [4000, 20000, "TREBLE"]].forEach((z, i) => {
+const a0 = Math.max(z[0], x0), a1 = Math.min(z[1], x1);
+if (a1 <= a0) return;
+const xa = X(a0), xb = X(a1);
+if (i === 1) g += `<rect x="${xa}" y="${m.t}" width="${xb - xa}" height="${bh}" fill="var(--tx)" opacity=".025"/>`;
+if (xb - xa > 46) g += `<text x="${(xa + xb) / 2}" y="${m.t + 13}" text-anchor="middle" font-size="9" letter-spacing=".16em" fill="var(--mut)" opacity=".7">${z[2]}</text>`;
+});
 for (let v = y0; v <= y1; v += ys)
-g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="${v === 0 ? "var(--bd2)" : "var(--bd)"}" stroke-width="${v === 0 ? 1.5 : 1}" ${v === 0 ? "" : 'stroke-dasharray="2 5"'}/><text x="${m.l - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="var(--mut)">${v > 0 ? "+" : ""}${v}</text>`;
+g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="${v === 0 ? "var(--tx)" : "var(--tx)"}" stroke-opacity="${v === 0 ? 0.3 : 0.07}" stroke-width="1"/><text x="${m.l - 8}" y="${Y(v) + 3.5}" text-anchor="end" font-size="10.5" fill="${v === 0 ? "var(--tx2)" : "var(--mut)"}" style="font-variant-numeric:tabular-nums">${v > 0 ? "+" : v < 0 ? "\u2212" : ""}${Math.abs(v)}</text>`;
 [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
 .filter((v) => v >= x0 * 0.999 && v <= x1 * 1.001)
-.forEach(
-(v) =>
-(g += `<line y1="${m.t}" y2="${H - m.b}" x1="${P(X(v))}" x2="${P(X(v))}" stroke="var(--bd)"/><text x="${X(v)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--mut)">${v >= 1000 ? v / 1000 + "k" : v}</text>`),
-);
-g += `<text x="${m.l + 6}" y="${m.t + 13}" font-size="11" fill="var(--mut)">dB</text>`;
+.forEach((v) => {
+const major = v === 100 || v === 1000 || v === 10000;
+g += `<line y1="${m.t}" y2="${H - m.b}" x1="${P(X(v))}" x2="${P(X(v))}" stroke="var(--tx)" stroke-opacity="${major ? 0.1 : 0.045}"/><text x="${X(v)}" y="${H - 7}" text-anchor="middle" font-size="10.5" fill="${major ? "var(--tx2)" : "var(--mut)"}">${v >= 1000 ? v / 1000 + "k" : v}</text>`;
+});
+g += `<text x="${m.l - 8}" y="${m.t - 1}" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--mut)">dB</text>`;
 c.series.forEach((s, si) => {
 if (s.hidden) return;
 if (s.area) {
-df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".34"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
+df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".30"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".08"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
 const z = Y(Math.min(Math.max(0, y0), y1)),
 px = s.pts.map((p) => X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1));
-g += `<path d="M${X(s.pts[0][0])} ${z} L${px.join(" L")} L${X(s.pts[s.pts.length - 1][0])} ${z}Z" fill="url(#ag${host.id}${si})" clip-path="url(#cp${host.id})"/>`;
+g += `<path d="M${X(s.pts[0][0])} ${z}L${smooth(s.pts.map((p) => [X(p[0]), Y(p[1])])).slice(1)}L${X(s.pts[s.pts.length - 1][0])} ${z}Z" fill="url(#ag${host.id}${si})" clip-path="url(#cp${host.id})"/>`;
 }
-const d = s.pts
-.map(
-(p, i) =>
-(i ? "L" : "M") +
-X(Math.min(Math.max(p[0], x0), x1)).toFixed(1) +
-" " +
-Y(p[1]).toFixed(1),
-)
-.join("");
+const xy = s.pts.map((p) => [X(Math.min(Math.max(p[0], x0), x1)), Y(p[1])]),
+d = s.dots ? xy.map((q, i) => (i ? "L" : "M") + q[0].toFixed(1) + " " + q[1].toFixed(1)).join("") : smooth(xy);
 const pri = !!s.area;
 if (pri && !s.dots)
-g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${(s.w || 2) + 5}" stroke-linecap="round" opacity=".12" clip-path="url(#cp${host.id})"/>`;
+g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${(s.w || 2) + 4}" stroke-linecap="round" opacity=".5" filter="url(#gl${host.id})" clip-path="url(#cp${host.id})"/>`;
 g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.w || 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round" ${ha && !pri && !s.dots ? 'opacity=".7"' : ""} clip-path="url(#cp${host.id})"/>`;
 if (s.dots)
 s.pts.forEach(
@@ -171,7 +195,7 @@ d == null ||
 )
 return;
 if (Number.isFinite(d))
-dots += `<circle cx="${s.X(f).toFixed(1)}" cy="${s.Y(d).toFixed(1)}" r="4.5" fill="${v.color}" stroke="var(--bg)" stroke-width="2"/>`;
+dots += `<circle cx="${s.X(f).toFixed(1)}" cy="${s.Y(d).toFixed(1)}" r="9" fill="${v.color}" opacity=".18"/><circle cx="${s.X(f).toFixed(1)}" cy="${s.Y(d).toFixed(1)}" r="4.5" fill="${v.color}" stroke="var(--bg)" stroke-width="2"/>`;
 rows += `<div><span><svg class="tsw" viewBox="0 0 16 8" aria-hidden="true"><line x1="0" x2="16" y1="4" y2="4" stroke="${v.color}" stroke-width="2.5" ${v.dash ? `stroke-dasharray="${v.dash}"` : ""}/></svg>${v.label}</span><b>${d > 0 ? "+" : ""}${d.toFixed(1)} dB${RV != null && vi !== c.ref ? ` <small>(${d - RV >= 0 ? "+" : ""}${(d - RV).toFixed(1)})</small>` : ""}</b></div>`;
 });
 let near = null,
@@ -288,5 +312,5 @@ b.setAttribute("aria-pressed", !s.hidden);
 redraw();
 };
 }
-window.HAChart = { drawChart, wire, legend, fmtF, interp };
+window.HAChart = { drawChart, wire, legend, fmtF, interp, smooth };
 })();
