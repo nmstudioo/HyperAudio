@@ -125,12 +125,7 @@ c.forEach((v, i) => {
 if (f[i] >= 60 && f[i] <= 16000 && Math.abs(v) > Math.abs(c[pk])) pk = i;
 if (f[pk] < 60 || f[pk] > 16000) pk = i;
 });
-const d = c
-.map(
-(v, i) =>
-(i ? "L" : "M") + X(f[i]).toFixed(1) + " " + Y(v).toFixed(1),
-)
-.join(""),
+const d = window.HAChart.smooth(c.map((v, i) => [X(f[i]), Y(v)])),
 px = X(f[pk]).toFixed(1),
 py = Y(c[pk]).toFixed(1);
 const lab = [
@@ -145,10 +140,10 @@ const lab = [
 `<text x="${X(v).toFixed(1)}" y="278" ${v === 20 ? 'text-anchor="start"' : v === 20000 ? 'text-anchor="end"' : ""}>${t}</text>`,
 )
 .join("");
-sv.innerHTML = `<defs><linearGradient id="hvA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".30"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient></defs>
- <g stroke="var(--bd)" fill="none"><path d="M40 50H500M40 100H500M40 200H500M40 250H500" stroke-dasharray="2 5"/><path d="M40 150H500" stroke="var(--bd2)"/></g>
- <path d="${d}L500 150L40 150Z" fill="url(#hvA)"/><path d="${d}" fill="none" stroke="var(--acc)" stroke-width="9" stroke-linecap="round" opacity=".12"/><path d="${d}" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
- <line x1="${px}" x2="${px}" y1="40" y2="260" stroke="var(--tx)" stroke-opacity=".28"/><circle cx="${px}" cy="${py}" r="5" fill="var(--acc)" stroke="var(--bg)" stroke-width="2"/>
+sv.innerHTML = `<defs><linearGradient id="hvA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".30"/><stop offset=".6" stop-color="var(--acc)" stop-opacity=".07"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient><linearGradient id="hvL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--acc)" stop-opacity=".75"/><stop offset=".5" stop-color="var(--acc)"/><stop offset="1" stop-color="var(--acc)" stop-opacity=".75"/></linearGradient><filter id="hvG" x="-5%" y="-30%" width="110%" height="160%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+ <g stroke="var(--tx)" fill="none"><path d="M40 50H500M40 100H500M40 200H500M40 250H500" stroke-opacity=".07"/><path d="M40 150H500" stroke-opacity=".28"/></g>
+ <path d="${d}L500 150L40 150Z" fill="url(#hvA)"/><path d="${d}" fill="none" stroke="var(--acc)" stroke-width="7" stroke-linecap="round" opacity=".45" filter="url(#hvG)"/><path d="${d}" fill="none" stroke="url(#hvL)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+ <line x1="${px}" x2="${px}" y1="40" y2="260" stroke="var(--tx)" stroke-opacity=".28"/><circle cx="${px}" cy="${py}" r="11" fill="var(--acc)" opacity=".16"/><circle cx="${px}" cy="${py}" r="5" fill="var(--acc)" stroke="var(--bg)" stroke-width="2"/>
  <g font-family="var(--mono)" font-size="10" fill="var(--mut)" text-anchor="middle">${lab}<text x="34" y="${Y(mx) + 4}" text-anchor="end">+${mx}</text><text x="34" y="154" text-anchor="end">0</text><text x="34" y="${Y(-mx) + 4}" text-anchor="end">−${mx}</text></g>`;
 const v = c[pk];
 sv.setAttribute(
@@ -185,9 +180,9 @@ area: true,
 {
 label: "Target",
 pts: pts(cv.target),
-color: "var(--tx)",
-w: 1.6,
-dash: "5 4",
+color: "var(--ch-tgt)",
+w: 1.5,
+dash: "5 5",
 },
 ],
 };
@@ -305,7 +300,21 @@ v: [["True Peak Detect", "On", null]],
 },
 ];
 }
+function renderLayout() {
+const host = $("#rjd");
+if (!host) return;
+const nm = (k) => prof.files.find((x) => x.kind === k).name.replace(/\.[^.]+$/, ""),
+row = (l, v, n) => `<div class="rjd-r"><span>${esc(l)}</span><b>${esc(v)}</b>${n ? `<i class="rjd-n" aria-hidden="true">${n}</i>` : ""}</div>`,
+card = (ic, t, n, rows) =>
+`<section class="rjd-c"><header><span class="rjd-i" aria-hidden="true">${ic}</span><h3>${esc(t)}</h3><i class="rjd-n" aria-hidden="true">${n}</i><span class="rjd-t" aria-hidden="true"></span></header>${rows}</section>`,
+W = '<svg viewBox="0 0 24 24" aria-hidden="true">';
+host.innerHTML =
+card(W + '<path d="M3 12c2.2-6 4.4-6 6 0s3.8 6 6 0 3.8-6 6 0"/></svg>', "ViPER-DDC", 1, row("DDC file", nm("vdc"))) +
+card(W + '<path d="M4 12h1.5M8 8v8M12 4.5v15M16 8v8M19 12h1.5"/></svg>', "Convolver", 2, row("Impulse response", nm("irs")) + row("Impulse response optimization", "Original")) +
+card(W + '<path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>', "Live programmable DSP", 3, row("Liveprog script", prof.script));
+}
 function renderApply() {
+renderLayout();
 const it = applyItems(),
 pg = JSON.parse(store.get(pgKey()) || "[]");
 $("#chk").dataset.n = it.length;
