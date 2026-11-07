@@ -1,10 +1,28 @@
 <!doctype html>
 <html lang="en" data-base="../"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Method · HyperAudio docs</title><meta name="description" content="Chain order in RootlessJamesDSP: VDC, then Convolver (IRS), then Liveprog (EEL).">
-<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<title>Method: how the profiles are built · HyperAudio</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+<!--seo--><meta name="description" content="Chain order in RootlessJamesDSP (VDC, convolver, Liveprog), how each stage is fitted and how the targets and limits are chosen."/>
+<link rel="canonical" href="https://nmstudioo.github.io/HyperAudio/docs/METHOD.html"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
+<meta name="author" content="Noushad Mostafa"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="HyperAudio"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:title" content="Method: how the profiles are built · HyperAudio"/>
+<meta property="og:description" content="Chain order in RootlessJamesDSP (VDC, convolver, Liveprog), how each stage is fitted and how the targets and limits are chosen."/>
+<meta property="og:url" content="https://nmstudioo.github.io/HyperAudio/docs/METHOD.html"/>
+<meta property="og:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="HyperAudio: calibrated DSP profiles for RootlessJamesDSP, with a response curve"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Method: how the profiles are built · HyperAudio"/>
+<meta name="twitter:description" content="Chain order in RootlessJamesDSP (VDC, convolver, Liveprog), how each stage is fitted and how the targets and limits are chosen."/>
+<meta name="twitter:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"Method","item":"https://nmstudioo.github.io/HyperAudio/docs/METHOD.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Method: how the profiles are built","description":"Chain order in RootlessJamesDSP (VDC, convolver, Liveprog), how each stage is fitted and how the targets and limits are chosen.","url":"https://nmstudioo.github.io/HyperAudio/docs/METHOD.html","inLanguage":"en","dateModified":"2026-11-05","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/METHOD.html"}</script><!--/seo-->
 </head>
 <body>
 <main class="pg dpg" id="main">
