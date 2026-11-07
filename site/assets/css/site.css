@@ -540,3 +540,5 @@ background:var(--surface);margin:0;border-radius:0}
 .fc-f .btn span{display:none}
 .fc:not(#_){padding:14px}
 }
+
+[data-theme="light"] .fc-rec{color:#000000!important}
