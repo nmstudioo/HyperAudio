@@ -133,23 +133,27 @@ white-space:nowrap;pointer-events:none;opacity:0;box-shadow:var(--e4);transition
 @media (max-width: 767px){
 body.n-on{--tbh:0px}
 .mh{
-position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:10px;
-height:calc(var(--hh,60px) + env(safe-area-inset-top));padding:env(safe-area-inset-top) 10px 0 6px;
-background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px) saturate(1.2);
--webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:10px;height:calc(var(--hh,60px) + env(safe-area-inset-top));
+padding:env(safe-area-inset-top) 10px 0 6px;background:color-mix(in srgb,var(--bg) 82%,transparent);
+backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);
+transition:transform .22s cubic-bezier(.2,.8,.2,1)}
 .mh.hide{transform:translateY(-100%)}
-.mh-m,.mh-th{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--ctl);border-radius:var(--r-md);
+.mh-m,.mh-th{
+width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--ctl);border-radius:var(--r-md);
 background:transparent;color:var(--tx);cursor:pointer;padding:0}
 .mh-th{margin-left:auto}
 .mh-b{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;color:var(--tx);text-decoration:none;min-height:44px}
 .mh-t{display:flex;flex-direction:column;gap:4px;min-width:0}
 .mh-t b{font-size:16px;font-weight:800;letter-spacing:-0.03em;line-height:1}
-.mh-sub{display:block;min-height:12px;font:500 11px/1.1 var(--mono);letter-spacing:.04em;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mh-sub{
+display:block;min-height:12px;font:500 11px/1.1 var(--mono);letter-spacing:.04em;color:var(--mut);overflow:hidden;
+text-overflow:ellipsis;white-space:nowrap}
 .mh-b:has(.mh-sub:empty) .mh-t{justify-content:center}
-.sb{position:fixed;inset:0 auto 0 0;z-index:70;display:flex;flex-direction:column;gap:14px;width:min(86vw,320px);
-padding:calc(14px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom));
-background:var(--bg);border-right:1px solid var(--bd2);box-shadow:18px 0 50px -20px rgba(0,0,0,.7);
-transform:translateX(-102%);visibility:hidden;transition:transform .24s cubic-bezier(.2,.8,.2,1),visibility 0s .24s}
+.sb{
+position:fixed;inset:0 auto 0 0;z-index:70;display:flex;flex-direction:column;gap:14px;width:min(86vw,320px);
+padding:calc(14px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom));background:var(--bg);
+border-right:1px solid var(--bd2);box-shadow:18px 0 50px -20px rgba(0,0,0,.7);transform:translateX(-102%);visibility:hidden;
+transition:transform .24s cubic-bezier(.2,.8,.2,1),visibility 0s .24s}
 .sb[data-open="true"]{transform:none;visibility:visible;transition:transform .24s cubic-bezier(.2,.8,.2,1)}
 .sb-scrim{display:block;position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.55)}
 .sb-scrim[hidden]{display:none}
@@ -192,12 +196,13 @@ box-shadow:0 0 12px color-mix(in srgb,var(--acc) 60%,transparent)}
 .sb-ctl{display:flex;gap:8px}
 .sb-cr{
 margin:0;font:500 10px/1.7 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--mut);overflow-wrap:anywhere}
+}
 
-}
 body.n-on main{padding-bottom:28px!important}
+
 .sb .sb-tg{display:grid}
+
 .tg-s{display:none}
-}
 
 @media (prefers-reduced-motion: reduce){
 .mh,.sb{transition:none!important}
@@ -254,11 +259,16 @@ color:var(--tx);text-decoration:underline;text-underline-offset:3px;display:inli
 .sf-in{padding-bottom:0}
 }
 
-/* No layout shift: hide the page until nav.js has added its chrome (falls back to visible after 1.2 s if scripting fails) */
 body:not(.n-on){visibility:hidden;animation:n-show 0s 1.2s forwards}
-@keyframes n-show{to{visibility:visible}}
-/* client-rendered pages: keep the footer below the fold until content arrives (stops footer layout shift) */
+
+@keyframes n-show{
+to{visibility:visible}
+}
+
 body.n-pg main.pg{min-height:100svh}
 
 .tg-x{display:none}
-@media (max-width:767px){.tg-x{display:block}}
+
+@media (max-width:767px){
+.tg-x{display:block}
+}
