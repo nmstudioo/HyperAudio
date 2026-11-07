@@ -282,3 +282,7 @@ body footer.ft{padding-bottom:40px}
 .v6ev ul{margin:0;padding-left:18px;display:grid;gap:6px}
 
 .v6ev a{color:var(--acc);font-weight:600}
+
+[data-theme="dark"]{--mut:#d1d1d1!important}
+
+[data-theme="light"]{--mut:#333333!important;--acc:#8a5300!important}
