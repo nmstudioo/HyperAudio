@@ -364,41 +364,14 @@ renderApply();
 function buildHub() {
 const row = (p, x) => {
 const k = KIND[x.kind];
-return `<div class="file-card" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + p.device).toLowerCase())}">
-    <div class="fc-head">
-      <span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span>
-      <div class="fc-title">
-        <span class="dl-title">${esc(p.name)}</span>
-        <span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind === "irs" ? "irs" : x.kind}</span></span>
-      </div>
-      <div class="dl-act">
-        <a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a>
-      </div>
-    </div>
-    <div class="fc-meta">
-      <span class="chip">${k.fmt}</span>
-      <span class="dl-size">${kb(x.bytes)}</span>
-      <span class="rec-tag">Recommended</span>
-    </div>
-    <details class="dl-more">
-      <summary>${ic("chev", 'style="width:14px;height:14px"')}Details</summary>
-      <p class="dm">SHA-256 <code class="sha">${x.sha256}</code></p>
-      ${x.kind === "eel" ? `<p>Sliders: ${p.sliders.map(esc).join(", ")}.</p>` : ""}
-    </details>
-  </div>`;
+return `<li class="dl-row fc-f" data-p="${p.id}" data-kind="${x.kind}" data-q="${esc((p.name + " " + x.name + " " + k.label + " " + p.device).toLowerCase())}"><span class="dl-ic">${ic(k.ico)}<em>${k.tag}</em></span><div class="fc-fm"><span class="dl-name" title="${esc(x.name)}">${wb(x.name.replace(/\.[a-z]+$/, ""))}<span class="ext">.${x.kind}</span></span><span class="fc-fs">${FS[x.kind]} · ${kb(x.bytes)}</span></div><a class="btn sm${x.kind === "eel" ? " pri-soft" : ""}" href="${x.path}" download aria-label="Download ${esc(x.name)}" data-dl="${esc(x.name)}">${ic("download")}<span>Download</span></a></li>`;
 };
-$("#dlGroups").innerHTML = PROF.map(
-(p) =>
-`<div class="dl-group" data-g="${p.id}"><div class="dl-gh"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div><span class="dl-gc">${p.files.length} files</span><a class="btn sm" href="${p.bundle.path}" download data-dl="${esc(p.bundle.name)}">${ic("download")}<span>Zip</span></a></div><div class="files-grid">${p.files
-          .slice()
-          .sort(
-            (a, b) =>
-              ["vdc", "irs", "eel"].indexOf(a.kind) -
-              ["vdc", "irs", "eel"].indexOf(b.kind),
-          )
-          .map((x) => row(p, x))
-          .join("")}</div></div>`,
-).join("");
+const ORDER = ["vdc", "irs", "eel"], FS = { vdc: "Filter bank", irs: "Impulse response", eel: "Liveprog script" };
+$("#dlGroups").innerHTML = PROF.map((p) => {
+const fl = p.files.slice().sort((a, b) => ORDER.indexOf(a.kind) - ORDER.indexOf(b.kind)),
+eel = fl.find((x) => x.kind === "eel");
+return `<article class="card hw-card dl-group fc" data-g="${p.id}"><div class="top"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)} \u00b7 <span class="dl-gc">${fl.length} files</span></span><h3>${esc(p.name)}</h3><span class="fc-rec">Recommended</span></div><a class="btn sm" href="${p.bundle.path}" download data-dl="${esc(p.bundle.name)}">${ic("download")}<span>Zip</span></a></div><ul class="dl-list fc-l">${fl.map((x) => row(p, x)).join("")}</ul><details class="dl-more fc-sha"><summary>${ic("chev", 'style="width:14px;height:14px"')}SHA-256 checksums</summary><dl class="specs fc-sums">${fl.map((x) => `<div><dt>${esc(KIND[x.kind].tag)}</dt><dd><code class="sha">${x.sha256}</code></dd></div>`).join("")}</dl></details>${eel && p.sliders && p.sliders.length ? `<p class="sig"><span class="eyebrow">Script controls</span>${p.sliders.map(esc).join(", ")}.</p>` : ""}</article>`;
+}).join("");
 $("#dlCount").textContent =
 PROF.length * 3 + " files · " + PROF.length + " bundles";
 $("#allBtn").href = DATA.all.path;
@@ -431,9 +404,7 @@ filterHub();
 });
 $("#dlSearch").addEventListener("input", filterHub);
 function markRec() {
-$$(".dl-row").forEach((r) =>
-r.classList.toggle("rec", r.dataset.p === prof.id),
-);
+$$(".dl-group").forEach((g) => g.classList.toggle("rec", g.dataset.g === prof.id));
 $("#dlProf").textContent = prof.name;
 }
 
@@ -454,6 +425,12 @@ $("#evxTiers").innerHTML =
 '<div class="evx-t"><span class="k">Automated</span><b>' + T.pass + " pass</b><p>" + T.warn + " warning" + (T.warn === 1 ? "" : "s") + " \u00b7 " + T.not_run + " not run \u00b7 " + T.fail + ' failed. Run on every build.</p><div class="bar" role="img" aria-label="' + T.pass + " pass, " + T.warn + " warning, " + T.not_run + " not run, " + T.fail + ' failed"><i class="p" style="width:' + pc(T.pass) + '"></i><i class="w" style="width:' + pc(T.warn) + '"></i><i class="f" style="width:' + pc(T.fail) + '"></i><i class="n" style="width:' + pc(T.not_run) + '"></i></div></div>' +
 '<div class="evx-t"><span class="k">Device</span><b>' + E.tiers.device_recorded + " of " + E.tiers.device_total + " builds</b><p>Recorded per build. The author reports no crackle on the speaker profiles; per-build records are pending.</p></div>" +
 '<div class="evx-t"><span class="k">Acoustic</span><b>' + (E.tiers.measured ? "Measured" : "Not measured") + "</b><p>Response curves are calculated from the files, not captured with a microphone.</p></div>";
+var TI = { Automated: "shield", Device: "device", Acoustic: "chart" };
+$$("#evxTiers .evx-t").forEach((t) => {
+var k = t.querySelector(".k").textContent, b = t.querySelector("b").textContent, p = t.querySelector("p").innerHTML, bar = t.querySelector(".bar");
+t.className = "card hw-card evx-t";
+t.innerHTML = '<div class="top"><span class="fico">' + ic(TI[k] || "info") + '</span><div><span class="eyebrow">' + k + "</span><h3>" + b + '</h3></div></div><p class="sig">' + p + "</p>" + (bar ? bar.outerHTML : "");
+});
 var P = E.profiles,
 ne = P.filter((x) => x.startsWith("iem")).length,
 lab = (id) => id.split("-")[1].toUpperCase();
@@ -474,9 +451,9 @@ note.setAttribute("aria-live", "polite");
 .catch(() => { $("#evxVer").textContent = "Check data could not be loaded."; });
 }
 function buildEvidence() {
-$("#evBody").innerHTML = PROF.map((p) => {
-const s = p.stats;
-return `<tr><td>${esc(p.name)}</td><td>${s.rms.toFixed(2)} dB${s.capped ? " <small>(capped)</small>" : ""}</td><td>${s.gain1k > 0 ? "+" : ""}${s.gain1k.toFixed(1)} dB</td><td>${s.chainMax > 0 ? "+" : ""}${s.chainMax.toFixed(1)} dB</td><td>${s.irsPeak.toFixed(2)}</td><td>${s.sections} sections</td></tr>`;
+$("#evCards").innerHTML = PROF.map((p) => {
+const s = p.stats, sg = (v) => (v > 0 ? "+" : "") + v.toFixed(1) + " dB";
+return `<article class="card hw-card ev-pc"><div class="top"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div></div><dl class="specs"><div><dt>Target error</dt><dd>${s.rms.toFixed(2)} dB${s.capped ? " <small>capped</small>" : ""}</dd></div><div><dt>Gain at 1 kHz</dt><dd>${sg(s.gain1k)}</dd></div><div><dt>Chain max</dt><dd>${sg(s.chainMax)}</dd></div><div><dt>IRS peak</dt><dd>${s.irsPeak.toFixed(2)}</dd></div><div><dt>VDC</dt><dd>${s.sections} sections</dd></div></dl></article>`;
 }).join("");
 }
 function buildStats() {
