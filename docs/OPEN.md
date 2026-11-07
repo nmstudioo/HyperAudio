@@ -17,3 +17,4 @@ Status for v6.0.0. The shipped profile files are byte-identical to v5.0.0; v6 ch
 | 11 | Self-hosted fonts | Google Fonts fallback (sandbox could not download) | woff2 files for Plus Jakarta Sans and JetBrains Mono |
 | 12 | v1 to v4 history | Archive lists them as "no record in repo" | Old notes or files |
 | 13 | Release v6.0.0 | Not cut | VERSION bump, build, freeze, replace hardcoded "v5.0.0" in index.html, preview branch approval |
+| 14 | KZ EDX Pro · GHD candidate | In candidates/v6/iem-ghd, offline gates pass (calculated) | Limiter figures match v5 exactly (unexplained), CPU, init_done in JamesDSP, one listening check |
