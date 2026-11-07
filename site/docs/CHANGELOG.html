@@ -1,20 +1,32 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Docs · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<html lang="en" data-base="../"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Changelog · HyperAudio docs</title><meta name="description" content="HyperAudio documentation">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css">
-<style>.dtop{display:flex;gap:14px;align-items:center;flex-wrap:wrap;max-width:820px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 0;font:600 13px var(--mono)}.dtop a{color:var(--tx2);text-decoration:none}.dtop a:hover{color:var(--acc)}
-.dc{max-width:820px;margin:0 auto;padding:12px 16px max(48px,env(safe-area-inset-bottom))}.dc h1{font:800 clamp(26px,6vw,34px)/1.15 var(--sans);margin:.6em 0 .4em}.dc h2{font:700 21px var(--sans);margin:1.6em 0 .4em}.dc h3{font:700 17px var(--sans);margin:1.3em 0 .3em}
-.dc p,.dc li{color:var(--tx2);line-height:1.65}.dc a{color:var(--acc);font-weight:600}.dc code{font:500 .9em var(--mono);background:rgba(128,128,128,.14);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}.dc pre{overflow-x:auto;padding:14px;border:1px solid var(--bd);border-radius:12px}.dc pre code{background:none;padding:0}.dc .tw{overflow-x:auto}</style></head>
-<body><nav class="dtop" aria-label="Docs"><a href="../">&larr; HyperAudio</a><a href="./">Docs</a><a href="../archive.html">Archive</a><a href="../changelog.html">Changelog</a></nav>
-<main class="dc" id="main">
-<p>Changelog</p>
-<p>v6.0.0 (Current)</p>
-<p>Added</p>
-<p>· Responsive UI: Complete redesign with desktop sidebar, tablet icon-rail, and mobile bottom sheet. · Documentation Site: Automated Markdown-to-HTML rendering (site/docs/) for seamless reading. · Custom 404: Theme-aware error page that preserves the /HyperAudio/ base path. · Backend Integration: Merged EEL2 runtime tests and response acceptance suites. · CI Enhancements: Caching for pip/npm/Playwright, concurrency cancellation, and local link checking (links.js). · Formatting Tooling: Custom AST-verified formatter (tools/fmt.py) enforcing zero-indentation style.</p>
-<p>Changed</p>
-<p>· Bumped all UI badges, meta tags, and footer text to v6.0.0. · Reorganized the repository structure to separate backend testing from the frontend UI. · Consolidated navigation into a shared nav.js component.</p>
-<p>v5.0.0</p>
-<p>· Initial stable release with six RootlessJamesDSP profiles for KZ EDX Pro and Redmi 12.</p>
-</main></body></html>
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+</head>
+<body>
+<main class="pg dpg" id="main">
+<header class="dh"><span class="eyebrow">Docs</span><h1>Changelog</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">docs/CHANGELOG.md &middot; edit on GitHub</a></header>
+<nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html">Releasing</a><a href="CHANGELOG.html" aria-current="page">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
+<div class="dgrid has-toc">
+<article class="prose">
+<h2 id="unreleased-v7-work">Unreleased (v7 work)<a class="ha" href="#unreleased-v7-work" aria-label="Link to this section">#</a></h2>
+<h3 id="added">Added<a class="ha" href="#added" aria-label="Link to this section">#</a></h3>
+<ul><li>Single version source: <code>build/stamp.py</code> stamps <code>VERSION</code> into <code>index.html</code>, <code>versions.json</code> and <code>sw.js</code>; CI fails on stale stamps.</li><li>Release automation: a <code>vX.Y.Z</code> tag runs <code>.github/workflows/release.yml</code> (GitHub Release with zips, checksums, acceptance and diff); <code>build/freeze.py</code> and a FROZEN hash guard.</li><li>Offline support: a service worker (network first, cache fallback).</li><li>Accessibility gate: <code>tests/a11y.js</code> (built-in checks plus axe-core in CI).</li><li>Evidence panel: a per-profile check matrix generated from <code>acceptance.json</code> into <code>site/data/evidence.json</code>.</li></ul>
+<h3 id="changed">Changed<a class="ha" href="#changed" aria-label="Link to this section">#</a></h3>
+<ul><li>Docs pages redesigned: shared navigation, section tabs, table of contents, code blocks with copy buttons, previous and next links.</li></ul>
+<h2 id="v6-0-0">v6.0.0<a class="ha" href="#v6-0-0" aria-label="Link to this section">#</a></h2>
+<h3 id="added-2">Added<a class="ha" href="#added-2" aria-label="Link to this section">#</a></h3>
+<ul><li>Responsive UI: desktop sidebar, tablet icon rail and mobile bottom sheet.</li><li>Documentation site: Markdown rendered to <code>site/docs/</code>.</li><li>Custom 404 page that keeps the <code>/HyperAudio/</code> base path.</li><li>EEL2 runtime tests and response acceptance suites.</li><li>CI: caching, concurrency cancellation and local link checking (<code>links.js</code>).</li><li>Formatting tool <code>tools/fmt.py</code>.</li></ul>
+<h3 id="changed-2">Changed<a class="ha" href="#changed-2" aria-label="Link to this section">#</a></h3>
+<ul><li>Version badges, meta tags and footer text moved to v6.0.0.</li><li>Repository structure separates backend testing from the frontend.</li><li>Navigation consolidated into a shared <code>nav.js</code>.</li></ul>
+<h2 id="v5-0-0">v5.0.0<a class="ha" href="#v5-0-0" aria-label="Link to this section">#</a></h2>
+<ul><li>Initial stable release with six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi 12.</li></ul>
+<nav class="dnav" aria-label="Previous and next"><a href="RELEASING.html"><span class="k">Previous</span><b>Releasing</b></a><a href="refit44_report.html"><span class="k">Next</span><b>44.1 kHz refit</b></a></nav></article>
+<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#unreleased-v7-work">Unreleased (v7 work)</a></li><li class="l3"><a href="#added">Added</a></li><li class="l3"><a href="#changed">Changed</a></li><li class="l2"><a href="#v6-0-0">v6.0.0</a></li><li class="l3"><a href="#added-2">Added</a></li><li class="l3"><a href="#changed-2">Changed</a></li><li class="l2"><a href="#v5-0-0">v5.0.0</a></li></ol></details></aside></div>
+</main>
+<script src="../assets/js/docs.js"></script>
+<script src="../assets/js/nav.js"></script>
+</body></html>

@@ -60,6 +60,8 @@ if not a.out and not a.no_site:
     sd = f'{ROOT}/site/downloads/{ver}'; shutil.rmtree(sd, ignore_errors=True)
     shutil.copytree(rel, sd, ignore=shutil.ignore_patterns('profiles.json', 'DIFF.md', 'acceptance.json'))
     shutil.copy(f'{rel}/profiles.json', f'{ROOT}/site/data/profiles.json')
+if not a.out and not a.no_site:
+    import subprocess; subprocess.run([sys.executable, f'{ROOT}/build/stamp.py'], check=True); subprocess.run([sys.executable, f'{ROOT}/build/evidence_data.py'], check=True)
 print(f'built {ver}: {len(profs)} profiles, {len(sums)} files, {sum(len(v) for v in acc.values())} checks, {len(bad)} failed')
 for k, c in bad: print('FAIL', k, c['check'], c['detail'])
 sys.exit(1 if bad else 0)

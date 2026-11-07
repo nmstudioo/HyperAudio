@@ -1,14 +1,21 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Limits (open in v5.0.0) · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<html lang="en" data-base="../"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Limits (open in v5.0.0) · HyperAudio docs</title><meta name="description" content="HyperAudio documentation">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css">
-<style>.dtop{display:flex;gap:14px;align-items:center;flex-wrap:wrap;max-width:820px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 0;font:600 13px var(--mono)}.dtop a{color:var(--tx2);text-decoration:none}.dtop a:hover{color:var(--acc)}
-.dc{max-width:820px;margin:0 auto;padding:12px 16px max(48px,env(safe-area-inset-bottom))}.dc h1{font:800 clamp(26px,6vw,34px)/1.15 var(--sans);margin:.6em 0 .4em}.dc h2{font:700 21px var(--sans);margin:1.6em 0 .4em}.dc h3{font:700 17px var(--sans);margin:1.3em 0 .3em}
-.dc p,.dc li{color:var(--tx2);line-height:1.65}.dc a{color:var(--acc);font-weight:600}.dc code{font:500 .9em var(--mono);background:rgba(128,128,128,.14);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}.dc pre{overflow-x:auto;padding:14px;border:1px solid var(--bd);border-radius:12px}.dc pre code{background:none;padding:0}.dc .tw{overflow-x:auto}</style></head>
-<body><nav class="dtop" aria-label="Docs"><a href="../">&larr; HyperAudio</a><a href="./">Docs</a><a href="../archive.html">Archive</a><a href="../changelog.html">Changelog</a></nav>
-<main class="dc" id="main">
-<h1>Limits (open in v5.0.0)</h1>
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+</head>
+<body>
+<main class="pg dpg" id="main">
+<header class="dh"><span class="eyebrow">Docs</span><h1>Limits (open in v5.0.0)</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/LIMITS.md" target="_blank" rel="noopener">docs/LIMITS.md &middot; edit on GitHub</a></header>
+<nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html" aria-current="page">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html">Releasing</a><a href="CHANGELOG.html">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
+<div class="dgrid">
+<article class="prose">
 <div class="tw"><table class="evt"><thead><tr><th>Area</th><th>Limit</th><th>v6 plan</th></tr></thead><tbody><tr><td>Speaker</td><td>+8 dB boost cap; curves sit about 2 dB under target on average at 100-2000 Hz (worst about 12 dB near 500 Hz)</td><td>Raise cap only if device test passes</td></tr><tr><td>Protection V6</td><td>IR peak 2.24 vs L1 gate 1.25</td><td>Redesign IR or document exception</td></tr><tr><td>Limiter</td><td>True-peak overshoot ~+0.19 dB</td><td>Tighten only if audible/clipping</td></tr><tr><td>44.1 kHz bank</td><td>~1.6 dB from 48 kHz bank at 20 kHz</td><td>Candidate in candidates/v6 (docs/refit44_report.md); gap 1.4-1.6 dB -&gt; &lt;=0.2 dB</td></tr><tr><td>Profile EEL (Pop, EDM)</td><td>Unstable, not shipped</td><td>Root-cause, then device test</td></tr><tr><td>Evidence</td><td>No acoustic measurements; device results unspecific</td><td>See EVIDENCE.md</td></tr></tbody></table></div>
-</main></body></html>
+<nav class="dnav" aria-label="Previous and next"><a href="EVIDENCE.html"><span class="k">Previous</span><b>Evidence</b></a><a href="OPEN.html"><span class="k">Next</span><b>Open items</b></a></nav></article>
+</div>
+</main>
+<script src="../assets/js/docs.js"></script>
+<script src="../assets/js/nav.js"></script>
+</body></html>

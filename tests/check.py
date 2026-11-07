@@ -33,6 +33,11 @@ with tempfile.TemporaryDirectory() as t:
     if os.path.exists(pub): need(sorted(open(pub).read().split('\n')) == sorted(open(t + '/r/SHA256SUMS.txt').read().split('\n')), 'rebuild SHA256SUMS differs from release')
     if os.path.exists(f'{ROOT}/releases/{cur}/FROZEN'): pass
     else: need(all(sha(f) == sha(f.replace(t + '/r', f'{ROOT}/releases/{cur}')) for f in glob.glob(t + '/r/*.zip')), 'rebuilt zips differ from release')
+r = subprocess.run([sys.executable, f'{ROOT}/build/stamp.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
+r = subprocess.run([sys.executable, f'{ROOT}/build/evidence_data.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
+fz = f'{ROOT}/releases/{cur}/FROZEN'
+if os.path.exists(fz) and 'sha256sums' in open(fz).read():
+    import hashlib; need(hashlib.sha256(open(f'{ROOT}/releases/{cur}/SHA256SUMS.txt', 'rb').read()).hexdigest() in open(fz).read(), f'{cur}: FROZEN release changed (SHA256SUMS differs from the frozen hash)')
 # 3 local links in index.html and CSS/JS references
 html = open(f'{ROOT}/site/index.html', encoding='utf-8').read()
 for u in re.findall(r'(?:href|src)="([^"#:]+)"', html):

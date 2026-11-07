@@ -412,6 +412,41 @@ $("#dlProf").textContent = prof.name;
 }
 
 /* == evidence, status, faq == */
+function buildEvx() {
+var host = $("#evxMatrix");
+if (!host) return;
+fetch("data/evidence.json")
+.then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+.then((E) => {
+var T = E.totals,
+n = T.pass + T.warn + T.fail + T.not_run,
+pc = (v) => ((v / n) * 100).toFixed(1) + "%",
+G = { pass: "\u2713", warn: "!", fail: "\u2715", not_run: "\u2013", untested: "\u2013" },
+W = { pass: "Pass", warn: "Warning", fail: "Failed", not_run: "Not run", untested: "No record" };
+$("#evxVer").textContent = "Release v" + E.version + " \u00b7 " + n + " automated checks";
+$("#evxTiers").innerHTML =
+'<div class="evx-t"><span class="k">Automated</span><b>' + T.pass + " pass</b><p>" + T.warn + " warning" + (T.warn === 1 ? "" : "s") + " \u00b7 " + T.not_run + " not run \u00b7 " + T.fail + ' failed. Run on every build.</p><div class="bar" role="img" aria-label="' + T.pass + " pass, " + T.warn + " warning, " + T.not_run + " not run, " + T.fail + ' failed"><i class="p" style="width:' + pc(T.pass) + '"></i><i class="w" style="width:' + pc(T.warn) + '"></i><i class="f" style="width:' + pc(T.fail) + '"></i><i class="n" style="width:' + pc(T.not_run) + '"></i></div></div>' +
+'<div class="evx-t"><span class="k">Device</span><b>' + E.tiers.device_recorded + " of " + E.tiers.device_total + " builds</b><p>Recorded per build. The author reports no crackle on the speaker profiles; per-build records are pending.</p></div>" +
+'<div class="evx-t"><span class="k">Acoustic</span><b>' + (E.tiers.measured ? "Measured" : "Not measured") + "</b><p>Response curves are calculated from the files, not captured with a microphone.</p></div>";
+var P = E.profiles,
+ne = P.filter((x) => x.startsWith("iem")).length,
+lab = (id) => id.split("-")[1].toUpperCase();
+host.insertAdjacentHTML("beforeend",
+'<thead><tr><th scope="col"><span class="sr">Check</span></th><th class="grp" colspan="' + ne + '" scope="colgroup">EDX Pro</th><th class="grp" colspan="' + (P.length - ne) + '" scope="colgroup">Redmi 12</th></tr><tr><th scope="col"></th>' + P.map((id) => '<th scope="col" title="' + esc(id) + '">' + lab(id) + "</th>").join("") + "</tr></thead><tbody>" +
+E.rows.map((r) => '<tr><th scope="row">' + esc(r.label) + "<small>" + esc(r.sub) + "</small></th>" + P.map((id) => { var c = r.cells[id]; return '<td><button type="button" class="dot ' + c.status + '" data-r="' + r.id + '" data-p="' + id + '" aria-label="' + esc(r.label + ", " + id + ": " + W[c.status]) + '">' + G[c.status] + "</button></td>"; }).join("") + "</tr>").join("") + "</tbody>");
+var note = $("#evxNote");
+host.addEventListener("click", (e) => {
+var b = e.target.closest("button[data-r]");
+if (!b) return;
+var r = E.rows.find((x) => x.id === b.dataset.r),
+c = r.cells[b.dataset.p];
+note.hidden = false;
+note.innerHTML = "<b>" + esc(r.label) + " \u00b7 " + esc(b.dataset.p) + " \u00b7 " + W[c.status] + "</b><br>" + esc(c.detail || "No detail recorded.");
+});
+note.setAttribute("aria-live", "polite");
+})
+.catch(() => { $("#evxVer").textContent = "Check data could not be loaded."; });
+}
 function buildEvidence() {
 $("#evBody").innerHTML = PROF.map((p) => {
 const s = p.stats;
@@ -593,6 +628,7 @@ eqHost = $("#cmpChart");
 window.HAChart.wire(eqHost);
 buildHub();
 buildEvidence();
+buildEvx();
 buildStats();
 buildFaq();
 const q = new URL(location.href).searchParams.get("p"),

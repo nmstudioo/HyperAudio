@@ -1,0 +1,35 @@
+name: release
+on:
+  push: { tags: ['v*'] }
+permissions: { contents: write }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: pip install numpy scipy
+      - name: Tag must match VERSION
+        run: test "${GITHUB_REF_NAME}" = "v$(cat VERSION)" || { echo "tag ${GITHUB_REF_NAME} != v$(cat VERSION)"; exit 1; }
+      - name: Gate (hashes, reproducible rebuild, stamps, links)
+        run: python3 tests/check.py
+      - name: Rebuild with full acceptance and require zero failures
+        run: python3 build/build.py --out /tmp/rel
+      - name: Release must be frozen and match the rebuild
+        run: |
+          test -f releases/$(cat VERSION)/FROZEN || { echo "run python3 build/freeze.py and commit first"; exit 1; }
+          diff <(sort releases/$(cat VERSION)/SHA256SUMS.txt) <(sort /tmp/rel/SHA256SUMS.txt)
+      - name: Release notes from docs/CHANGELOG.md
+        run: |
+          python3 - <<'PY'
+          import re
+          v=open('VERSION').read().strip(); t=open('docs/CHANGELOG.md',encoding='utf-8').read()
+          m=re.search(r'^## v'+re.escape(v)+r'\b.*?$(.*?)(?=^## |\Z)',t,re.S|re.M)
+          open('/tmp/notes.md','w').write((m.group(1).strip() if m else 'See docs/CHANGELOG.md')+'\n\nVerify: `sha256sum -c SHA256SUMS.txt`. Evidence: docs/EVIDENCE.md.\n')
+          PY
+      - name: Publish GitHub Release
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: gh release create "$GITHUB_REF_NAME" /tmp/rel/*.zip /tmp/rel/SHA256SUMS.txt /tmp/rel/acceptance.json /tmp/rel/DIFF.md --title "HyperAudio $GITHUB_REF_NAME" --notes-file /tmp/notes.md --verify-tag

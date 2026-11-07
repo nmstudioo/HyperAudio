@@ -1,23 +1,36 @@
+# Changelog
 
-Changelog
+## Unreleased (v7 work)
 
-v6.0.0 (Current)
+### Added
 
-Added
+- Single version source: `build/stamp.py` stamps `VERSION` into `index.html`, `versions.json` and `sw.js`; CI fails on stale stamps.
+- Release automation: a `vX.Y.Z` tag runs `.github/workflows/release.yml` (GitHub Release with zips, checksums, acceptance and diff); `build/freeze.py` and a FROZEN hash guard.
+- Offline support: a service worker (network first, cache fallback).
+- Accessibility gate: `tests/a11y.js` (built-in checks plus axe-core in CI).
+- Evidence panel: a per-profile check matrix generated from `acceptance.json` into `site/data/evidence.json`.
 
-· Responsive UI: Complete redesign with desktop sidebar, tablet icon-rail, and mobile bottom sheet.
-· Documentation Site: Automated Markdown-to-HTML rendering (site/docs/) for seamless reading.
-· Custom 404: Theme-aware error page that preserves the /HyperAudio/ base path.
-· Backend Integration: Merged EEL2 runtime tests and response acceptance suites.
-· CI Enhancements: Caching for pip/npm/Playwright, concurrency cancellation, and local link checking (links.js).
-· Formatting Tooling: Custom AST-verified formatter (tools/fmt.py) enforcing zero-indentation style.
+### Changed
 
-Changed
+- Docs pages redesigned: shared navigation, section tabs, table of contents, code blocks with copy buttons, previous and next links.
 
-· Bumped all UI badges, meta tags, and footer text to v6.0.0.
-· Reorganized the repository structure to separate backend testing from the frontend UI.
-· Consolidated navigation into a shared nav.js component.
+## v6.0.0
 
-v5.0.0
+### Added
 
-· Initial stable release with six RootlessJamesDSP profiles for KZ EDX Pro and Redmi 12.
+- Responsive UI: desktop sidebar, tablet icon rail and mobile bottom sheet.
+- Documentation site: Markdown rendered to `site/docs/`.
+- Custom 404 page that keeps the `/HyperAudio/` base path.
+- EEL2 runtime tests and response acceptance suites.
+- CI: caching, concurrency cancellation and local link checking (`links.js`).
+- Formatting tool `tools/fmt.py`.
+
+### Changed
+
+- Version badges, meta tags and footer text moved to v6.0.0.
+- Repository structure separates backend testing from the frontend.
+- Navigation consolidated into a shared `nav.js`.
+
+## v5.0.0
+
+- Initial stable release with six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi 12.

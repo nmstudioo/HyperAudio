@@ -15,7 +15,7 @@ def inline(s):
     s = re.sub(r'`([^`]+)`', lambda m: codes.append(m[1]) or '\0%d\0' % (len(codes) - 1), s)
     s = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: '<a href="%s"%s>%s</a>' % (html.escape(url(m[2])), ' target="_blank" rel="noopener"' if url(m[2]).startswith('http') else '', m[1]), s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s); s = re.sub(r'(?<![\w*])\*([^*]+)\*(?![\w*])', r'<i>\1</i>', s)
-    return re.sub(r'\0(\d+)\0', lambda m: '<code>%s</code>' % html.escape(codes[int(m[1])], quote=False), s)
+    return re.sub(r'\0(\d+)\0', lambda m: '<code>%s</code>' % codes[int(m[1])], s)
 def md(text):
     out, L, i, title = [], text.split('\n'), 0, None
     while i < len(L):
@@ -34,35 +34,74 @@ def md(text):
             out.append(t + '</tbody></table></div>'); continue
         m = re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', l)
         if m:
-            tag = 'ol' if m[2][0].isdigit() else 'ul'; items = []
+            tag = 'ol' if m[2][0].isdigit() else 'ul'; st = int(m[2][:-1]) if tag == 'ol' else 1; items = []
             while i < len(L) and (mm := re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', L[i])): items.append(inline(mm[3])); i += 1
-            out.append('<%s>%s</%s>' % (tag, ''.join('<li>%s</li>' % x for x in items), tag)); continue
+            out.append('<%s%s>%s</%s>' % (tag, ' start="%d"' % st if st > 1 else '', ''.join('<li>%s</li>' % x for x in items), tag)); continue
         if l.strip():
             p = []
             while i < len(L) and L[i].strip() and not re.match(r'^(#{1,4}\s|```|\||\s*([-*]|\d+\.)\s)', L[i]): p.append(L[i].strip()); i += 1
             out.append('<p>%s</p>' % inline(' '.join(p)) if p else ''); i += 0 if p else 1; continue
         i += 1
     return '\n'.join(out), title or 'Docs'
-PAGE = '''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>%(t)s · HyperAudio docs</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+ORDER = ['METHOD', 'EVIDENCE', 'LIMITS', 'OPEN', 'REPRODUCING', 'RELEASING', 'CHANGELOG', 'refit44_report']
+LABEL = dict(METHOD='Method', EVIDENCE='Evidence', LIMITS='Limits', OPEN='Open items', REPRODUCING='Reproduce', RELEASING='Releasing', CHANGELOG='Changelog', refit44_report='44.1 kHz refit')
+STATUS = ('pass', 'warn', 'fail', 'not_run', 'untested')
+COPY = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
+def slug(t): return re.sub(r'[^a-z0-9]+', '-', re.sub(r'<[^>]+>', '', t).lower()).strip('-') or 'section'
+def decorate(body):
+    seen, toc = {}, []
+    def head(m):
+        n, inner = m[1], m[2]; k = slug(inner); seen[k] = seen.get(k, 0) + 1; k = k if seen[k] == 1 else f'{k}-{seen[k]}'
+        toc.append((int(n), re.sub(r'<[^>]+>', '', inner), k)); return f'<h{n} id="{k}">{inner}<a class="ha" href="#{k}" aria-label="Link to this section">#</a></h{n}>'
+    body = re.sub(r'<h([23])>(.*?)</h\1>', head, body)
+    body = re.sub(r'<pre><code>(.*?)</code></pre>', lambda m: f'<div class="cb"><pre tabindex="0"><code>{m[1]}</code></pre><button type="button" class="cp" aria-label="Copy code">{COPY}</button></div>', body, flags=re.S)
+    body = re.sub(r'<code>(%s)</code>' % '|'.join(STATUS), lambda m: f'<span class="st st-{m[1]}">{m[1].replace("_", " ")}</span>', body)
+    return body, toc
+def split_head(b):
+    m = re.match(r'\s*<h1>(.*?)</h1>\s*(?:<p>(.*?)</p>)?', b, re.S)
+    return (m[1], m[2] or '', b[m.end():]) if m else ('', '', b)
+PAGE = """<!doctype html>
+<html lang="en" data-base="../"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>%(t)s · HyperAudio docs</title><meta name="description" content="%(d)s">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css">
-<style>.dtop{display:flex;gap:14px;align-items:center;flex-wrap:wrap;max-width:820px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 0;font:600 13px var(--mono)}.dtop a{color:var(--tx2);text-decoration:none}.dtop a:hover{color:var(--acc)}
-.dc{max-width:820px;margin:0 auto;padding:12px 16px max(48px,env(safe-area-inset-bottom))}.dc h1{font:800 clamp(26px,6vw,34px)/1.15 var(--sans);margin:.6em 0 .4em}.dc h2{font:700 21px var(--sans);margin:1.6em 0 .4em}.dc h3{font:700 17px var(--sans);margin:1.3em 0 .3em}
-.dc p,.dc li{color:var(--tx2);line-height:1.65}.dc a{color:var(--acc);font-weight:600}.dc code{font:500 .9em var(--mono);background:rgba(128,128,128,.14);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}.dc pre{overflow-x:auto;padding:14px;border:1px solid var(--bd);border-radius:12px}.dc pre code{background:none;padding:0}.dc .tw{overflow-x:auto}</style></head>
-<body><nav class="dtop" aria-label="Docs"><a href="../">&larr; HyperAudio</a><a href="./">Docs</a><a href="../archive.html">Archive</a><a href="../changelog.html">Changelog</a></nav>
-<main class="dc" id="main">
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+</head>
+<body>
+<main class="pg dpg" id="main">
+<header class="dh"><span class="eyebrow">Docs</span><h1>%(h)s</h1>%(lead)s%(src)s</header>
+<nav class="dtabs" aria-label="Docs sections">%(tabs)s</nav>
+<div class="dgrid%(hasToc)s">
+<article class="prose">
 %(b)s
-</main></body></html>
-'''
+%(pn)s</article>
+%(toc)s</div>
+</main>
+<script src="../assets/js/docs.js"></script>
+<script src="../assets/js/nav.js"></script>
+</body></html>
+"""
+def tabs(cur, titles):
+    return ''.join('<a href="%s.html"%s>%s</a>' % (n, ' aria-current="page"' if n == cur else '', html.escape(LABEL.get(n, titles[n]))) for n in ORDER_ALL) + ('<a href="./"%s>All docs</a>' % (' aria-current="page"' if cur == 'index' else ''))
 def render():
-    pages, idx = {}, []
-    for n in DOCS:
-        b, t = md(open(f'{ROOT}/docs/{n}.md', encoding='utf-8').read()); pages[f'{n}.html'] = PAGE % dict(t=html.escape(t), b=b); idx.append((n, t))
-    li = '\n'.join('<li><a href="%s.html">%s</a> <small>docs/%s.md</small></li>' % (n, html.escape(t), n) for n, t in idx)
-    pages['index.html'] = PAGE % dict(t='Docs', b='<h1>Docs</h1>\n<ul>\n%s\n</ul>' % li)
+    global ORDER_ALL
+    ORDER_ALL = [n for n in ORDER if n in DOCS] + [n for n in DOCS if n not in ORDER]
+    raw = {n: md(open(f'{ROOT}/docs/{n}.md', encoding='utf-8').read()) for n in ORDER_ALL}; titles = {n: raw[n][1] for n in ORDER_ALL}; pages = {}; cards = []
+    for i, n in enumerate(ORDER_ALL):
+        body, toc = decorate(raw[n][0]); h, lead, rest = split_head(body)
+        if not h: h, rest = titles[n], body
+        plain = re.sub(r'<[^>]+>', '', lead)
+        pn = ''
+        if len(ORDER_ALL) > 1:
+            pv, nx = (ORDER_ALL[i - 1] if i else None), (ORDER_ALL[i + 1] if i + 1 < len(ORDER_ALL) else None)
+            pn = '<nav class="dnav" aria-label="Previous and next">' + ('<a href="%s.html"><span class="k">Previous</span><b>%s</b></a>' % (pv, html.escape(LABEL.get(pv, titles[pv]))) if pv else '') + ('<a href="%s.html"><span class="k">Next</span><b>%s</b></a>' % (nx, html.escape(LABEL.get(nx, titles[nx]))) if nx else '') + '</nav>'
+        tl = ''.join('<li class="l%d"><a href="#%s">%s</a></li>' % (lv, k, html.escape(t)) for lv, t, k in toc)
+        tocx = '<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol>%s</ol></details></aside>' % tl if len(toc) >= 3 else ''
+        src = '<a class="src" href="%sdocs/%s.md" target="_blank" rel="noopener">docs/%s.md &middot; edit on GitHub</a>' % (GH, n, n)
+        pages[f'{n}.html'] = PAGE % dict(t=html.escape(re.sub(r'<[^>]+>', '', h)), d=html.escape(plain[:155] or 'HyperAudio documentation'), h=h, lead='<p class="lead">%s</p>' % lead if lead else '', src=src, tabs=tabs(n, titles), hasToc=' has-toc' if tocx else '', b=rest, pn=pn, toc=tocx)
+        cards.append('<li><a class="dcard" href="%s.html"><span class="k">docs/%s.md</span><b>%s</b><span class="d">%s</span><span class="go">Read &rarr;</span></a></li>' % (n, n, html.escape(LABEL.get(n, titles[n])), html.escape((plain[:110] + ('…' if len(plain) > 110 else '')) or 'Open the page.')))
+    pages['index.html'] = PAGE % dict(t='Docs', d='HyperAudio documentation: method, evidence, limits, open items and how to reproduce the build.', h='Documentation', lead='<p class="lead">How the profiles are built, what the evidence shows, and what is still open.</p>', src='', tabs=tabs('index', titles), hasToc='', b='<ul class="dcards">%s</ul>' % ''.join(cards), pn='', toc='')
     return pages
 def evidence_json():
     d = f'{ROOT}/docs/evidence'

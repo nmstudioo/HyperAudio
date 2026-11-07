@@ -34,10 +34,11 @@ jobs:
         run: |
           python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
           sleep 2
-          npm install playwright
+          npm install playwright axe-core
           npx playwright install --with-deps chromium
           node tests/overflow.js http://localhost:8765/
           node tests/footer.js http://localhost:8765/
           node tests/links.js http://localhost:8765/
+          node tests/a11y.js http://localhost:8765/
       - uses: actions/upload-artifact@v4
         with: { name: acceptance, path: /tmp/rel/acceptance.json }

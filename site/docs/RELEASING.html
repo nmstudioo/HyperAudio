@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-base="../"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Releasing · HyperAudio docs</title><meta name="description" content="HyperAudio documentation">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<script src="../assets/js/theme-init.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+</head>
+<body>
+<main class="pg dpg" id="main">
+<header class="dh"><span class="eyebrow">Docs</span><h1>Releasing</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/RELEASING.md" target="_blank" rel="noopener">docs/RELEASING.md &middot; edit on GitHub</a></header>
+<nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html" aria-current="page">Releasing</a><a href="CHANGELOG.html">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
+<div class="dgrid">
+<article class="prose">
+<ol><li>Bump <code>VERSION</code>; edit <code>src/profiles.meta.json</code> (<code>released</code>) and <code>docs/CHANGELOG.md</code> (a <code>vX.Y.Z</code> heading).</li><li><code>python3 build/build.py</code> builds <code>releases/&lt;ver&gt;/</code>, publishes to <code>site/</code>, and stamps the version into <code>site/index.html</code>, <code>site/data/versions.json</code> and <code>site/sw.js</code>.</li><li><code>python3 build/docs_site.py &amp;&amp; python3 tests/check.py</code> must print <code>all checks passed</code>.</li><li>Review <code>releases/&lt;ver&gt;/DIFF.md</code> and <code>acceptance.json</code> (0 failures; <span class="st st-warn">warn</span> and <span class="st st-not_run">not run</span> entries stay visible).</li><li><code>python3 build/freeze.py</code>, commit, merge to <code>main</code> (Pages deploys), then <code>git tag v&lt;ver&gt; &amp;&amp; git push --tags</code>.</li><li>The <code>release</code> workflow checks the tag against <code>VERSION</code>, rebuilds, requires the frozen hashes to match, and publishes a GitHub Release with the zips, <code>SHA256SUMS.txt</code>, <code>acceptance.json</code> and <code>DIFF.md</code>.</li></ol>
+<p>A frozen release is never rebuilt in place: <code>build.py</code> refuses, and <code>tests/check.py</code> fails if its <code>SHA256SUMS.txt</code> changes.</p>
+<nav class="dnav" aria-label="Previous and next"><a href="REPRODUCING.html"><span class="k">Previous</span><b>Reproduce</b></a><a href="CHANGELOG.html"><span class="k">Next</span><b>Changelog</b></a></nav></article>
+</div>
+</main>
+<script src="../assets/js/docs.js"></script>
+<script src="../assets/js/nav.js"></script>
+</body></html>

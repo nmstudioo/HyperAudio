@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#000000"/>
 <meta name="color-scheme" content="dark light"/>
-<meta name="description" content="HyperAudio v5.0.0 (v6 in progress): RootlessJamesDSP VDC, impulse response and Liveprog script profiles for the KZ EDX Pro and the Redmi 12 speaker."/>
+<meta name="description" content="HyperAudio v6.0.0: RootlessJamesDSP VDC, impulse response and Liveprog script profiles for the KZ EDX Pro and the Redmi 12 speaker."/>
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml"/>
 <link rel="icon" href="favicon.ico" sizes="48x48"/>
 <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png"/>
@@ -22,7 +22,7 @@
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="HyperAudio: calibrated DSP profiles for RootlessJamesDSP, with a response curve"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="HyperAudio v5.0.0 (v6 in progress)"/>
+<meta name="twitter:title" content="HyperAudio v6.0.0"/>
 <meta name="twitter:description" content="Calibrated DSP profiles for RootlessJamesDSP."/>
 <meta name="twitter:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
 <script src="assets/js/theme-init.js"></script>
@@ -31,8 +31,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <link rel="stylesheet" href="assets/css/site.css"/>
+<link rel="stylesheet" href="assets/css/docs.css"/>
 <link rel="stylesheet" href="assets/css/nav.css"/>
-<title>HyperAudio - RootlessJamesDSP v5 Profiles</title>
+<title>HyperAudio - RootlessJamesDSP v6 Profiles</title>
 </head>
 <body>
 <!-- == SVG ICON SPRITE == -->
@@ -168,7 +169,7 @@
 <section class="panel" id="overview" aria-labelledby="h-hero">
 <div class="hero">
 <div class="hero-copy">
-<span class="tag"><i aria-hidden="true"></i>v6.0.0 · Stable · device-tested</span>
+<span class="tag"><i aria-hidden="true"></i>v6.0.0 · Stable · responses calculated</span>
 <h1 id="h-hero">
 HyperAudio.<span class="dim">Calibrated.</span>
 </h1>
@@ -297,7 +298,7 @@ choosing.</small>
 <summary>How to verify the download</summary>
 <p>
 Compare each file with
-<a href="downloads/v5.0.0/SHA256SUMS.txt">SHA256SUMS.txt</a>. If your browser renames a file (for example adds .txt),
+<a href="downloads/6.0.0/SHA256SUMS.txt">SHA256SUMS.txt</a>. If your browser renames a file (for example adds .txt),
 rename it back before loading it.
 </p>
 <dl>
@@ -356,7 +357,7 @@ sounds off, go back through the steps above.</span>
 <div>
 <h2 id="h-files">Files</h2>
 <p>
-Every file of release <b>v5.0.0</b>, with its SHA-256. Files for
+Every file of release <b>v6.0.0</b>, with its SHA-256. Files for
 your active profile are marked <b>Recommended</b>.
 </p>
 </div>
@@ -380,7 +381,7 @@ VDC
 <p id="dlEmpty" hidden class="note">No files match that search.</p>
 <div class="all-dl">
 <a class="btn" id="allBtn" href="#" download><svg class="ic" aria-hidden="true">
-<use href="#i-download"/></svg><span>All six profiles (.zip)</span></a><a class="btn" href="downloads/v5.0.0/SHA256SUMS.txt"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span>SHA256SUMS.txt</span></a>
+<use href="#i-download"/></svg><span>All six profiles (.zip)</span></a><a class="btn" href="downloads/6.0.0/SHA256SUMS.txt"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span>SHA256SUMS.txt</span></a>
 </div>
 </section>
 <div class="sys-wrap" id="system">
@@ -416,8 +417,8 @@ files, not measured acoustically.
 </li>
 <li>
 <b>Speaker profiles</b> cap the total boost at +8 dB to protect
-the micro-speaker, so against the uncapped target they sit 3 to
-5 dB low between 100 and 2000 Hz by design.
+the micro-speaker, so against the uncapped target they sit about 2 dB
+low on average between 100 and 2000 Hz (up to 12 dB near 500 Hz) by design.
 </li>
 <li>
 <b>Tested on the author's phone:</b> no crackle on any profile
@@ -425,15 +426,18 @@ with True Peak Detect on. <b>Not done:</b> acoustic measurement,
 worst-case limiter CPU, speaker excursion and thermal limits.
 </li>
 </ul>
-<div class="v6ev" id="v6-evidence">
-<h3>v6 backend evidence</h3>
-<p>The v6 acceptance suite and EEL2 runtime tests are included in the repository.</p>
-<ul>
-<li><a href="docs/EVIDENCE.html">Method &amp; evidence</a></li>
-<li><a href="docs/OPEN.html">Open issues</a></li>
-<li><a href="docs/LIMITS.html">Known limits</a></li>
-<li><a href="docs/REPRODUCING.html">Reproduce the build</a></li>
-<li><a href="docs/evidence/acceptance-src-v5.0.0.json">Acceptance test data (JSON)</a></li>
+<div class="evx" id="v6-evidence">
+<div class="evx-h"><h3>Evidence</h3><p id="evxVer">Automated checks run on every build</p></div>
+<div class="evx-tiers" id="evxTiers"></div>
+<div class="tw"><table class="evx-m" id="evxMatrix"><caption class="sr">Automated and device checks for each profile</caption></table></div>
+<ul class="evx-lg" aria-label="Legend"><li><span class="dot pass" aria-hidden="true">&#10003;</span>Pass</li><li><span class="dot warn" aria-hidden="true">!</span>Warning</li><li><span class="dot fail" aria-hidden="true">&#10005;</span>Fail</li><li><span class="dot not_run" aria-hidden="true">&#8211;</span>Not run, or no record</li></ul>
+<p class="evx-note" id="evxNote" hidden></p>
+<ul class="dcards">
+<li><a class="dcard" href="docs/EVIDENCE.html"><span class="k">Method</span><b>Method and evidence</b><span class="d">What each tier proves and what it does not.</span><span class="go">Read &rarr;</span></a></li>
+<li><a class="dcard" href="docs/LIMITS.html"><span class="k">Honest limits</span><b>Known limits</b><span class="d">Speaker boost cap, true-peak overshoot, 44.1 kHz bank.</span><span class="go">Read &rarr;</span></a></li>
+<li><a class="dcard" href="docs/OPEN.html"><span class="k">Roadmap</span><b>Open items</b><span class="d">What is blocked and what unblocks it.</span><span class="go">Read &rarr;</span></a></li>
+<li><a class="dcard" href="docs/REPRODUCING.html"><span class="k">Verify</span><b>Reproduce the build</b><span class="d">Rebuild the release and compare hashes.</span><span class="go">Read &rarr;</span></a></li>
+<li><a class="dcard" href="data/evidence.json"><span class="k">Data</span><b>Check results (JSON)</b><span class="d">The matrix above, as machine-readable data.</span><span class="go">Open &rarr;</span></a></li>
 </ul>
 </div>
 </section>

@@ -6,6 +6,10 @@ const pages = [
 "finder.html",
 "archive.html",
 "changelog.html",
+"docs/index.html",
+"docs/EVIDENCE.html",
+"docs/OPEN.html",
+"docs/CHANGELOG.html",
 ];
 (async () => {
 const b = await chromium.launch();
@@ -35,7 +39,7 @@ o = [];
 document.querySelectorAll("body *").forEach((e) => {
 if (
 e.closest("svg") ||
-e.closest(".tw,.snd,.seg,pre,[data-scroll]")
+e.closest(".tw,.dtabs,.snd,.seg,pre,[data-scroll]")
 )
 return;
 const s = getComputedStyle(e);
