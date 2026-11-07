@@ -23,13 +23,13 @@ def md(text):
         if l.startswith('```'):
             j = i + 1
             while j < len(L) and not L[j].startswith('```'): j += 1
-            out.append('<pre><code>%s</code></pre>' % html.escape('\n'.join(L[i+1:j]), quote=False)); i = j + 1; continue
+            out.append('<pre tabindex="0"><code>%s</code></pre>' % html.escape('\n'.join(L[i+1:j]), quote=False)); i = j + 1; continue
         m = re.match(r'^(#{1,4})\s+(.*)$', l)
         if m:
             n = len(m[1]); title = title or m[2]; out.append('<h%d>%s</h%d>' % (n, inline(m[2]), n)); i += 1; continue
         if l.startswith('|') and i + 1 < len(L) and re.match(r'^\|[\s:|-]+\|?\s*$', L[i+1]):
             cells = lambda r: [c.strip() for c in r.strip().strip('|').split('|')]
-            t = '<div class="tw"><table class="evt"><thead><tr>%s</tr></thead><tbody>' % ''.join('<th>%s</th>' % inline(c) for c in cells(l)); i += 2
+            t = '<div class="tw" tabindex="0"><table class="evt"><thead><tr>%s</tr></thead><tbody>' % ''.join('<th>%s</th>' % inline(c) for c in cells(l)); i += 2
             while i < len(L) and L[i].startswith('|'): t += '<tr>%s</tr>' % ''.join('<td>%s</td>' % inline(c) for c in cells(L[i])); i += 1
             out.append(t + '</tbody></table></div>'); continue
         m = re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', l)
@@ -54,7 +54,7 @@ def decorate(body):
         n, inner = m[1], m[2]; k = slug(inner); seen[k] = seen.get(k, 0) + 1; k = k if seen[k] == 1 else f'{k}-{seen[k]}'
         toc.append((int(n), re.sub(r'<[^>]+>', '', inner), k)); return f'<h{n} id="{k}">{inner}<a class="ha" href="#{k}" aria-label="Link to this section">#</a></h{n}>'
     body = re.sub(r'<h([23])>(.*?)</h\1>', head, body)
-    body = re.sub(r'<pre><code>(.*?)</code></pre>', lambda m: f'<div class="cb"><pre tabindex="0"><code>{m[1]}</code></pre><button type="button" class="cp" aria-label="Copy code">{COPY}</button></div>', body, flags=re.S)
+    body = re.sub(r'<pre tabindex="0"><code>(.*?)</code></pre>', lambda m: f'<div class="cb"><pre tabindex="0"><code>{m[1]}</code></pre><button type="button" class="cp" aria-label="Copy code">{COPY}</button></div>', body, flags=re.S)
     body = re.sub(r'<code>(%s)</code>' % '|'.join(STATUS), lambda m: f'<span class="st st-{m[1]}">{m[1].replace("_", " ")}</span>', body)
     return body, toc
 def split_head(b):
