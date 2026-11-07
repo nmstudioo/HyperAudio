@@ -58,5 +58,5 @@ node tests/overflow.js
 <div align="center">
   <img src="site/assets/brand/logo.svg" alt="HyperAudio Logo" width="100" height="84">
   <br>
-  <sub>Designed &amp; tuned by <b>Noushad M.</b> - © 2026 HyperAudio</sub>
+  <sub>Designed &amp; tuned by <b>Noushad M.</b> - © 2026 HA</sub>
 </div>
