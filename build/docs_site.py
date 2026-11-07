@@ -29,7 +29,7 @@ def md(text):
             n = len(m[1]); title = title or m[2]; out.append('<h%d>%s</h%d>' % (n, inline(m[2]), n)); i += 1; continue
         if l.startswith('|') and i + 1 < len(L) and re.match(r'^\|[\s:|-]+\|?\s*$', L[i+1]):
             cells = lambda r: [c.strip() for c in r.strip().strip('|').split('|')]
-            t = '<div class="tw"><table class="evt"><thead><tr>%s</tr></thead><tbody>' % ''.join('<th>%s</th>' % inline(c) for c in cells(l)); i += 2
+            t = '<div class="tw" tabindex="0"><table class="evt"><thead><tr>%s</tr></thead><tbody>' % ''.join('<th>%s</th>' % inline(c) for c in cells(l)); i += 2
             while i < len(L) and L[i].startswith('|'): t += '<tr>%s</tr>' % ''.join('<td>%s</td>' % inline(c) for c in cells(L[i])); i += 1
             out.append(t + '</tbody></table></div>'); continue
         m = re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', l)

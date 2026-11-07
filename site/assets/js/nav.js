@@ -373,5 +373,32 @@ n.setAttribute("aria-label", "Active profile: " + p.name);
 });
 })
 .catch(function () {});
+const makeTablesFocusable = (root) => {
+(root.querySelectorAll ? root.querySelectorAll('.tw') : []).forEach(el => {
+if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+});
+};
+makeTablesFocusable(document);
+new MutationObserver((mutations) => {
+mutations.forEach(m => {
+m.addedNodes.forEach(node => {
+if (node.nodeType === 1) makeTablesFocusable(node);
+});
+});
+}).observe(document.body, { childList: true, subtree: true });
 })();
-;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}})();
+;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}
+const makeTablesFocusable = (root) => {
+(root.querySelectorAll ? root.querySelectorAll('.tw') : []).forEach(el => {
+if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+});
+};
+makeTablesFocusable(document);
+new MutationObserver((mutations) => {
+mutations.forEach(m => {
+m.addedNodes.forEach(node => {
+if (node.nodeType === 1) makeTablesFocusable(node);
+});
+});
+}).observe(document.body, { childList: true, subtree: true });
+})();
