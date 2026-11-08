@@ -1,4 +1,4 @@
-const VERSION = '6.0.1', CACHE = 'hyperaudio-' + VERSION;
+const VERSION = '6.1.0', CACHE = 'hyperaudio-' + VERSION;
 const SHELL = ['./', 'index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'assets/css/main.css', 'assets/css/site.css', 'assets/css/nav.css', 'assets/css/docs.css', 'assets/js/docs.js', 'data/evidence.json', 'docs/index.html', 'assets/js/app.js', 'assets/js/chart.js', 'assets/js/nav.js', 'assets/js/theme-init.js', 'data/profiles.json', 'data/versions.json', 'data/choose.json', 'manifest.webmanifest', 'assets/icons/favicon.svg'];
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'], MAX_RUNTIME = 60;
 const cacheable = u => !/\.(zip|eel|irs|vdc)$/i.test(u.pathname) && !u.pathname.includes('/downloads/');

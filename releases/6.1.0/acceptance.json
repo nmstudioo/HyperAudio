@@ -1,0 +1,587 @@
+{
+ "version": "6.1.0",
+ "results": {
+  "iem-hd": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 2851 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.694 meta 0.69"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.028 dB, max 0.049 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -2.10 dB, meta -2.1"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.57 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9690 (meta 0.969)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 0.35 dB (30-16k Hz, level-aligned) vs meta 0.33 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.14 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.20 dB (limit 0.35); +6 dB noise +1.89 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.84 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "iem-v4": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 1024 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.603 meta 0.60"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.031 dB, max 0.101 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -3.12 dB, meta -3.1"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.71 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9714 (meta 0.971)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 0.63 dB (30-16k Hz, level-aligned) vs meta 0.65 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.03 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.20 dB (limit 0.35); +6 dB noise +1.89 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.84 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "iem-v10": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 4 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.842 meta 0.84"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.031 dB, max 0.050 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -2.28 dB, meta -2.3"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.61 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9732 (meta 0.973)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 0.50 dB (30-16k Hz, level-aligned) vs meta 0.49 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.01 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.20 dB (limit 0.35); +6 dB noise +1.89 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.84 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v6": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 4096 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.411 meta 0.41"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 7, 48000: 7}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.029 dB, max 0.094 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -4.89 dB, meta -4.9"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9930 (meta 0.993)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 3.56 dB (100-10k Hz, stored level offset) vs meta 3.41 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.02 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.22 dB (limit 0.35); +6 dB noise +1.96 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.00 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v8": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.785 meta 0.78"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.028 dB, max 0.077 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -5.41 dB, meta -5.4"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.51 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9899 (meta 0.99)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 3.41 dB (100-10k Hz, stored level offset) vs meta 3.32 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.02 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.22 dB (limit 0.35); +6 dB noise +1.94 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.00 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ],
+  "spk-v10": [
+   {
+    "check": "eel.lint",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "irs.valid",
+    "status": "pass",
+    "detail": "float WAV 2 ch 48000 Hz 2048 frames"
+   },
+   {
+    "check": "irs.peak_matches_meta",
+    "status": "pass",
+    "detail": "file 0.917 meta 0.92"
+   },
+   {
+    "check": "vdc.banks",
+    "status": "pass",
+    "detail": "banks [44100, 48000]"
+   },
+   {
+    "check": "vdc.sections",
+    "status": "pass",
+    "detail": "sections {44100: 10, 48000: 10}"
+   },
+   {
+    "check": "vdc.finite",
+    "status": "pass",
+    "detail": ""
+   },
+   {
+    "check": "response.correction_match",
+    "status": "pass",
+    "detail": "file-derived VDC x IRS vs stored correction: RMS 0.030 dB, max 0.072 dB (limits 0.1 / 0.25)"
+   },
+   {
+    "check": "response.gain1k",
+    "status": "pass",
+    "detail": "gain at 1 kHz -5.30 dB, meta -5.3"
+   },
+   {
+    "check": "response.chain_max",
+    "status": "pass",
+    "detail": "max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5)"
+   },
+   {
+    "check": "vdc.stable",
+    "status": "pass",
+    "detail": "max pole radius 0.9902 (meta 0.99)"
+   },
+   {
+    "check": "response.error_vs_target",
+    "status": "pass",
+    "detail": "recomputed RMS 3.42 dB (100-10k Hz, stored level offset) vs meta 3.34 dB (band convention inferred; tolerance 0.5 dB)"
+   },
+   {
+    "check": "vdc.sr_consistency",
+    "status": "pass",
+    "detail": "44.1 kHz bank vs 48 kHz bank max 0.20 dB over 20-20k Hz (limit 0.3)"
+   },
+   {
+    "check": "eel.compile",
+    "status": "pass",
+    "detail": "parsed and transpiled | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.ceiling",
+    "status": "pass",
+    "detail": "max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.clamp_engaged",
+    "status": "pass",
+    "detail": "fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "limiter.true_peak",
+    "status": "pass",
+    "detail": "true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square +0.22 dB (limit 0.35); +6 dB noise +1.90 dB (guard 2.5) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "tail",
+    "status": "pass",
+    "detail": "output below -120 dB after 0.11 s (limit 2.0 s) | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "nan_soak",
+    "status": "pass",
+    "detail": "NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: clean | runtime=eel2py (subset interpreter, not WDL)"
+   },
+   {
+    "check": "cpu",
+    "status": "not_run",
+    "detail": "needs on-device measurement; interpreter timing is not representative"
+   }
+  ]
+ }
+}

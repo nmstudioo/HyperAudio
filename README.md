@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://nmstudioo.github.io/HyperAudio/"><img src="https://img.shields.io/badge/OPEN%20THE%20SITE-HYPERAUDIO-f5b84b?style=for-the-badge&labelColor=0c0c0c" alt="Open the site"></a>
-<a href="releases/6.0.1/HyperAudio_6.0.1_all.zip"><img src="https://img.shields.io/badge/DOWNLOAD-ALL%20SIX%20PROFILES-9a9a9a?style=for-the-badge&labelColor=0c0c0c" alt="Download all six profiles"></a>
+<a href="releases/6.1.0/HyperAudio_6.1.0_all.zip"><img src="https://img.shields.io/badge/DOWNLOAD-ALL%20SIX%20PROFILES-9a9a9a?style=for-the-badge&labelColor=0c0c0c" alt="Download all six profiles"></a>
 </p>
 
 <p align="center">
@@ -71,25 +71,25 @@ Keep the Convolver preamp and the EEL post gain at 0 dB.
 
 Claims come in three tiers that are never mixed.
 
-- **Offline, automated.** 19 checks on each of 6 builds in [`acceptance.json`](releases/6.0.0/acceptance.json): 104 pass, 4 warn, 6 not run (`cpu`).
+- **Offline, automated.** 19 checks on each of 6 builds in [`acceptance.json`](releases/6.1.0/acceptance.json): 108 pass, 0 warn, 6 not run (`cpu`).
 - **Device-reported.** The author reports an IEM pass and no crackle on the speaker builds. Per-build entries in [`device-tests.json`](docs/evidence/device-tests.json) are still `untested`.
 - **Acoustic measurement.** None. Every curve is **calculated**, not measured.
 
-The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot is about +0.2 dB on tones and clicks, and four profiles carry a 44.1 kHz bank that differs from the 48 kHz one by up to 1.6 dB at 20 kHz. All are listed in [Limits](docs/LIMITS.md).
+The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot is about +0.2 dB on tones and clicks, and no bank exists for sample rates other than 44.1 and 48 kHz. All are listed in [Limits](docs/LIMITS.md).
 
 ## Downloads
 
 | Package | Size |
 |:--|--:|
-| [**All six profiles**](releases/6.0.1/HyperAudio_6.0.1_all.zip) | 58.5 KB |
-| [KZ EDX Pro · HD](releases/6.0.1/HyperAudio_6.0.1_iem-hd.zip) | 28.0 KB |
-| [KZ EDX Pro · Spatial V4](releases/6.0.1/HyperAudio_6.0.1_iem-v4.zip) | 3.2 KB |
-| [KZ EDX Pro · Reference V10](releases/6.0.1/HyperAudio_6.0.1_iem-v10.zip) | 3.7 KB |
-| [Redmi 12 · Protection V6](releases/6.0.1/HyperAudio_6.0.1_spk-v6.zip) | 9.4 KB |
-| [Redmi 12 · Cinema V8](releases/6.0.1/HyperAudio_6.0.1_spk-v8.zip) | 11.5 KB |
-| [Redmi 12 · Dynamic V10](releases/6.0.1/HyperAudio_6.0.1_spk-v10.zip) | 4.3 KB |
+| [**All six profiles**](releases/6.1.0/HyperAudio_6.1.0_all.zip) | 58.4 KB |
+| [KZ EDX Pro · HD](releases/6.1.0/HyperAudio_6.1.0_iem-hd.zip) | 27.8 KB |
+| [KZ EDX Pro · Spatial V4](releases/6.1.0/HyperAudio_6.1.0_iem-v4.zip) | 3.2 KB |
+| [KZ EDX Pro · Reference V10](releases/6.1.0/HyperAudio_6.1.0_iem-v10.zip) | 3.7 KB |
+| [Redmi 12 · Protection V6](releases/6.1.0/HyperAudio_6.1.0_spk-v6.zip) | 9.4 KB |
+| [Redmi 12 · Cinema V8](releases/6.1.0/HyperAudio_6.1.0_spk-v8.zip) | 11.5 KB |
+| [Redmi 12 · Dynamic V10](releases/6.1.0/HyperAudio_6.1.0_spk-v10.zip) | 4.3 KB |
 
-The profile files are byte-identical to v5.0.0. To verify the files in `releases/6.0.1/`:
+Only the 44.1 kHz bank of four VDCs differs from v5.0.0 (see `releases/6.1.0/DIFF.md`). To verify the files in `releases/6.1.0/`:
 
 ```bash
 cd releases && sha256sum -c 6.0.0/SHA256SUMS.txt
@@ -117,7 +117,7 @@ The same docs are rendered on the [live site](https://nmstudioo.github.io/HyperA
 ```text
 HyperAudio/
 ├── site/          Live web interface (HTML, CSS, JS) and downloads
-├── releases/      Frozen, versioned releases with checksums (6.0.1, 6.0.0, 5.0.0)
+├── releases/      Frozen, versioned releases with checksums (6.1.0, 6.0.1, 6.0.0, 5.0.0)
 ├── src/           Source profiles and metadata
 ├── candidates/    Unreleased experiments (v6)
 ├── docs/          Source Markdown, rendered to site/docs/

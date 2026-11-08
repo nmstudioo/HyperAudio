@@ -7,7 +7,7 @@ Experiments that are not part of any release. Nothing here ships until it passes
 | Candidate | Where | State |
 |:--|:--|:--|
 | **KZ EDX Pro · GHD** | [`v6/iem-ghd/`](v6/iem-ghd/README.md) | Candidate; offline gates pass, `untested` on a device |
-| **44.1 kHz refits** | `v6/iem-v4/`, `v6/iem-v10/`, `v6/spk-v8/`, `v6/spk-v10/` | Refit done offline (0.01 to 0.20 dB); needs one listening check, then promotion |
+| **44.1 kHz refits** | `v6/iem-v4/`, `v6/iem-v10/`, `v6/spk-v8/`, `v6/spk-v10/` | Promoted in 6.1.0 (files now in `src/profiles/`) |
 | **True-peak alignment `L_N = L_D + 5`** | [`v6/limiter-isp-alignment.md`](v6/limiter-isp-alignment.md) | Rejected; limiter unchanged |
 | **Profile EEL (Pop, EDM)** | [`v6/profile-eel-notes.md`](v6/profile-eel-notes.md) | Suspects only, none confirmed |
 

@@ -16,6 +16,16 @@ What changed in each version, newest first. Profile files are frozen per release
 
 - Docs pages redesigned: shared navigation, section tabs, table of contents, code blocks with copy buttons, previous and next links.
 
+## v6.1.0
+
+Four VDCs ship a refit 44.1 kHz bank: iem-v4, iem-v10, spk-v8 and spk-v10. Nothing else in the profiles changes.
+
+### Changed
+
+- The 44.1 kHz bank now matches the 48 kHz bank within 0.01 to 0.20 dB (calculated), down from 0.9 to 1.6 dB. `vdc.sr_consistency` is `pass` on all six builds; the release has 108 `pass`, 0 `warn`, 6 `not_run`.
+- The refit was checked by the author by ear on a 44.1 kHz file. It is not an instrument measurement.
+- The 48 kHz banks, section counts, IRS and EEL files are unchanged; see `releases/6.1.0/DIFF.md`.
+
 ## v6.0.1
 
 Profile files are unchanged (byte-identical to v5.0.0 and v6.0.0); this release corrects metadata, packaging and tooling.

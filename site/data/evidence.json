@@ -1,8 +1,8 @@
 {
- "version": "6.0.1",
+ "version": "6.1.0",
  "totals": {
-  "pass": 104,
-  "warn": 4,
+  "pass": 108,
+  "warn": 0,
   "fail": 0,
   "not_run": 6
  },
@@ -211,24 +211,24 @@
      "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.14 dB over 20-20k Hz (limit 0.3)"
     },
     "iem-v4": {
-     "status": "warn",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.92 dB over 20-20k Hz (limit 0.3); known v5 deviation, refit in candidates/v6 awaiting listening check"
+     "status": "pass",
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.03 dB over 20-20k Hz (limit 0.3)"
     },
     "iem-v10": {
-     "status": "warn",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 1.36 dB over 20-20k Hz (limit 0.3); known v5 deviation, refit in candidates/v6 awaiting listening check"
+     "status": "pass",
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.01 dB over 20-20k Hz (limit 0.3)"
     },
     "spk-v6": {
      "status": "pass",
      "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.02 dB over 20-20k Hz (limit 0.3)"
     },
     "spk-v8": {
-     "status": "warn",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 1.59 dB over 20-20k Hz (limit 0.3); known v5 deviation, refit in candidates/v6 awaiting listening check"
+     "status": "pass",
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.02 dB over 20-20k Hz (limit 0.3)"
     },
     "spk-v10": {
-     "status": "warn",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 1.57 dB over 20-20k Hz (limit 0.3); known v5 deviation, refit in candidates/v6 awaiting listening check"
+     "status": "pass",
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.20 dB over 20-20k Hz (limit 0.3)"
     }
    }
   },

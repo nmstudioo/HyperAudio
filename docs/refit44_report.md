@@ -23,4 +23,4 @@ Max error is the 44.1 kHz bank against the 48 kHz bank.
 
 - Only the 44.1 kHz line of four VDCs changes.
 - The 48 kHz bank, the section counts and the file format are untouched.
-- The refit files are in `candidates/v6/` and are not part of any release until promoted. See [Open items](OPEN.md), item 7.
+- The refit files are in `candidates/v6/` and were promoted into `src/profiles/` in 6.1.0 after a listening check reported by the author.

@@ -6,7 +6,7 @@ Evidence comes in three tiers that are never mixed on the site: offline automate
 
 | Tier | Today |
 |---|---|
-| 1. Offline, automated | `releases/<v>/acceptance.json`, produced by `build/build.py`. Runs on every build; 6.0.0 has 104 `pass`, 4 `warn` and 6 `not_run`. |
+| 1. Offline, automated | `releases/<v>/acceptance.json`, produced by `build/build.py`. Runs on every build; 6.1.0 has 108 `pass`, 0 `warn` and 6 `not_run`. |
 | 2. Device-reported | `docs/evidence/device-tests.json`. Every build is `untested` until a result is recorded. |
 | 3. Acoustic measurement | None yet; the site keeps saying "calculated". |
 
@@ -20,7 +20,7 @@ Each build is checked for file validity, VDC banks and sections, IRS format and 
 |---|---|
 | `response.*` | `pass`. The shipped VDC times IRS reproduces each stored `correction` curve to 0.03 dB RMS on all six builds. |
 | `eel.compile`, `limiter.*`, `tail`, `nan_soak` | `pass`. Run through `tests/eel` (eel2py). |
-| `vdc.sr_consistency` | `warn` on iem-v4, iem-v10, spk-v8 and spk-v10: the 44.1 kHz bank differs from the 48 kHz bank by 0.9 to 1.6 dB at 20 kHz. |
+| `vdc.sr_consistency` | `pass` on all six builds in 6.1.0: the 44.1 kHz bank is within 0.01 to 0.20 dB of the 48 kHz bank (limit 0.3). In 6.0.x it was `warn` on four builds (0.9 to 1.6 dB). |
 | `cpu` | `not_run`. Needs a device. |
 
 The response convention is documented in the `build/response.py` docstring: `predicted` is raw plus correction plus a constant level alignment.
