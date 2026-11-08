@@ -16,18 +16,20 @@ CASES = [
     ("spk-v10", "candidates/v7/eel/SPK_v10.eel"),
 ]
 
-failed = False
-for pid, relpath in CASES:
+def run(case):
+    pid, relpath = case
     path = os.path.join(ROOT, relpath)
     if not os.path.isfile(path):
-        print(f"FAIL {pid}: missing candidate EEL {relpath}")
-        failed = True
-        continue
-    for result in build_checks(path, pid, gate="candidate-v7"):
-        status = result["status"].upper()
-        print(f"{status} {pid} {result['check']}: {result['detail']}")
-        if result["status"] != "pass":
-            failed = True
+        return pid, [dict(check="file", status="fail", detail=f"missing candidate EEL {relpath}")]
+    return pid, build_checks(path, pid, gate="candidate-v7")
 
-print("v7 candidate limiter gate: " + ("FAILED" if failed else "PASS"))
-sys.exit(1 if failed else 0)
+if __name__ == "__main__":
+    from concurrent.futures import ProcessPoolExecutor   # the six EELs are independent: ~4x faster on a 4-core runner
+    failed = False
+    with ProcessPoolExecutor() as ex:
+        for pid, results in ex.map(run, CASES):
+            for result in results:
+                print(f"{result['status'].upper()} {pid} {result['check']}: {result['detail']}")
+                failed |= result["status"] != "pass"
+    print("v7 candidate limiter gate: " + ("FAILED" if failed else "PASS"))
+    sys.exit(1 if failed else 0)
