@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 <meta name="theme-color" content="#000000"/>
 <meta name="color-scheme" content="dark light"/>
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml"/>
@@ -11,12 +12,10 @@
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png"/>
 <link rel="manifest" href="manifest.webmanifest"/>
 <script src="assets/js/theme-init.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="assets/css/fonts.css"/>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <link rel="stylesheet" href="assets/css/site.css"/>
-<link rel="stylesheet" href="assets/css/v7-ui.css"/>
 <link rel="stylesheet" href="assets/css/docs.css"/>
 <link rel="stylesheet" href="assets/css/nav.css"/>
 <title>HyperAudio · RootlessJamesDSP profiles for KZ EDX Pro</title>
@@ -169,6 +168,10 @@
 </defs>
 </svg>
 <a class="skip" href="#setup">Skip to content</a>
+<aside class="v7-dock" id="dock" aria-label="Selected profile" hidden>
+<div class="dk-t"><b id="dockName"></b><small class="dk-s" id="dockEv"></small></div>
+<a class="btn pri sm" id="dockGet" href="#" download><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg><span>Download</span></a>
+</aside>
 <div class="shell">
 <main id="main">
 <section class="panel" id="overview" aria-labelledby="h-hero">
@@ -233,19 +236,6 @@ the downloads folder of the repository.
 directly from disk, serve the folder over http (for example
 <code>python3 -m http.server</code>) or use the hosted site.</span>
 </p>
-<div class="cmp-hook">
-<div class="cmp-top">
-<h2>Predicted response</h2>
-<span class="hint">Tap a curve name to hide it · drag across the chart to read
-values</span>
-</div>
-<div class="chartbox" id="cmpChart" tabindex="0" role="group" aria-label="Predicted frequency response for the active profile"></div>
-<div class="tgt" id="cmpLegend" role="group" aria-label="Show or hide a curve"></div>
-<p class="note" id="cmpNote">
-<svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span></span>
-</p>
-<p class="sr" id="cmpSum" aria-live="polite"></p>
-</div>
 <ol class="steps3">
 <li id="step1">
 <div class="st-h">
@@ -321,6 +311,24 @@ Copy link to this setup
 </div>
 </li>
 </ol>
+<div class="cmp-hook">
+<div class="cmp-top">
+<h2>Predicted response</h2>
+<span class="hint">Tap a curve name to hide it · hover, drag or use the arrow keys to read values</span>
+</div>
+<div class="chartbox" id="cmpChart" tabindex="0" role="group" aria-label="Predicted frequency response for the active profile"></div>
+<div class="cmp-ctl">
+<div class="seg" id="cmpSmooth" role="group" aria-label="Display smoothing">
+<button type="button" data-o="0" aria-pressed="true">Raw</button><button type="button" data-o="6" aria-pressed="false">1/6 oct</button><button type="button" data-o="3" aria-pressed="false">1/3 oct</button>
+</div>
+<label class="cmp-ovl"><span>Overlay</span><select id="cmpOvl" aria-label="Overlay another profile for the same output"></select></label>
+</div>
+<div class="tgt" id="cmpLegend" role="group" aria-label="Show or hide a curve"></div>
+<p class="note" id="cmpNote">
+<svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span></span>
+</p>
+<p class="sr" id="cmpSum" aria-live="polite"></p>
+</div>
 </section>
 <section class="flow" id="apply" aria-labelledby="h-apply">
 <div class="sec-h">
@@ -550,6 +558,5 @@ headroom, tuned for clarity rather than loudness.
 <script src="assets/js/chart.js"></script>
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/v7-ui.js"></script>
 </body>
 </html>

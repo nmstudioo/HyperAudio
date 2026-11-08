@@ -1,7 +1,7 @@
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://localhost:8765/';
 const pages = ['index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'docs/index.html'];
-const MAX_KB = 1500;
+const MAX_KB = 650;
 (async () => {
 const browser = await chromium.launch();
 let bad = 0;

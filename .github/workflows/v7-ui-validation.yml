@@ -9,6 +9,7 @@ on:
       - "site/**"
       - "build/seo.py"
       - "tests/ui-v7-contract.js"
+      - "tests/ui-behavior.js"
       - ".github/workflows/v7-ui-validation.yml"
 permissions:
   contents: read
@@ -40,7 +41,7 @@ jobs:
       - name: Install browser test tools
         run: |
           npm install --no-save playwright axe-core
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
       - name: Serve website
         run: |
           python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
@@ -53,6 +54,15 @@ jobs:
           node tests/footer.js http://localhost:8765/
           node tests/a11y.js http://localhost:8765/
           node tests/budget.js http://localhost:8765/
+          node tests/ui-behavior.js http://localhost:8765/
+          node tests/screenshots.js http://localhost:8765/ shots
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ui-screenshots
+          path: shots/
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Build source ZIP
         if: success()
         run: |

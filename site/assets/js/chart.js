@@ -17,7 +17,6 @@ const fmtF = (f) =>
 f >= 1000
 ? (f / 1000).toFixed(f >= 10000 ? 1 : 2).replace(/\.?0+$/, "") + " kHz"
 : Math.round(f * 10) / 10 + " Hz";
-const respDb = () => 0;
 
 /* == chart == */
 function interp(p, f) {
@@ -105,12 +104,13 @@ lo = Math.min(lo, p[1]);
 hi = Math.max(hi, p[1]);
 }),
 );
-const y0 = Math.floor((lo - 1) / 3) * 3,
-y1 = Math.ceil((hi + 1) / 3) * 3,
+const fixed = Array.isArray(c.yr) && c.yr.length === 2 && c.yr[1] > c.yr[0],
+y0 = fixed ? c.yr[0] : Math.floor((lo - 1) / 3) * 3,
+y1 = fixed ? c.yr[1] : Math.ceil((hi + 1) / 3) * 3,
 L = Math.log10,
 X = (v) => m.l + ((L(v) - L(x0)) / (L(x1) - L(x0))) * (W - m.l - m.r),
 Y = (v) => m.t + ((y1 - v) / (y1 - y0)) * (H - m.t - m.b);
-host._s = { X, Y, W, H, m, x0, x1 };
+host._s = { X, Y, W, H, m, x0, x1, y0, y1 };
 let g = `<rect x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}" rx="8" fill="url(#pb${host.id})"/>`,
 df = `<linearGradient id="pb${host.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--tx)" stop-opacity=".06"/><stop offset="1" stop-color="var(--tx)" stop-opacity=".01"/></linearGradient><filter id="gl${host.id}" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="4"/></filter>`;
 const ha = c.series.some((x) => x.area);
@@ -123,6 +123,13 @@ if (a1 <= a0) return;
 const xa = X(a0), xb = X(a1);
 if (i === 1) g += `<rect x="${xa}" y="${m.t}" width="${xb - xa}" height="${bh}" fill="var(--tx)" opacity=".025"/>`;
 if (xb - xa > 46) g += `<text x="${(xa + xb) / 2}" y="${m.t + 13}" text-anchor="middle" font-size="9" letter-spacing=".16em" fill="var(--mut)" opacity=".7">${z[2]}</text>`;
+});
+(c.bands || []).forEach((b) => {
+const a0 = Math.max(b.f0, x0), a1 = Math.min(b.f1, x1);
+if (a1 <= a0) return;
+const xa = X(a0), xb = X(a1);
+g += `<rect x="${xa}" y="${m.t}" width="${xb - xa}" height="${bh}" fill="var(--tx)" opacity=".07"/><line x1="${xb}" x2="${xb}" y1="${m.t}" y2="${H - m.b}" stroke="var(--tx)" stroke-opacity=".28" stroke-dasharray="3 4"/>`;
+if (b.label && xb - xa > 34) g += `<text x="${(xa + xb) / 2}" y="${H - m.b - 8}" text-anchor="middle" font-size="9" letter-spacing=".08em" fill="var(--tx2)">${b.label}</text>`;
 });
 for (let v = y0; v <= y1; v += ys)
 g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="${v === 0 ? "var(--tx)" : "var(--tx)"}" stroke-opacity="${v === 0 ? 0.3 : 0.07}" stroke-width="1"/><text x="${m.l - 8}" y="${Y(v) + 3.5}" text-anchor="end" font-size="10.5" fill="${v === 0 ? "var(--tx2)" : "var(--mut)"}" style="font-variant-numeric:tabular-nums">${v > 0 ? "+" : v < 0 ? "\u2212" : ""}${Math.abs(v)}</text>`;
@@ -153,17 +160,6 @@ s.pts.forEach(
 (g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4" fill="var(--deep)" stroke="${s.color}" stroke-width="2"/>`),
 );
 });
-(c.marks || []).forEach((k) => {
-if (k.hidden || k.fc < x0 || k.fc > x1) return;
-const y = Y(
-respDb(
-c.filters.filter((f) => !f.hidden),
-k.fc,
-),
-);
-const r = k.hl ? 10 : 8;
-g += `<line x1="${X(k.fc)}" x2="${X(k.fc)}" y1="${Y(0)}" y2="${y}" stroke="${k.col}" stroke-width="1" opacity=".45"/><circle cx="${X(k.fc)}" cy="${y}" r="${r}" fill="${k.col}" stroke="${k.hl ? "var(--tx)" : "var(--deep)"}" stroke-width="2"/><text x="${X(k.fc)}" y="${y + 3.5}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--bg)">${k.n}</text>`;
-});
 g += `<line id="cur" y1="${m.t}" y2="${H - m.b}" stroke="var(--tx)" stroke-opacity=".35" style="display:none"/><g id="dots" pointer-events="none"></g>`;
 host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" role="img" aria-label="${c.label}"><defs>${df}<clipPath id="cp${host.id}"><rect x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}"/></clipPath></defs>${g}<rect x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}" fill="transparent" id="hit"/></svg><div class="tip" aria-hidden="true"></div>`;
 }
@@ -181,7 +177,8 @@ s.x0 * Math.pow(s.x1 / s.x0, (fx - s.m.l) / (s.W - s.m.l - s.m.r)),
 tip = $(".tip", host),
 cur = $("#cur", host);
 let rows = "",
-dots = "";
+dots = "",
+spoken = [];
 let RV =
 c.ref != null && c.series[c.ref] ? interp(c.series[c.ref].pts, f) : null;
 if (!Number.isFinite(RV)) RV = null;
@@ -196,16 +193,8 @@ d == null ||
 return;
 if (Number.isFinite(d))
 dots += `<circle cx="${s.X(f).toFixed(1)}" cy="${s.Y(d).toFixed(1)}" r="9" fill="${v.color}" opacity=".18"/><circle cx="${s.X(f).toFixed(1)}" cy="${s.Y(d).toFixed(1)}" r="4.5" fill="${v.color}" stroke="var(--bg)" stroke-width="2"/>`;
+spoken.push(v.label + " " + (d > 0 ? "plus " : d < 0 ? "minus " : "") + Math.abs(d).toFixed(1) + " decibels");
 rows += `<div><span><svg class="tsw" viewBox="0 0 16 8" aria-hidden="true"><line x1="0" x2="16" y1="4" y2="4" stroke="${v.color}" stroke-width="2.5" ${v.dash ? `stroke-dasharray="${v.dash}"` : ""}/></svg>${v.label}</span><b>${d > 0 ? "+" : ""}${d.toFixed(1)} dB${RV != null && vi !== c.ref ? ` <small>(${d - RV >= 0 ? "+" : ""}${(d - RV).toFixed(1)})</small>` : ""}</b></div>`;
-});
-let near = null,
-nd = 0.3;
-(c.marks || []).forEach((k) => {
-const d = Math.abs(Math.log2(k.fc / f));
-if (!k.hidden && d < nd) {
-nd = d;
-near = k;
-}
 });
 let dlt = "";
 if (c.delta) {
@@ -214,7 +203,7 @@ B = interp(c.series[c.delta[1]].pts, f);
 if (A != null && B != null)
 dlt = `<div class="dl"><span>Change (after − before)</span><b>${B - A >= 0 ? "+" : ""}${(B - A).toFixed(1)} dB</b></div>`;
 }
-tip.innerHTML = `<b>${fmtF(f)}</b>${rows}${dlt}${near ? `<div style="margin-top:4px;color:var(--tx2)"><span>Filter ${near.n} · ${near.type.toUpperCase()}</span><b>${near.q != null ? "Q " + near.q : ""}</b></div><div style="color:var(--tx2)"><span>${fmtF(near.fc)}</span><b>${near.g != null ? (near.g > 0 ? "+" : "") + near.g + " dB" : ""}</b></div>` : ""}${host._pin ? '<div class="pin">Pinned · tap outside to clear</div>' : ""}`;
+tip.innerHTML = `<b>${fmtF(f)}</b>${rows}${dlt}${host._pin ? '<div class="pin">Pinned · tap outside to clear</div>' : ""}`;
 tip.style.display = "block";
 const x = s.X(f),
 w = tip.offsetWidth;
@@ -233,6 +222,7 @@ cur.style.display = "";
 const dg = $("#dots", host);
 if (dg) dg.innerHTML = dots;
 host._f = f;
+host._read = fmtF(f) + ". " + spoken.join(". ") + ".";
 }
 function wire(host) {
 const mv = (e) => {
@@ -277,6 +267,13 @@ const f =
 (host._f || Math.sqrt(s.x0 * s.x1)) *
 Math.pow(2, (e.key === "ArrowLeft" ? -1 : 1) * 0.15);
 hover(host, s.X(Math.min(s.x1, Math.max(s.x0, f))));
+if (!host._live) {
+host._live = document.createElement("p");
+host._live.className = "sr";
+host._live.setAttribute("aria-live", "polite");
+host.insertAdjacentElement("afterend", host._live);
+}
+host._live.textContent = host._read || "";
 });
 host.addEventListener("blur", () => {
 if (!host._pin) {

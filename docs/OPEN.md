@@ -25,7 +25,7 @@ Status of the v6 work. The shipped profile files differ from v5.0.0 only in the 
 | 8 | Profile EEL (Pop, EDM and others) | Not in the repo; no unstable path found by reading | A symptom description; fixes are in [the notes](../candidates/v6/profile-eel-notes.md); then a device test |
 | 9 | Device evidence | All six builds `untested` | One pass or fail per build (build, device, date, result) |
 | 10 | Acoustic measurements | None | A mic measurement, or the site keeps saying "calculated" |
-| 11 | Self-hosted fonts | Google Fonts fallback (the sandbox could not download) | woff2 files for Plus Jakarta Sans and JetBrains Mono |
+| 11 | Self-hosted fonts | Done in UI 7.0.0: Plus Jakarta Sans (400, 600, 800) and JetBrains Mono (400, 700), latin subset, in `site/assets/fonts/` via `tools/fetch_fonts.sh` | Nothing |
 | 12 | v1 to v4 history | The archive lists them as "no record in repo" | Old notes or files |
 | 13 | Release v6.1.0 | Built and frozen in the repo | Tag `v6.1.0` and confirm the release workflow is green |
 | 14 | KZ EDX Pro · GHD candidate | In `candidates/v6/iem-ghd`; offline gates pass (calculated) | Limiter figures match v5 exactly (unexplained), CPU, `init_done` in JamesDSP, one listening check |

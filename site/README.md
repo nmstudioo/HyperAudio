@@ -25,7 +25,8 @@ sw.js                      service worker (network first, cache fallback)
 assets/brand/              logo, logo-light, logo-mark, github-cover, og-image (SVG and PNG)
 assets/icons/              favicon, apple-touch, 192/512 and maskable icons
 assets/img/                app-layout.webp
-assets/css/                main, site, nav and docs styles
+assets/css/                fonts, main, site, nav and docs styles
+assets/fonts/              self-hosted woff2 (tools/fetch_fonts.sh)
 assets/js/                 app, chart, nav, pages, docs, theme-init
 data/profiles.json         single source of truth: profiles, files, SHA-256, curves
 data/                      versions, evidence and choose data

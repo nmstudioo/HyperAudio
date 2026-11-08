@@ -18,7 +18,6 @@ Both groups are needed to finish v6 hardware verification and are blocked on ext
 |:--|:--|
 | **Generator script** | Creates the +10/+12 dB speaker variants and the Protection V6 build (2.24 IR peak) |
 | **Unstable profile EEL** | The script causing instability is missing, so the bug cannot be reproduced |
-| **Fonts (`.woff2`)** | Without them the fonts cannot be self-hosted; the site uses Google Fonts |
 
 ### Needs hardware
 
@@ -29,7 +28,7 @@ Both groups are needed to finish v6 hardware verification and are blocked on ext
 
 ## How to resume
 
-1. Drop the generator, EEL and fonts into `build/` or `site/assets/fonts/`.
+1. Drop the generator and EEL into `build/`.
 2. Run `python3 build/build.py` to generate the new profiles.
 3. Run `tst` (or `python3 tests/check.py`) to verify.
 4. Update `VERSION` and commit.

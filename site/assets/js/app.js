@@ -58,6 +58,37 @@ what: "ViPER-DDC filter bank",
 };
 let DATA, PROF, prof, eqHost, cmpC;
 
+/* == evidence chips (one component, four evidence classes) == */
+let EV = null, EVP;
+const loadEv = () => EVP || (EVP = fetch("data/evidence.json").then((r) => (r.ok ? r.json() : Promise.reject(r.status))));
+function evStatus(p, row) {
+const r = EV && EV.rows.find((x) => x.id === row);
+return r && r.cells[p.id] ? r.cells[p.id].status : "untested";
+}
+function evChips(p, compact) {
+const chip = (s, t, tip) => `<span class="evc" data-s="${s}" title="${esc(tip)}">${esc(t)}</span>`;
+const calc = chip("calc", "Calculated response", "Computed from the shipped files, not measured.");
+const exp = p.experimental || p.status === "candidate" ? chip("exp", "Experimental", "Candidate build. Not a stable release.") : "";
+if (!EV) return exp + calc;
+const st = (id) => evStatus(p, id);
+const dv = st("device");
+const device = chip(dv === "pass" ? "ok" : dv === "fail" ? "bad" : "none", dv === "pass" ? "Device test passed" : dv === "fail" ? "Device test failed" : "No device record", "Per-build device test result.");
+if (compact) return exp + calc + device;
+const pass = EV.rows.filter((r) => st(r.id) === "pass").length;
+const off = chip(pass === EV.rows.length ? "ok" : "warn", "Offline checks " + pass + "/" + EV.rows.length, "Automated checks that pass for this build.");
+const ac = chip(EV.tiers.measured ? "ok" : "none", EV.tiers.measured ? "Acoustic measured" : "Not measured", "Microphone measurement of the response.");
+return exp + calc + off + device + ac;
+}
+function metrics(p) {
+const s = p.stats;
+return '<span class="v7-profile-metrics" role="group" aria-label="Calculated profile metrics">' + [
+[s.rms.toFixed(2) + " dB", "RMS target error", "RMS gap between the predicted response and the target (calculated)"],
+[s.chainMax.toFixed(1) + " dB", "Chain maximum", "Highest gain of the VDC and impulse response together"],
+[String(s.sections), "VDC sections", "Biquad sections in the VDC"],
+[s.irsPeak.toFixed(2), "IRS sample peak", "Peak sample value of the impulse response"],
+].map((m) => `<span title="${esc(m[2])}"><b>${m[0]}</b><small>${m[1]}</small></span>`).join("") + "</span>";
+}
+
 /* == toast == */
 function toast(msg, err) {
 const box = $("#toasts"),
@@ -155,54 +186,58 @@ $("#heroRead").innerHTML =
 $("#heroOut").textContent =
 prof.device === "iem" ? "Wired 3.5\u00a0mm" : "Internal speaker";
 }
+let smoothO = 0, ovlId = "";
+const YR = { iem: [-18, 18], spk: [-30, 12] };
+function smoothArr(f, a, o) {
+if (!o) return a;
+const h = 1 / (2 * o);
+return a.map((_, i) => {
+let t = 0, n = 0;
+for (let j = 0; j < a.length; j++) if (Math.abs(Math.log2(f[j] / f[i])) <= h) { t += a[j]; n++; }
+return t / n;
+});
+}
 function drawCompare() {
 const f = DATA.freq,
 cv = prof.curves,
-pts = (a) => a.map((v, i) => [f[i], v]);
+pts = (a) => smoothArr(f, a, smoothO).map((v, i) => [f[i], v]),
+prev = {};
+if (cmpC) cmpC.series.forEach((s) => { prev[s.label] = !!s.hidden; });
+const others = byDev(prof.device).filter((p) => p.id !== prof.id);
+if (!others.some((p) => p.id === ovlId)) ovlId = "";
+const sel = $("#cmpOvl");
+sel.innerHTML = '<option value="">None</option>' + others.map((p) => `<option value="${p.id}">${esc(p.name)}</option>`).join("");
+sel.value = ovlId;
+const series = [
+{ label: "Before (device raw)", pts: pts(cv.raw), color: "var(--s-raw)", w: 1.6 },
+{ label: "After (with profile)", pts: pts(cv.predicted), color: "var(--acc)", w: 2.6, area: true },
+{ label: "Target", pts: pts(cv.target), color: "var(--ch-tgt)", w: 1.5, dash: "5 5" },
+];
+const ov = others.find((p) => p.id === ovlId);
+if (ov) series.push({ label: "Overlay · " + ov.short + " after", pts: pts(ov.curves.predicted), color: "var(--s-harman)", w: 2, dash: "2 4" });
+series.forEach((s) => { if (prev[s.label]) s.hidden = true; });
 cmpC = {
 label: "Predicted response",
 ref: 2,
 delta: [0, 1],
-series: [
-{
-label: "Before (device raw)",
-pts: pts(cv.raw),
-color: "var(--s-raw)",
-w: 1.6,
-},
-{
-label: "After (with profile)",
-pts: pts(cv.predicted),
-color: "var(--acc)",
-w: 2.6,
-area: true,
-},
-{
-label: "Target",
-pts: pts(cv.target),
-color: "var(--ch-tgt)",
-w: 1.5,
-dash: "5 5",
-},
-],
+yr: YR[prof.device],
+bands: prof.device === "spk" ? [{ f0: 20, f1: 110, label: "HIGH-PASS" }] : [],
+series,
 };
 window.HAChart.drawChart(eqHost, cmpC);
-window.HAChart.legend($("#cmpLegend"), cmpC, () =>
-window.HAChart.drawChart(eqHost, cmpC),
-);
+window.HAChart.legend($("#cmpLegend"), cmpC, () => window.HAChart.drawChart(eqHost, cmpC));
 $("#cmpNote span").textContent =
-prof.device === "spk"
-? "Computed from the raw and target files, level-matched at 1 to 6 kHz. The speaker boost is capped at +8 dB, so the curve stays below the target between 100 and 2000 Hz by design."
-: "Computed from the raw and target files, level-matched at 300 Hz to 3 kHz. This is a calculation, not an acoustic measurement.";
+(prof.device === "spk"
+? "Computed from the raw and target files, level-matched at 1 to 6 kHz. The speaker boost is capped at +8 dB and everything below 110 Hz is high-passed, so the curve stays below the target between 100 and 2000 Hz by design."
+: "Computed from the raw and target files, level-matched at 300 Hz to 3 kHz. This is a calculation, not an acoustic measurement.") +
+" The vertical scale is fixed for each output so profiles can be compared; values beyond it are clipped (hover to read them)." +
+(smoothO ? " Display smoothing is cosmetic; the error figures use the unsmoothed data." : "");
 const pe = cv.predicted.map((v, i) => v - cv.target[i]),
-sel = f
-.map((x, i) =>
-x >= (prof.device === "iem" ? 30 : 100) && x <= 16000 ? i : -1,
-)
+idx = f
+.map((x, i) => (x >= (prof.device === "iem" ? 30 : 100) && x <= 16000 ? i : -1))
 .filter((i) => i >= 0),
-r = Math.sqrt(sel.reduce((s, i) => s + pe[i] * pe[i], 0) / sel.length);
-$("#cmpSum").textContent =
-`${prof.name}: RMS difference from the target ${r.toFixed(1)} dB.`;
+r = Math.sqrt(idx.reduce((s, i) => s + pe[i] * pe[i], 0) / idx.length);
+$("#cmpSum").textContent = `${prof.name}: RMS difference from the target ${r.toFixed(1)} dB.`;
 }
 
 /* == step 1 and 2 == */
@@ -224,7 +259,7 @@ const sc = $("#snd").scrollLeft;
 $("#snd").innerHTML = byDev(prof.device)
 .map(
 (p) =>
-`<button type="button" class="snd-c" data-p="${p.id}" aria-pressed="${p.id === prof.id}"><span class="snd-h"><b>${esc(p.short)}</b>${p.id === prof.id ? '<i class="act">Active</i>' : ""}</span>${spark(p.curves.correction)}<span class="snd-d">${esc(p.desc)}</span></button>`,
+`<button type="button" class="snd-c" data-p="${p.id}" aria-pressed="${p.id === prof.id}"><span class="snd-h"><b>${esc(p.short)}</b>${p.id === prof.id ? '<i class="act">Active</i>' : ""}</span>${spark(p.curves.correction)}<span class="snd-d">${esc(p.desc)}</span>${metrics(p)}</button>`,
 )
 .join("");
 $("#snd").scrollLeft = sc;
@@ -252,7 +287,7 @@ const g = $("#getBtn");
 g.href = prof.bundle.path;
 g.setAttribute("download", prof.bundle.name);
 $("#evBadge").innerHTML =
-`<span class="evt-b ok">Offline-verified</span><span class="evt-b dev">Device note: reported · not build-verified</span><small>${esc(prof.evidence.deviceNote)} Not measured acoustically.</small>`;
+`<span class="evrow">${evChips(prof)}</span><small>${esc(prof.evidence.deviceNote)}</small>`;
 $("#verLine span").innerHTML =
 `SHA-256: <code class="sha">${prof.bundle.sha256.slice(0, 12)}…</code><button type="button" class="cp-b" data-ct="${prof.bundle.sha256}" aria-label="Copy the full SHA-256">${ic("copy", 'style="width:15px;height:15px"')}<span class="sr">Copy</span></button>`;
 }
@@ -412,8 +447,7 @@ $("#dlProf").textContent = prof.name;
 function buildEvx() {
 var host = $("#evxMatrix");
 if (!host) return;
-fetch("data/evidence.json")
-.then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+loadEv()
 .then((E) => {
 var T = E.totals,
 n = T.pass + T.warn + T.fail + T.not_run,
@@ -453,7 +487,7 @@ note.setAttribute("aria-live", "polite");
 function buildEvidence() {
 $("#evCards").innerHTML = PROF.map((p) => {
 const s = p.stats, sg = (v) => (v > 0 ? "+" : "") + v.toFixed(1) + " dB";
-return `<article class="card hw-card ev-pc"><div class="top"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div></div><dl class="specs"><div><dt>Target error</dt><dd>${s.rms.toFixed(2)} dB${s.capped ? " <small>capped</small>" : ""}</dd></div><div><dt>Gain at 1 kHz</dt><dd>${sg(s.gain1k)}</dd></div><div><dt>Chain max</dt><dd>${sg(s.chainMax)}</dd></div><div><dt>IRS peak</dt><dd>${s.irsPeak.toFixed(2)}</dd></div><div><dt>VDC</dt><dd>${s.sections} sections</dd></div></dl></article>`;
+return `<article class="card hw-card ev-pc"><div class="top"><span class="fico">${ic(p.device === "iem" ? "phones" : "device")}</span><div><span class="eyebrow">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div></div><dl class="specs"><div><dt>Target error</dt><dd>${s.rms.toFixed(2)} dB${s.capped ? " <small>capped</small>" : ""}</dd></div><div><dt>Gain at 1 kHz</dt><dd>${sg(s.gain1k)}</dd></div><div><dt>Chain max</dt><dd>${sg(s.chainMax)}</dd></div><div><dt>IRS peak</dt><dd>${s.irsPeak.toFixed(2)}</dd></div><div><dt>VDC</dt><dd>${s.sections} sections</dd></div></dl><div class="evrow">${evChips(p)}</div></article>`;
 }).join("");
 }
 function buildStats() {
@@ -545,6 +579,29 @@ $("#faqList").innerHTML = FAQ.map(
 $("#faqCount").textContent = FAQ.length + " topics";
 }
 
+/* == sticky download dock (small screens) == */
+function updateDock() {
+const g = $("#dockGet");
+if (!g) return;
+$("#dockName").textContent = prof.name;
+$("#dockEv").textContent = "Calculated response" + (EV ? " · " + ({ pass: "device test passed", fail: "device test failed" }[evStatus(prof, "device")] || "no device record") : "");
+g.href = prof.bundle.path;
+g.setAttribute("download", prof.bundle.name);
+g.dataset.dl = prof.bundle.name;
+}
+function wireDock() {
+const dock = $("#dock"), setup = $("#setup"), get = $("#getBtn");
+if (!dock || !setup || !get || !("IntersectionObserver" in window)) return;
+let inSetup = false, inGet = false;
+const upd = () => { dock.hidden = !(inSetup && !inGet); };
+const io = new IntersectionObserver((es) => {
+es.forEach((e) => { if (e.target === setup) inSetup = e.isIntersecting; else inGet = e.isIntersecting; });
+upd();
+});
+io.observe(setup);
+io.observe(get);
+}
+
 /* == selection == */
 function select(id, quiet) {
 const p = PROF.find((x) => x.id === id);
@@ -562,6 +619,7 @@ renderApply();
 markRec();
 drawHero();
 drawCompare();
+updateDock();
 if (!quiet) {
 const u = new URL(location.href);
 u.searchParams.set("p", id);
@@ -619,16 +677,30 @@ all[n].click();
 });
 
 /* == boot == */
-fetch("data/profiles.json")
-.then((r) => {
+Promise.all([
+fetch("data/profiles.json").then((r) => {
 if (!r.ok) throw new Error("HTTP " + r.status);
 return r.json();
-})
-.then((d) => {
+}),
+loadEv().catch(() => null),
+])
+.then(([d, ev]) => {
+EV = ev;
 DATA = d;
 PROF = d.profiles;
 eqHost = $("#cmpChart");
 window.HAChart.wire(eqHost);
+$("#cmpSmooth").addEventListener("click", (e) => {
+const b = e.target.closest("button");
+if (!b) return;
+smoothO = +b.dataset.o;
+$$("#cmpSmooth button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+drawCompare();
+});
+$("#cmpOvl").addEventListener("change", (e) => {
+ovlId = e.target.value;
+drawCompare();
+});
 buildHub();
 buildEvidence();
 buildEvx();
@@ -640,6 +712,7 @@ select(
 [q, saved, PROF[0].id].find((id) => PROF.some((p) => p.id === id)),
 true,
 );
+wireDock();
 })
 .catch((err) => {
 console.error(err);

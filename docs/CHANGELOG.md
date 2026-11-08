@@ -4,6 +4,14 @@ What changed in each version, newest first. Profile files are frozen per release
 
 ## Unreleased (v7 work)
 
+### UI 7.0.0 (site only; DSP release stays 6.1.0)
+
+- Folded the first v7 overlay (`v7-ui.js`, `v7-ui.css`) into `app.js` and `site.css`; no MutationObservers, no runtime copy rewrites.
+- Response chart: fixed vertical scale per output, high-pass band on speaker profiles, display-only 1/6 and 1/3 octave smoothing, same-output overlay, spoken readout for keyboard users.
+- One evidence chip component (calculated, offline checks, device record, acoustic) used in the files step and the evidence cards.
+- Sticky download dock on small screens while choosing a profile.
+- Self-hosted fonts, a content security policy, a service worker cache keyed to a separate `UI_VERSION`, and behaviour tests (`tests/ui-behavior.js`).
+
 ### Added
 
 - Single version source: `build/stamp.py` stamps `VERSION` into `index.html`, `versions.json` and `sw.js`; CI fails on stale stamps.

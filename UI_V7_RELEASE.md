@@ -1,45 +1,19 @@
-# HyperAudio v7 UI update
+# HyperAudio UI 7.0.0
 
-This package is a frontend-only enhancement for the repository state at commit
-`83ba68f2df87b32325c699f648ea948c4047e7ea` (8 November 2026). It does not
-promote candidate DSP files, change VDC/IRS/EEL artifacts, or alter the stable
-release number.
+Frontend only. `VERSION` stays at the DSP release (6.1.0); `src/`, `releases/` and `site/downloads/` are untouched. Candidate builds are not linked as downloads.
 
-## What changes
+## What changed
 
-- Makes the homepage device/profile selection the primary interaction and
-  places predicted-response analysis after profile selection.
-- Presents calculated per-profile metrics alongside each profile option.
-- Adds a direct `Use this profile` link to the profile finder result.
-- Constrains profile comparison to profiles for the same output device.
-- Removes unqualified device-tested wording from the homepage evidence area and
-  shared footer. Historical author reports remain distinct from per-build tests.
-- Reads displayed release versions from generated profile metadata.
-- Adds a coordinated responsive styling layer without replacing the existing
-  vanilla-JavaScript stack or design tokens.
-- Pre-caches the new CSS and JavaScript in the existing service worker so the
-  enhancement remains available when the site is used offline.
+- The first v7 overlay is folded into the sources. `v7-ui.js` and `v7-ui.css` are gone.
+- Chart: fixed y-scale per output, high-pass band on the speaker, display-only 1/6 and 1/3 octave smoothing, same-output overlay, spoken readout on arrow keys.
+- Evidence chips: calculated, offline checks, device record and acoustic status, from `data/evidence.json`. An `experimental` or `candidate` profile gets an Experimental chip.
+- Sticky download dock under 760 px while choosing a profile.
+- Fonts are self-hosted, a CSP meta is on every page, and the service worker cache has its own `UI_VERSION`.
 
-## Safety boundaries
+## Gates
 
-- `VERSION` remains `6.1.0` until a new DSP release is formally promoted.
-- `src/profiles/`, `releases/`, and `site/downloads/` are not modified by this UI
-  package.
-- Candidate builds remain experimental and are not linked as stable downloads.
-- Calculated response, device-reported listening, device measurement and
-  acoustic measurement are separate evidence classes.
+`python3 tools/ship.py`, `node tests/ui-v7-contract.js`, `node tests/ui-behavior.js` (Chromium and WebKit), plus the existing overflow, footer, a11y and budget tests. CI: `.github/workflows/v7-ui-validation.yml` (also uploads screenshots at 360, 768 and 1280 px).
 
-## Install
+## Evidence classes stay separate
 
-Run `python3 install_v7.py /path/to/HyperAudio` from this package. The installer
-checks the exact base commit and each edited file's Git blob SHA before making
-changes. It creates a timestamped backup before writing. It refuses to apply to
-an unexpected repository state rather than guessing at replacement locations.
-
-## Validation
-
-Run the checks listed in `INSTALL.md`. The included GitHub Actions workflow
-adds a dedicated UI validation and repository ZIP artifact job when the update
-is committed to a branch. The normal DSP acceptance workflow remains the final
-release gate; this UI package cannot resolve or override the current v6.1.0
-limiter acceptance failures.
+Calculated response, offline checks, device-reported listening, device test per build and acoustic measurement are different claims. The UI never merges them.

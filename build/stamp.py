@@ -10,6 +10,7 @@ def index(s):
     s = re.sub(r'HyperAudio v\d+\.\d+\.\d+(?: \(v\d+ in progress\))?', f'HyperAudio v{ver}', s)
     s = re.sub(r'downloads/v?\d+\.\d+\.\d+/', f'downloads/{ver}/', s)
     s = re.sub(r'RootlessJamesDSP v\d+ Profiles', f'RootlessJamesDSP v{ver.split(".")[0]} Profiles', s)
+    s = re.sub(r'(<span class="tag"><i aria-hidden="true"></i>)v\d+\.\d+\.\d+( · Stable release)', rf'\g<1>v{ver}\g<2>', s)
     return re.sub(r'(release <b>)v\d+\.\d+\.\d+(</b>)', rf'\g<1>v{ver}\g<2>', s)
 
 def versions(s):

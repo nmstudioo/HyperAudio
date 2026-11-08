@@ -3,15 +3,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 <title>Changelog · HyperAudio</title>
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml"/>
 <script src="assets/js/theme-init.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="assets/css/fonts.css"/>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <link rel="stylesheet" href="assets/css/site.css"/>
-<link rel="stylesheet" href="assets/css/v7-ui.css"/>
 <link rel="stylesheet" href="assets/css/nav.css"/>
 <!--seo--><meta name="description" content="What changed in each HyperAudio release: profiles, tooling, tests and site, with dates and the current version."/>
 <link rel="canonical" href="https://nmstudioo.github.io/HyperAudio/changelog.html"/>
@@ -56,6 +55,5 @@ HAP.versions("l", false);
 <section class="pg-about"><h2>About the changelog</h2><p class="note">The changelog records what changed in each HyperAudio release, from repository structure and tests to the profiles themselves. Release 6.0.0 changed tooling, tests, documentation and the site; its profile files are identical to 5.0.0.</p></section>
 </main>
 <script src="assets/js/nav.js"></script>
-<script src="assets/js/v7-ui.js"></script>
 </body>
 </html>
