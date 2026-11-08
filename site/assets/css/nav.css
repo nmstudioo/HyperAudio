@@ -339,3 +339,19 @@ to{border-bottom-color:var(--bd);box-shadow:0 10px 24px -18px rgba(0,0,0,.45)}
 .mh .mh-th::before,.mh .mh-m,.mh .mh-th,.mh-b{transition:none}
 .mh .mh-m:active,.mh .mh-th:active,.mh-b:active{transform:none}
 }
+
+/* == v8.6 header separation == */
+@media (max-width:767px){
+.mh{
+background:color-mix(in srgb,var(--elev) 88%,transparent);backdrop-filter:blur(24px) saturate(1.8);
+-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--bd2);
+box-shadow:0 1px 0 color-mix(in srgb,var(--tx) 5%,transparent) inset,0 8px 24px -16px rgba(0,0,0,.55);animation:none}
+:root[data-theme="light"] .mh{
+background:color-mix(in srgb,var(--surface) 90%,transparent);box-shadow:0 1px 0 #fff inset,0 8px 24px -16px rgba(40,36,28,.35)}
+.mh::after{
+content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;
+background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--acc) 45%,transparent) 50%,transparent);opacity:.55}
+.mh .mh-m,.mh .mh-th{background:color-mix(in srgb,var(--tx) 7%,transparent);border-color:var(--bd2)}
+.mh-t{gap:var(--space-1)}
+.mh-t b{margin-bottom:2px}
+}
