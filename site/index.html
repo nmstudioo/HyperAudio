@@ -16,7 +16,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <link rel="stylesheet" href="assets/css/site.css"/>
-<link rel="stylesheet" href="assets/css/v7-ui.css"/>
 <link rel="stylesheet" href="assets/css/docs.css"/>
 <link rel="stylesheet" href="assets/css/nav.css"/>
 <title>HyperAudio · RootlessJamesDSP profiles for KZ EDX Pro</title>
@@ -174,12 +173,14 @@
 <section class="panel" id="overview" aria-labelledby="h-hero">
 <div class="hero">
 <div class="hero-copy">
-<span class="tag"><i aria-hidden="true"></i>v6.1.0 · Stable release · calculated response</span>
+<span class="tag"><i aria-hidden="true"></i>v6.0.0 · Stable · responses calculated</span>
 <h1 id="h-hero">
 HyperAudio.<span class="dim">Calibrated.</span>
 </h1>
 <p class="lead">
-Matched RootlessJamesDSP profiles for the KZ EDX Pro and Redmi 12 speaker. Choose your output, select a sound profile, then download the three files that belong together.
+Six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi
+12 speaker. Each one is a matched VDC, impulse response and
+Liveprog script.
 </p>
 <div class="hero-cta">
 <a class="btn pri" href="#setup"><span>Choose a profile</span><svg class="ic" aria-hidden="true">
@@ -216,7 +217,7 @@ Matched RootlessJamesDSP profiles for the KZ EDX Pro and Redmi 12 speaker. Choos
 <section class="flow" id="setup" aria-labelledby="h-setup">
 <div class="sec-h">
 <div>
-<h2 id="h-setup">Choose your setup.</h2>
+<h2 id="h-setup">Get your three files.</h2>
 <p>
 Pick your output and profile. Each profile ships as one VDC, one
 impulse response and one script, and they are meant to be used
@@ -239,7 +240,7 @@ directly from disk, serve the folder over http (for example
 <span class="hint">Tap a curve name to hide it · drag across the chart to read
 values</span>
 </div>
-<div class="chartbox" id="cmpChart" tabindex="0" role="group" aria-label="Predicted frequency response for the active profile"></div>
+<div class="chartbox" tabindex="0" id="cmpChart" tabindex="0" role="group" aria-label="Predicted frequency response for the active profile"></div>
 <div class="tgt" id="cmpLegend" role="group" aria-label="Show or hide a curve"></div>
 <p class="note" id="cmpNote">
 <svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span></span>
@@ -301,7 +302,7 @@ choosing.</small>
 <summary>How to verify the download</summary>
 <p>
 Compare each file with
-<a id="profileSumsLink" href="downloads/6.1.0/SHA256SUMS.txt">SHA256SUMS.txt</a>. If your browser renames a file (for example adds .txt),
+<a href="downloads/6.1.0/SHA256SUMS.txt">SHA256SUMS.txt</a>. If your browser renames a file (for example adds .txt),
 rename it back before loading it.
 </p>
 <dl>
@@ -362,7 +363,7 @@ sounds off, go back through the steps above.</span>
 <div>
 <h2 id="h-files">Files</h2>
 <p>
-Every file of release <b id="filesVersion">v6.1.0</b>, with its SHA-256. Files for
+Every file of release <b>v6.1.0</b>, with its SHA-256. Files for
 your active profile are marked <b>Recommended</b>.
 </p>
 </div>
@@ -386,7 +387,7 @@ VDC
 <p id="dlEmpty" hidden class="note">No files match that search.</p>
 <div class="all-dl">
 <a class="btn" id="allBtn" href="#" download><svg class="ic" aria-hidden="true">
-<use href="#i-download"/></svg><span>All six profiles (.zip)</span></a><a class="btn" id="allSumsLink" href="downloads/6.1.0/SHA256SUMS.txt"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span>SHA256SUMS.txt</span></a>
+<use href="#i-download"/></svg><span>All six profiles (.zip)</span></a><a class="btn" href="downloads/6.1.0/SHA256SUMS.txt"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span>SHA256SUMS.txt</span></a>
 </div>
 </section>
 <div class="sys-wrap" id="system">
@@ -396,7 +397,7 @@ VDC
 <h2 id="h-ev">Evidence</h2>
 <p>What was checked, and what was not.</p>
 </div>
-<span class="badge b-a">Offline checks · device records pending</span>
+<span class="badge b-a">Offline + author device test</span>
 </div>
 <div class="hw ev-grid" id="evCards"></div>
 <article class="card hw-card ev-read"><div class="top"><span class="fico"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><div><span class="eyebrow">Reading guide</span><h3>What these numbers mean</h3></div></div><ul class="ev-notes">
@@ -412,7 +413,9 @@ the micro-speaker, so against the uncapped target they sit about 2 dB
 low on average between 100 and 2000 Hz (up to 12 dB near 500 Hz) by design.
 </li>
 <li>
-<b>Device verification:</b> no build-specific device results are recorded for the current release. <b>Acoustic verification:</b> no microphone measurements have been recorded. Worst-case device CPU, speaker excursion and thermal limits also remain unverified.
+<b>Tested on the author's phone:</b> no crackle on any profile
+with True Peak Detect on. <b>Not done:</b> acoustic measurement,
+worst-case limiter CPU, speaker excursion and thermal limits.
 </li>
 </ul></article>
 <div class="evx" id="v6-evidence">
@@ -446,7 +449,7 @@ low on average between 100 and 2000 Hz (up to 12 dB near 500 Hz) by design.
 <h2 id="h-hw">Hardware</h2>
 <p>The transducers and the app these profiles target.</p>
 </div>
-<span class="badge b-g">Reference hardware</span>
+<span class="badge b-g">Author-verified</span>
 </div>
 <div class="hw">
 <article class="card hw-card">
@@ -551,6 +554,5 @@ headroom, tuned for clarity rather than loudness.
 <script src="assets/js/chart.js"></script>
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/v7-ui.js"></script>
 </body>
 </html>

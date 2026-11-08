@@ -252,7 +252,7 @@ const g = $("#getBtn");
 g.href = prof.bundle.path;
 g.setAttribute("download", prof.bundle.name);
 $("#evBadge").innerHTML =
-`<span class="evt-b ok">Offline-verified</span><span class="evt-b dev">Device note: reported · not build-verified</span><small>${esc(prof.evidence.deviceNote)} Not measured acoustically.</small>`;
+`<span class="evt-b ok">Offline-verified</span><span class="evt-b dev">Device: user-reported</span><small>${esc(prof.evidence.deviceNote)} Not measured acoustically.</small>`;
 $("#verLine span").innerHTML =
 `SHA-256: <code class="sha">${prof.bundle.sha256.slice(0, 12)}…</code><button type="button" class="cp-b" data-ct="${prof.bundle.sha256}" aria-label="Copy the full SHA-256">${ic("copy", 'style="width:15px;height:15px"')}<span class="sr">Copy</span></button>`;
 }
@@ -423,7 +423,7 @@ W = { pass: "Pass", warn: "Warning", fail: "Failed", not_run: "Not run", unteste
 $("#evxVer").textContent = "Release v" + E.version + " \u00b7 " + n + " automated checks";
 $("#evxTiers").innerHTML =
 '<div class="evx-t"><span class="k">Automated</span><b>' + T.pass + " pass</b><p>" + T.warn + " warning" + (T.warn === 1 ? "" : "s") + " \u00b7 " + T.not_run + " not run \u00b7 " + T.fail + ' failed. Run on every build.</p><div class="bar" role="img" aria-label="' + T.pass + " pass, " + T.warn + " warning, " + T.not_run + " not run, " + T.fail + ' failed"><i class="p" style="width:' + pc(T.pass) + '"></i><i class="w" style="width:' + pc(T.warn) + '"></i><i class="f" style="width:' + pc(T.fail) + '"></i><i class="n" style="width:' + pc(T.not_run) + '"></i></div></div>' +
-'<div class="evx-t"><span class="k">Device</span><b>' + E.tiers.device_recorded + " of " + E.tiers.device_total + " builds</b><p>Recorded per build. No build-specific device test is recorded for the current release. Historical author reports are not treated as build verification.</p></div>" +
+'<div class="evx-t"><span class="k">Device</span><b>' + E.tiers.device_recorded + " of " + E.tiers.device_total + " builds</b><p>Recorded per build. The author reports no crackle on the speaker profiles; per-build records are pending.</p></div>" +
 '<div class="evx-t"><span class="k">Acoustic</span><b>' + (E.tiers.measured ? "Measured" : "Not measured") + "</b><p>Response curves are calculated from the files, not captured with a microphone.</p></div>";
 var TI = { Automated: "shield", Device: "device", Acoustic: "chart" };
 $$("#evxTiers .evx-t").forEach((t) => {
@@ -477,7 +477,7 @@ $("#stats").innerHTML = [
 [
 "script",
 "Release",
-"v" + DATA.version,
+"v6.0.0",
 "Stable · " + DATA.released,
 "var(--violet)",
 ],
@@ -524,7 +524,7 @@ const FAQ = [
 [
 "Speaker boost",
 "Why do the speaker profiles not reach the full target?",
-"Total boost is capped at +8 dB and everything below 110 Hz is high-passed to protect the small driver. Against the uncapped target the speaker profiles therefore sit about 2 dB below it on average between 100 and 2000 Hz, and up to about 12 dB below it near 500 Hz.",
+"Total boost is capped at +8 dB and everything below 110 Hz is high-passed to protect the small driver. Against the uncapped target the speaker profiles the speaker profiles therefore sit about 2 dB below it on average between 100 and 2000 Hz, and up to about 12 dB below it near 500 Hz.",
 ],
 [
 "True Peak Detect",
