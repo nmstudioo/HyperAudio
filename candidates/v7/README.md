@@ -14,7 +14,14 @@ cp candidates/v7/iem-hd/<winner>/EDX_HD.{irs,vdc,eel} src/profiles/iem-hd/ ; cp 
 
 Docs: docs/V7_SPEC.md (gates and decisions), docs/V7_PLAN.md (audit + method), docs/V7_REPORT.md (results + listening protocol), all under candidates/v7/docs/.
 
-## 4. Speaker Protection V6 candidate — candidates/v7/spk-v6/ (calculated only)
-Same tuning as v5 (target = the v5 chain response; deviation 0.11 dB rms, 0.37 dB max, 100 Hz-16 kHz; +8 dB boost cap unchanged). Structure changed so the gates hold:
-IRS L1 1.20 (v5 2.24: documented exception removed), max pole 0.976 (v5 0.993), 44.1/48 kHz banks 0.03 dB, chain max -0.50 dB, tail -80 dB at frame 1340. All of tests/gate_candidate.py passes (v5 V6 fails irs.l1 and vdc.stable under the same gates).
-Trade-offs: the IRS is 6.7 dB quieter and the VDC makes the level up (+6.2 dB gain, VDC max +8.4 dB), so the signal between VDC and convolver reaches 2.7x the input peak (calculated, coloured noise). This assumes the effect chain is floating point with no clamp between VDC and convolver: UNTESTED on device. Time-domain residual vs v5: -18 dB (magnitude within 0.37 dB; phase differs). Regenerate: build/v7/generator/build_spk_v7.py <out>.
+## 4. Speaker candidates V6 / V8 / V10 — candidates/v7/spk-v6, spk-v8, spk-v10 (calculated only)
+Method (build/v7/generator/build_spk_fold.py): VDC sections 0 (110 Hz protection high-pass) and 1 (low shelf) hold the 0.990 poles. They are folded into the IRS by convolution (exact LTI reordering); the VDC keeps its remaining sections; the 44.1 kHz bank is refitted to the 48 kHz response.
+Result: 48 kHz chain identical to the shipped profile (0.0 dB deviation; time-domain residual -150 dB on coloured noise); max pole 0.971 / 0.980 / 0.979 (shipped 0.993 / 0.990 / 0.990); bank 44.1 vs 48 kHz 0.017 / 0.000 / 0.000 dB; tuning, +8 dB boost cap and chain gain unchanged.
+V6 only: IRS L1 2.24 -> 1.20 by scaling the IRS by 0.496 and making up +6.1 dB in the VDC (documented L1 exception removed). V8 and V10 IRS L1 stay about 1.0.
+Replaces the rc.2 V6 candidate (a refit with 0.37 dB maximum deviation).
+Untested assumption: the effect chain is floating point with no clamp between VDC and convolver (V6 intermediate peak is 2.0x the input peak, calculated).
+
+## 5. IEM V4 / V10 — candidates/v7/iem-v4, iem-v10
+Shipped 6.1.0 IRS and VDC, unchanged, plus the v7 limiter. They already pass every gate (bank 0.004 / 0.005 dB after the 6.1.0 refit). Promotion = copy the .eel.
+
+Gate results for all six: GATES.md.
