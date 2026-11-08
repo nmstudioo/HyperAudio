@@ -511,3 +511,25 @@ img{image-rendering:auto;-webkit-user-drag:none}
 .evx-t{padding:var(--space-4)}
 .tw{border-radius:var(--r-lg)}
 }
+
+/* == v10.2 unified radii == */
+.sf-brand{border-radius:var(--r-surface)}
+
+.sf-l a,body footer.ft .ft-l a,.sb-badge,.sb-brand,.n-chip,.nb,.sb-tg{border-radius:var(--r-control)}
+
+.sb .nl{border-radius:var(--r-control)}
+
+.sb .nl .ni{border-radius:var(--r-inset)}
+
+.n-logo,.mh-m,.mh-th{border-radius:var(--r-control)}
+
+.sf .n-ver::before{border-radius:50%}
+
+@media (max-width:767px){
+.sb{border-radius:0 var(--r-xl) var(--r-xl) 0}
+.mh .mh-m,.mh .mh-th{border-radius:var(--r-control)}
+}
+
+@media (min-width:768px){
+.sb[data-mode="rail"] .n-chip{border-radius:var(--r-control)}
+}

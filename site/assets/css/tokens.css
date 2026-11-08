@@ -1,9 +1,9 @@
 :root{
---space-0:2px;--space-1:var(--s1);--space-2:var(--s2);--space-3:var(--s3);--space-4:var(--s4);--space-5:var(--s5);
---space-6:var(--s6);--space-7:48px;--space-8:64px;--r-2xl:24px;--r-pill:99px;--content-max:1240px;--ink:#111;
---bd-on-dark:rgba(255,255,255,0.12);--grad-logo:linear-gradient(180deg,#1d1709,#070707);
---grad-logo-light:linear-gradient(180deg,#fffdf7,#f1e9d8);--scrim:rgba(0,0,0,0.55);--scrim-soft:rgba(0,0,0,0.45);
---shadow-hover:0 1px 3px rgba(0,0,0,0.08),0 4px 12px rgba(0,0,0,0.08);
+--r-control:var(--r-md);--r-surface:var(--r-lg);--r-inset:var(--r-xs);--space-0:2px;--space-1:var(--s1);--space-2:var(--s2);
+--space-3:var(--s3);--space-4:var(--s4);--space-5:var(--s5);--space-6:var(--s6);--space-7:48px;--space-8:64px;--r-2xl:24px;
+--r-pill:99px;--content-max:1240px;--ink:#111;--bd-on-dark:rgba(255,255,255,0.12);
+--grad-logo:linear-gradient(180deg,#1d1709,#070707);--grad-logo-light:linear-gradient(180deg,#fffdf7,#f1e9d8);
+--scrim:rgba(0,0,0,0.55);--scrim-soft:rgba(0,0,0,0.45);--shadow-hover:0 1px 3px rgba(0,0,0,0.08),0 4px 12px rgba(0,0,0,0.08);
 --shadow-image:0 2px 6px -2px rgba(0,0,0,0.12),0 10px 30px -10px rgba(0,0,0,0.15);
 --shadow-pop:0 2px 6px rgba(0,0,0,0.3),0 14px 34px -12px rgba(0,0,0,0.65);--shadow-drawer-x:18px 0 50px -20px rgba(0,0,0,0.7);
 --z-dock:30;--z-header:40;--z-sb:50;--z-toast:60;--z-scrim:65;--z-drawer:70;
