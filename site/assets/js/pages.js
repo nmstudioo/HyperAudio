@@ -33,7 +33,16 @@ o = P.map(
 ).join("");
 $("#a").innerHTML = o;
 $("#b").innerHTML = o;
-$("#b").selectedIndex = 1;
+const syncDeviceOptions = () => {
+const selected = P.find((p) => p.id === $("#a").value);
+const device = selected ? selected.device : P[0].device;
+const prior = $("#b").value;
+const allowed = P.filter((p) => p.device === device);
+$("#b").innerHTML = allowed.map((p) => `<option value="${p.id}">${esc(p.name)}</option>`).join("");
+if (allowed.some((p) => p.id === prior && p.id !== $("#a").value)) $("#b").value = prior;
+else $("#b").value = (allowed.find((p) => p.id !== $("#a").value) || allowed[0]).id;
+};
+syncDeviceOptions();
 let ch;
 const draw = () => {
 const A = P.find((p) => p.id === $("#a").value),
@@ -68,7 +77,8 @@ $("#pk").innerHTML = [A, B]
 .join("");
 };
 HAChart.wire($("#ch"));
-$("#a").onchange = $("#b").onchange = draw;
+$("#a").onchange = () => { syncDeviceOptions(); draw(); };
+$("#b").onchange = draw;
 draw();
 })
 .catch(fail);
@@ -97,6 +107,11 @@ const gl = c.goals[dev.value].find((g) => g[0] === goal.value)[1],
 ev = p.evidence || {};
 $("#res").innerHTML =
 `<b>${esc(p.name)}</b><span>${esc(p.desc)}</span>`;
+const action = document.createElement("a");
+action.className = "v7-use-profile";
+action.href = "index.html?p=" + encodeURIComponent(p.id) + "#setup";
+action.textContent = "Use this profile";
+$("#res").appendChild(action);
 $("#why").innerHTML = [
 `You picked ${dev.value === "iem" ? "the EDX Pro" : "the Redmi 12 speaker"}, so only its ${d.profiles.filter((x) => x.device === dev.value).length} profiles were considered.`,
 `Your priority is “${gl}”. ${esc(c.choose[id])}`,
