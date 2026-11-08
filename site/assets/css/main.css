@@ -1875,7 +1875,7 @@ ol.todo > li{display:flex;gap:16px;padding:20px 0;border-top:1px solid var(--bd)
 pointer-events:none;position:absolute;inset:0;border:1.5px solid var(--ctl);border-radius:8px;display:grid;place-items:center;
 transition:0.2s}
 
-.ck .box svg{width:16px;height:16px;stroke:#000;opacity:0}
+.ck .box svg{width:16px;height:16px;stroke:var(--on-acc);opacity:0}
 
 .ck input:checked + .box{background:var(--acc);border-color:var(--acc)}
 

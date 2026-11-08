@@ -355,3 +355,53 @@ background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--acc) 45%,tr
 .mh-t{gap:var(--space-1)}
 .mh-t b{margin-bottom:2px}
 }
+
+/* == v9 icons + type floor == */
+.ni{width:20px;height:20px;stroke-width:1.75;shape-rendering:geometricPrecision}
+
+.nl .ni{color:var(--tx2);transition:color .2s ease}
+
+.nl:hover .ni{color:var(--tx)}
+
+.nl[aria-current] .ni{color:var(--acc)}
+
+.n-chip-b small,.sb-bt small,.sb-h,.sb-cr,.sf p,.mh-sub,.v7-profile-metrics small,.dk-s,.evc,.evt-b,.fc-rec,.sb-badge,.eyebrow,.ver-l small{
+font-size:var(--fs-xs)}
+
+.n-chip-b small,.sb-h,.sb-cr,.evc,.evt-b,.fc-rec,.sb-badge,.eyebrow{letter-spacing:var(--ls-caps)}
+
+/* == v9 mobile drawer == */
+@keyframes sb-fade{
+from{opacity:0}
+}
+
+@media (max-width:767px){
+.sb{
+width:min(88vw,340px);border-radius:0 var(--r-xl) var(--r-xl) 0;
+padding:calc(var(--space-4) + env(safe-area-inset-top)) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom));
+background:color-mix(in oklab,var(--surface) 94%,transparent);backdrop-filter:blur(24px) saturate(1.6);
+-webkit-backdrop-filter:blur(24px) saturate(1.6);border-right:1px solid var(--bd2);overscroll-behavior:contain;
+transition:transform .32s cubic-bezier(.32,.72,0,1),visibility 0s .32s}
+.sb[data-open="true"]{transition:transform .32s cubic-bezier(.32,.72,0,1)}
+.sb-scrim{background:color-mix(in oklab,black 55%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sb-scrim:not([hidden]){animation:sb-fade .24s ease}
+.sb-scroll [role="navigation"]{gap:var(--space-1)}
+.sb .sb-h{
+margin:0;padding:var(--space-4) var(--space-4) var(--space-2);font:var(--fw-strong) var(--fs-xs)/1 var(--sans);
+letter-spacing:var(--ls-caps)}
+.sb .nl{
+min-height:52px;padding-inline:var(--space-4);gap:var(--space-4);border-radius:var(--r-md);font-size:var(--fs-0);
+font-weight:var(--fw-ui);letter-spacing:0}
+.sb .nl .ni{width:22px;height:22px}
+.sb .nl:active{background:color-mix(in oklab,var(--tx) 8%,transparent);transform:scale(.98)}
+.sb .nl[aria-current]{background:var(--acc-bg);border-color:color-mix(in oklab,var(--acc) 30%,transparent);box-shadow:none}
+.sb .nl[aria-current]::before{
+left:var(--space-1);top:var(--space-3);bottom:var(--space-3);width:3px;border-radius:var(--r-pill);box-shadow:none}
+.sb-ctl{gap:var(--space-2)}
+.sb-ctl .nb{height:48px}
+}
+
+@media (max-width:767px) and (prefers-reduced-motion:reduce){
+.sb-scrim:not([hidden]){animation:none}
+.sb .nl:active{transform:none}
+}
