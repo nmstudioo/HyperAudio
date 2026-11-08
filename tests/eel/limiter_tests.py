@@ -6,8 +6,8 @@ from scipy.signal import resample_poly
 sys.path.insert(0, os.path.dirname(__file__))
 from eel2py import Eel
 
-TP_LIMIT_DB = 0.35        # tonal/click/square true-peak overshoot above ceiling (v5 measured +0.20 dB)
-TP_NOISE_LIMIT_DB = 2.5   # broadband overload (+6 dB noise): regression guard only; v5 measures about +1.9 dB (known limitation)
+TP_LIMIT_DB = 0.5         # v7 gate: true-peak overshoot on tones, clicks, noise (8x reference, edges trimmed)
+TP_NOISE_LIMIT_DB = 0.5   # v7 gate: same as tones (v5 measured +1.9 dB)
 THD_LIMIT_DB = -40.0      # residual (non-fundamental) energy of a limited 997 Hz +6 dB tone, relative to total
 CLIP_LIMIT = 0.01         # regression guard: fraction of steady-state samples on the hard clamp (v5 measures 0.0068); audibility is judged by the THD limit
 TAIL_LIMIT_S = 2.0        # time for output to fall below 1e-6 after a loud burst
@@ -24,8 +24,9 @@ def signals(fs):
     c = np.zeros(n); c[:: int(0.01 * fs)] = 1.0; S['clicks_0dB'] = c
     return S
 
-def tp_db(y, ceil):
-    return 20 * math.log10(max(np.abs(resample_poly(y, 8, 1)).max(), 1e-12) / ceil)
+def tp_db(y, ceil, trim=96):
+    u = resample_poly(y, 8, 1)[trim * 8:-trim * 8]   # trim edge ringing caused by truncating the signal (metric artifact, found in v7 work)
+    return 20 * math.log10(max(np.abs(u).max(), 1e-12) / ceil)
 
 def make(path, fs, edit=None, setv=None):
     e = Eel(open(path, encoding='utf-8').read(), fs, edit); e.init()
