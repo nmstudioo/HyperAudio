@@ -8,3 +8,6 @@
 
 ## Addendum: speaker V6 candidate
 See candidates/v7/README.md section 4. tests/gate_candidate.py now supports 2-channel speaker IRS (chain on channel 0, 100 Hz-16 kHz) and uses pole radius <= 0.985.
+
+## Addendum 2: speaker fold (replaces the rc.2 V6 refit)
+See candidates/v7/README.md sections 4-5 and candidates/v7/GATES.md.
