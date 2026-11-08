@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with: { node-version: 24 }
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -31,7 +31,7 @@ jobs:
           python3 build/build.py --out /tmp/rel
           cat /tmp/rel/DIFF.md 2>/dev/null || true
       - name: Cache Playwright browsers
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('.github/workflows/ci.yml') }}
@@ -68,10 +68,10 @@ jobs:
     concurrency: { group: pages, cancel-in-progress: false }
     environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Publish only site content
         run: rm -f site/README.md
       - uses: actions/upload-pages-artifact@v5
         with: { path: site }
       - id: d
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
