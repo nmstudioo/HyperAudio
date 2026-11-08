@@ -26,15 +26,21 @@
 </head>
 <body>
 <main class="pg dpg" id="main">
-<header class="dh"><span class="eyebrow">Docs</span><h1>Method</h1><p class="lead">Chain order in RootlessJamesDSP: VDC, then Convolver (IRS), then Liveprog (EEL).</p><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/METHOD.md" target="_blank" rel="noopener">docs/METHOD.md &middot; edit on GitHub</a></header>
+<header class="dh"><span class="eyebrow">Docs</span><h1>Method</h1><p class="lead">Every profile is a three-stage chain in RootlessJamesDSP: a VDC filter bank, a convolver impulse response and a Liveprog limiter script.</p><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/METHOD.md" target="_blank" rel="noopener">docs/METHOD.md &middot; edit on GitHub</a></header>
 <nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html" aria-current="page">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html">Releasing</a><a href="CHANGELOG.html">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
-<div class="dgrid">
+<div class="dgrid has-toc">
 <article class="prose">
 
-<ul><li><b>VDC</b>: biquad banks at 44.1 and 48 kHz fitted to the same predicted curve.</li><li><b>IRS</b>: convolution (4-ch true-stereo for IEM, 2-ch for speaker).</li><li><b>EEL</b>: input guard, 1.5 ms lookahead limiter, true-peak guard, per-profile controls.</li><li>Each chain is normalised to a maximum gain of -0.5 dB; the limiter protects peaks.</li><li>Curves on the site are <b>calculated</b>, not acoustic measurements.</li></ul>
-<p>Sources: <code>src/profiles/&lt;id&gt;/</code> (artifacts) and <code>src/profiles.meta.json</code> (copy, stats, curves). The fit library, EEL generator, target and raw data are not in the repo yet; see <code>src/README.md</code>.</p>
+<h2 id="chain-order">Chain order<a class="ha" href="#chain-order" aria-label="Link to this section">#</a></h2>
+<div class="tw" tabindex="0"><table class="evt"><thead><tr><th>Stage</th><th>File</th><th>Job</th></tr></thead><tbody><tr><td>1. VDC</td><td><code>.vdc</code></td><td>Biquad banks at 44.1 and 48 kHz, fitted to the same predicted curve</td></tr><tr><td>2. Convolver</td><td><code>.irs</code></td><td>Convolution: 4-channel true-stereo for IEM, 2-channel for speaker</td></tr><tr><td>3. Liveprog</td><td><code>.eel</code></td><td>Input guard, 1.5 ms lookahead limiter, true-peak guard, per-profile controls</td></tr></tbody></table></div>
+<h2 id="gain-and-protection">Gain and protection<a class="ha" href="#gain-and-protection" aria-label="Link to this section">#</a></h2>
+<ul><li>Each chain is normalised to a maximum gain of -0.5 dB.</li><li>The limiter protects peaks; its limits are listed in <a href="LIMITS.html">Limits</a>.</li></ul>
+<h2 id="what-the-curves-mean">What the curves mean<a class="ha" href="#what-the-curves-mean" aria-label="Link to this section">#</a></h2>
+<p>Curves on the site are <b>calculated</b>, not acoustic measurements. A predicted curve is the raw response plus the correction plus a constant level alignment. See <a href="EVIDENCE.html">Evidence</a> for how far each claim is checked.</p>
+<h2 id="sources">Sources<a class="ha" href="#sources" aria-label="Link to this section">#</a></h2>
+<ul><li><code>src/profiles/&lt;id&gt;/</code> holds the artifacts.</li><li><code>src/profiles.meta.json</code> holds the copy, stats and curves.</li><li>The fit library, EEL generator, target and raw data are not in the repo yet; see <a href="https://github.com/nmstudioo/HyperAudio/blob/main/src/README.md" target="_blank" rel="noopener">src/README.md</a>.</li></ul>
 <nav class="dnav" aria-label="Previous and next"><a href="EVIDENCE.html"><span class="k">Next</span><b>Evidence</b></a></nav></article>
-</div>
+<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#chain-order">Chain order</a></li><li class="l2"><a href="#gain-and-protection">Gain and protection</a></li><li class="l2"><a href="#what-the-curves-mean">What the curves mean</a></li><li class="l2"><a href="#sources">Sources</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>
 <script src="../assets/js/nav.js"></script>

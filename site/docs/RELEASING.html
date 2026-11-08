@@ -26,14 +26,22 @@
 </head>
 <body>
 <main class="pg dpg" id="main">
-<header class="dh"><span class="eyebrow">Docs</span><h1>Releasing</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/RELEASING.md" target="_blank" rel="noopener">docs/RELEASING.md &middot; edit on GitHub</a></header>
+<header class="dh"><span class="eyebrow">Docs</span><h1>Releasing</h1><p class="lead">How a version is built, frozen and published. A frozen release is never rebuilt in place.</p><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/RELEASING.md" target="_blank" rel="noopener">docs/RELEASING.md &middot; edit on GitHub</a></header>
 <nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html" aria-current="page">Releasing</a><a href="CHANGELOG.html">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
-<div class="dgrid">
+<div class="dgrid has-toc">
 <article class="prose">
-<ol><li>Bump <code>VERSION</code>; edit <code>src/profiles.meta.json</code> (<code>released</code>) and <code>docs/CHANGELOG.md</code> (a <code>vX.Y.Z</code> heading).</li><li><code>python3 build/build.py</code> builds <code>releases/&lt;ver&gt;/</code>, publishes to <code>site/</code>, and stamps the version into <code>site/index.html</code>, <code>site/data/versions.json</code> and <code>site/sw.js</code>.</li><li><code>python3 build/docs_site.py &amp;&amp; python3 tests/check.py</code> must print <code>all checks passed</code>.</li><li>Review <code>releases/&lt;ver&gt;/DIFF.md</code> and <code>acceptance.json</code> (0 failures; <span class="st st-warn">warn</span> and <span class="st st-not_run">not run</span> entries stay visible).</li><li><code>python3 build/freeze.py</code>, commit, merge to <code>main</code> (Pages deploys), then <code>git tag v&lt;ver&gt; &amp;&amp; git push --tags</code>.</li><li>The <code>release</code> workflow checks the tag against <code>VERSION</code>, rebuilds, requires the frozen hashes to match, and publishes a GitHub Release with the zips, <code>SHA256SUMS.txt</code>, <code>acceptance.json</code> and <code>DIFF.md</code>.</li></ol>
-<p>A frozen release is never rebuilt in place: <code>build.py</code> refuses, and <code>tests/check.py</code> fails if its <code>SHA256SUMS.txt</code> changes.</p>
+
+<h2 id="steps">Steps<a class="ha" href="#steps" aria-label="Link to this section">#</a></h2>
+<ol><li>Bump <code>VERSION</code>; edit <code>src/profiles.meta.json</code> (<code>released</code>) and <code>docs/CHANGELOG.md</code> (a <code>vX.Y.Z</code> heading).</li><li>Run <code>python3 build/build.py</code>. It builds <code>releases/&lt;ver&gt;/</code>, publishes to <code>site/</code>, and stamps the version into <code>site/index.html</code>, <code>site/data/versions.json</code> and <code>site/sw.js</code>.</li><li>Run <code>python3 build/docs_site.py &amp;&amp; python3 tests/check.py</code>. It must print <code>all checks passed</code>.</li><li>Review <code>releases/&lt;ver&gt;/DIFF.md</code> and <code>acceptance.json</code>. There must be 0 failures; <span class="st st-warn">warn</span> and <span class="st st-not_run">not run</span> entries stay visible.</li><li>Run <code>python3 build/freeze.py</code>, commit, and merge to <code>main</code> (Pages deploys). Then tag and push.</li><li>The <code>release</code> workflow checks the tag against <code>VERSION</code>, rebuilds, requires the frozen hashes to match, and publishes a GitHub Release with the zips, <code>SHA256SUMS.txt</code>, <code>acceptance.json</code> and <code>DIFF.md</code>.</li></ol>
+<h2 id="commands">Commands<a class="ha" href="#commands" aria-label="Link to this section">#</a></h2>
+<div class="cb"><pre tabindex="0"><code>python3 build/build.py
+python3 build/docs_site.py &amp;&amp; python3 tests/check.py
+python3 build/freeze.py
+git tag v&lt;ver&gt; &amp;&amp; git push --tags</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
+<h2 id="guards">Guards<a class="ha" href="#guards" aria-label="Link to this section">#</a></h2>
+<ul><li><code>build.py</code> refuses to rebuild a release that has a <code>FROZEN</code> file.</li><li><code>tests/check.py</code> fails if a frozen release's <code>SHA256SUMS.txt</code> changes.</li><li>The release notes are the <code>## v&lt;ver&gt;</code> section of <a href="CHANGELOG.html">the changelog</a>, so write it before you tag.</li></ul>
 <nav class="dnav" aria-label="Previous and next"><a href="REPRODUCING.html"><span class="k">Previous</span><b>Reproduce</b></a><a href="CHANGELOG.html"><span class="k">Next</span><b>Changelog</b></a></nav></article>
-</div>
+<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#steps">Steps</a></li><li class="l2"><a href="#commands">Commands</a></li><li class="l2"><a href="#guards">Guards</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>
 <script src="../assets/js/nav.js"></script>

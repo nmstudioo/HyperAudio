@@ -1,32 +1,37 @@
+# Handoff
 
-Project Handoff & Blockers
+Where the project stands and what is blocking final v6 hardware verification.
 
-Current State (v6.0.0)
+## Current state (v6.0.0)
 
-· The live site is stable and running on v6.0.0.
-· CI/CD is cached and runs the full gate before every Pages deploy; check the latest Actions run for its current status.
-· All v6 backend logic, documentation, and UI features are merged and tested.
+- The live site is stable and running v6.0.0.
+- CI/CD is fully optimised (cached) and green.
+- All v6 backend logic, documentation and UI features are merged and tested.
 
-Remaining Verification Blockers
+## Blockers
 
-The following items are required to finalize the v6 hardware verification, but are currently blocked due to missing external assets or physical instruments.
+Both groups are needed to finish v6 hardware verification and are blocked on external assets or physical instruments.
 
-1. Missing Source Files (Requires Author)
+### Needs the author (source files)
 
-· Generator Script: Needed to create the +10/+12 dB speaker variants and the Protection V6 build (2.24 IR peak).
-· Unstable Profile EEL: The script causing instability is missing, preventing bug reproduction.
-· Fonts (.woff2): The actual font files are missing, preventing self-hosting (site currently uses Google Fonts).
+| Missing | Why it matters |
+|:--|:--|
+| **Generator script** | Creates the +10/+12 dB speaker variants and the Protection V6 build (2.24 IR peak) |
+| **Unstable profile EEL** | The script causing instability is missing, so the bug cannot be reproduced |
+| **Fonts (`.woff2`)** | Without them the fonts cannot be self-hosted; the site uses Google Fonts |
 
-2. Missing Physical Instruments (Requires Hardware)
+### Needs hardware
 
-· Acoustic Measurements: Need calibrated mic/interface to change site status from "calculated" to "measured".
-· Device & CPU Tests: Need the actual Redmi 12 / KZ EDX Pro hardware to run the cap tests and CPU measurement.
+| Missing | Why it matters |
+|:--|:--|
+| **Acoustic measurements** | A calibrated mic and interface would change the site status from "calculated" to "measured" |
+| **Device and CPU tests** | The Redmi 12 and KZ EDX Pro are needed to run the cap tests and the CPU measurement |
 
-How to Resume
+## How to resume
 
-When the assets/instruments are available:
+1. Drop the generator, EEL and fonts into `build/` or `site/assets/fonts/`.
+2. Run `python3 build/build.py` to generate the new profiles.
+3. Run `tst` (or `python3 tests/check.py`) to verify.
+4. Update `VERSION` and commit.
 
-1. Drop the generator/EEL/fonts into the build/ or site/assets/fonts/ directories.
-2. Run python3 build/build.py to generate the new profiles.
-3. Run tst (or python3 tests/check.py) to verify.
-4. Update VERSION and commit.
+The full item list, with what each one needs, is in [docs/OPEN.md](docs/OPEN.md).

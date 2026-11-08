@@ -1,18 +1,60 @@
 # Evidence
-Three tiers, never mixed on the site:
-1. **Offline, automated** (`releases/<v>/acceptance.json`, produced by `build/build.py`): file validity, VDC banks/sections, IRS format and peak vs metadata, EEL static lint. Status is `pass`, `fail` or `not_run`.
-   `not_run` today: eel.compile, limiter.ceiling, response_error, tail, cpu, nan_soak. They need an EEL runtime and the test harness, which are not in the repo yet. They are listed, not faked.
-2. **Device-reported** (`docs/evidence/device-tests.json`): one entry per build, device, date, result.
-3. **Acoustic measurement**: none yet. Site keeps saying "calculated".
 
-Entry schema: `{"release","build","device","date","test","result":"pass|fail|untested","notes"}`.
-Legacy v5 claims ("IEM passed") are recorded as `untested` per build until re-run individually.
+Evidence comes in three tiers that are never mixed on the site: offline automated checks, device reports and acoustic measurement.
 
-## v6 prep results (docs/evidence/acceptance-src-v5.0.0.json, generated from src/, v5.0.0 unchanged)
-- `response.*` now run (build/response.py): shipped VDC x IRS reproduces each stored `correction` curve to 0.03 dB RMS on all six builds, so the earlier "files do not reproduce curves" finding is closed. Convention in the module docstring. `predicted` = raw + correction + a constant level alignment.
-- `eel.compile`, `limiter.*`, `tail`, `nan_soak` now run through tests/eel (eel2py). Tier note: this is an independent interpreter, not the WDL/JSFX runtime; assumptions are listed in eel2py.py. Treat as strong offline evidence, not device proof.
-- `vdc.sr_consistency` is `warn` for iem-v4, iem-v10, spk-v8, spk-v10 (44.1 vs 48 kHz bank 0.9 to 1.6 dB at 20 kHz). `cpu` stays `not_run` (needs a device).
-- Speaker cap: applied peak boost is +7.3 to +8.2 dB vs +10.7 to +11.6 dB needed. Mean shortfall over 100-2000 Hz is about -2.0 dB (the "3 to 5 dB" figure is not reproduced); worst single point is -11 to -12 dB.
+## Tiers
 
-## True-peak limits (eel2py, 8x oversampled)
-Tones, clicks and square waves overshoot the ceiling by about +0.20 dB. Broadband noise driven 6 dB over the ceiling overshoots by about +1.9 dB (test guard 2.5 dB). Sample peaks never exceed the ceiling (hard clamp). These come from a subset interpreter, not the WDL runtime; the device check is the final authority.
+| Tier | Today |
+|---|---|
+| 1. Offline, automated | `releases/<v>/acceptance.json`, produced by `build/build.py`. Runs on every build; 6.0.0 has 104 `pass`, 4 `warn` and 6 `not_run`. |
+| 2. Device-reported | `docs/evidence/device-tests.json`. Every build is `untested` until a result is recorded. |
+| 3. Acoustic measurement | None yet; the site keeps saying "calculated". |
+
+Legacy v5 claims such as "IEM passed" are recorded as `untested` per build until each one is re-run individually.
+
+## Tier 1: offline checks
+
+Each build is checked for file validity, VDC banks and sections, IRS format and peak against metadata, EEL static lint, response, limiter and runtime behaviour. Status is `pass`, `warn`, `fail` or `not_run`.
+
+| Check | Result |
+|---|---|
+| `response.*` | `pass`. The shipped VDC times IRS reproduces each stored `correction` curve to 0.03 dB RMS on all six builds. |
+| `eel.compile`, `limiter.*`, `tail`, `nan_soak` | `pass`. Run through `tests/eel` (eel2py). |
+| `vdc.sr_consistency` | `warn` on iem-v4, iem-v10, spk-v8 and spk-v10: the 44.1 kHz bank differs from the 48 kHz bank by 0.9 to 1.6 dB at 20 kHz. |
+| `cpu` | `not_run`. Needs a device. |
+
+The response convention is documented in the `build/response.py` docstring: `predicted` is raw plus correction plus a constant level alignment.
+
+eel2py is an independent interpreter, not the WDL/JSFX runtime. Its assumptions are listed in `tests/eel/eel2py.py`. Treat it as strong offline evidence, not device proof.
+
+## Tier 2: device reports
+
+One entry per build, device, date and result, in `docs/evidence/device-tests.json`.
+
+```
+{"release","build","device","date","test","result":"pass|fail|untested","notes"}
+```
+
+## Tier 3: acoustic measurement
+
+There are no acoustic measurements. Every curve on the site is calculated.
+
+## Speaker cap
+
+- Applied peak boost is +7.3 to +8.2 dB, against +10.7 to +11.6 dB needed.
+- The mean shortfall over 100 to 2000 Hz is about -2.0 dB. The earlier "3 to 5 dB" figure is not reproduced.
+- The worst single point is -11 to -12 dB.
+
+## True-peak limits
+
+Measured with eel2py at 8x oversampling, as overshoot above the ceiling:
+
+- Tones, clicks and square waves: about +0.20 dB.
+- Broadband noise driven 6 dB over the ceiling: about +1.9 dB (test guard 2.5 dB).
+
+Sample peaks never exceed the ceiling because of a hard clamp. These figures come from a subset interpreter, not the WDL runtime; the device check is the final authority.
+
+## Raw data
+
+- [`docs/evidence/acceptance-src-v5.0.0.json`](evidence/acceptance-src-v5.0.0.json): acceptance results generated from `src/` for v5.0.0
+- [`docs/evidence/device-tests.json`](evidence/device-tests.json): device entries

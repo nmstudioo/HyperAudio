@@ -26,14 +26,20 @@
 </head>
 <body>
 <main class="pg dpg" id="main">
-<header class="dh"><span class="eyebrow">Docs</span><h1>Docs</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/refit44_report.md" target="_blank" rel="noopener">docs/refit44_report.md &middot; edit on GitHub</a></header>
+<header class="dh"><span class="eyebrow">Docs</span><h1>44.1 kHz refit</h1><p class="lead">Four VDCs had a 44.1 kHz bank that drifted from the 48 kHz one; the refit brings each back to 0.2 dB or less, offline.</p><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/refit44_report.md" target="_blank" rel="noopener">docs/refit44_report.md &middot; edit on GitHub</a></header>
 <nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html">Releasing</a><a href="CHANGELOG.html">Changelog</a><a href="refit44_report.html" aria-current="page">44.1 kHz refit</a><a href="./">All docs</a></nav>
-<div class="dgrid">
+<div class="dgrid has-toc">
 <article class="prose">
-<div class="tw" tabindex="0"><table class="evt"><thead><tr><th>profile</th><th>44.1 vs 48 max err before (dB)</th><th>after (dB)</th><th>max pole radius</th><th>written</th></tr></thead><tbody><tr><td>iem-hd</td><td>0.14</td><td>0.01</td><td>0.9602</td><td>no (already within 0.3 dB)</td></tr><tr><td>iem-v4</td><td>0.92</td><td>0.03</td><td>0.9689</td><td>yes</td></tr><tr><td>iem-v10</td><td>1.36</td><td>0.01</td><td>0.9705</td><td>yes</td></tr><tr><td>spk-v6</td><td>0.02</td><td>0.00</td><td>0.9924</td><td>no (already within 0.3 dB)</td></tr><tr><td>spk-v8</td><td>1.59</td><td>0.02</td><td>0.9890</td><td>yes</td></tr><tr><td>spk-v10</td><td>1.57</td><td>0.20</td><td>0.9899</td><td>yes</td></tr></tbody></table></div>
-<p>Verified offline by <code>src/dsp/refit44.py</code>: it compares each 44.1 kHz bank's computed response with the same file's 48 kHz bank on a 600-point 20 Hz to 20 kHz grid. Only the 44.1 kHz line of four VDCs changes; the 48 kHz bank, section counts and file format are untouched. Candidates are in <code>candidates/v6/</code> and are not part of any release until promoted.</p>
+
+<h2 id="result">Result<a class="ha" href="#result" aria-label="Link to this section">#</a></h2>
+<div class="tw" tabindex="0"><table class="evt"><thead><tr><th>Profile</th><th>Max error before (dB)</th><th>After (dB)</th><th>Max pole radius</th><th>Written</th></tr></thead><tbody><tr><td>iem-hd</td><td>0.14</td><td>0.01</td><td>0.9602</td><td>no (already within 0.3 dB)</td></tr><tr><td>iem-v4</td><td>0.92</td><td>0.03</td><td>0.9689</td><td>yes</td></tr><tr><td>iem-v10</td><td>1.36</td><td>0.01</td><td>0.9705</td><td>yes</td></tr><tr><td>spk-v6</td><td>0.02</td><td>0.00</td><td>0.9924</td><td>no (already within 0.3 dB)</td></tr><tr><td>spk-v8</td><td>1.59</td><td>0.02</td><td>0.9890</td><td>yes</td></tr><tr><td>spk-v10</td><td>1.57</td><td>0.20</td><td>0.9899</td><td>yes</td></tr></tbody></table></div>
+<p>Max error is the 44.1 kHz bank against the 48 kHz bank.</p>
+<h2 id="how-it-was-checked">How it was checked<a class="ha" href="#how-it-was-checked" aria-label="Link to this section">#</a></h2>
+<p><code>src/dsp/refit44.py</code> compares each 44.1 kHz bank's computed response with the same file's 48 kHz bank on a 600-point grid from 20 Hz to 20 kHz.</p>
+<h2 id="what-changed">What changed<a class="ha" href="#what-changed" aria-label="Link to this section">#</a></h2>
+<ul><li>Only the 44.1 kHz line of four VDCs changes.</li><li>The 48 kHz bank, the section counts and the file format are untouched.</li><li>The refit files are in <code>candidates/v6/</code> and are not part of any release until promoted. See <a href="OPEN.html">Open items</a>, item 7.</li></ul>
 <nav class="dnav" aria-label="Previous and next"><a href="CHANGELOG.html"><span class="k">Previous</span><b>Changelog</b></a></nav></article>
-</div>
+<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#result">Result</a></li><li class="l2"><a href="#how-it-was-checked">How it was checked</a></li><li class="l2"><a href="#what-changed">What changed</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>
 <script src="../assets/js/nav.js"></script>

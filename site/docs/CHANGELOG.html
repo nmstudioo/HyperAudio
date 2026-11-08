@@ -26,10 +26,11 @@
 </head>
 <body>
 <main class="pg dpg" id="main">
-<header class="dh"><span class="eyebrow">Docs</span><h1>Changelog</h1><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">docs/CHANGELOG.md &middot; edit on GitHub</a></header>
+<header class="dh"><span class="eyebrow">Docs</span><h1>Changelog</h1><p class="lead">What changed in each version, newest first. Profile files are frozen per release; v6.0.0 changed tooling, tests, docs and the site, not the profiles.</p><a class="src" href="https://github.com/nmstudioo/HyperAudio/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">docs/CHANGELOG.md &middot; edit on GitHub</a></header>
 <nav class="dtabs" aria-label="Docs sections"><a href="METHOD.html">Method</a><a href="EVIDENCE.html">Evidence</a><a href="LIMITS.html">Limits</a><a href="OPEN.html">Open items</a><a href="REPRODUCING.html">Reproduce</a><a href="RELEASING.html">Releasing</a><a href="CHANGELOG.html" aria-current="page">Changelog</a><a href="refit44_report.html">44.1 kHz refit</a><a href="./">All docs</a></nav>
 <div class="dgrid has-toc">
 <article class="prose">
+
 <h2 id="unreleased-v7-work">Unreleased (v7 work)<a class="ha" href="#unreleased-v7-work" aria-label="Link to this section">#</a></h2>
 <h3 id="added">Added<a class="ha" href="#added" aria-label="Link to this section">#</a></h3>
 <ul><li>Single version source: <code>build/stamp.py</code> stamps <code>VERSION</code> into <code>index.html</code>, <code>versions.json</code> and <code>sw.js</code>; CI fails on stale stamps.</li><li>Release automation: a <code>vX.Y.Z</code> tag runs <code>.github/workflows/release.yml</code> (GitHub Release with zips, checksums, acceptance and diff); <code>build/freeze.py</code> and a FROZEN hash guard.</li><li>Offline support: a service worker (network first, cache fallback).</li><li>Accessibility gate: <code>tests/a11y.js</code> (built-in checks plus axe-core in CI).</li><li>Evidence panel: a per-profile check matrix generated from <code>acceptance.json</code> into <code>site/data/evidence.json</code>.</li></ul>
@@ -40,10 +41,13 @@
 <ul><li>Responsive UI: desktop sidebar, tablet icon rail and mobile bottom sheet.</li><li>Documentation site: Markdown rendered to <code>site/docs/</code>.</li><li>Custom 404 page that keeps the <code>/HyperAudio/</code> base path.</li><li>EEL2 runtime tests and response acceptance suites.</li><li>CI: caching, concurrency cancellation and local link checking (<code>links.js</code>).</li><li>Formatting tool <code>tools/fmt.py</code>.</li></ul>
 <h3 id="changed-2">Changed<a class="ha" href="#changed-2" aria-label="Link to this section">#</a></h3>
 <ul><li>Version badges, meta tags and footer text moved to v6.0.0.</li><li>Repository structure separates backend testing from the frontend.</li><li>Navigation consolidated into a shared <code>nav.js</code>.</li></ul>
+<h3 id="unchanged">Unchanged<a class="ha" href="#unchanged" aria-label="Link to this section">#</a></h3>
+<ul><li>All six profile files are byte-identical to v5.0.0; see <code>releases/6.0.0/DIFF.md</code>.</li></ul>
 <h2 id="v5-0-0">v5.0.0<a class="ha" href="#v5-0-0" aria-label="Link to this section">#</a></h2>
-<ul><li>Initial stable release with six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi 12.</li></ul>
+<h3 id="added-3">Added<a class="ha" href="#added-3" aria-label="Link to this section">#</a></h3>
+<ul><li>Initial stable release with six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi 12.</li><li>VDC with matched 44.1 and 48 kHz banks.</li><li>Limiter with a 1.5 ms lookahead and a true-peak guard.</li></ul>
 <nav class="dnav" aria-label="Previous and next"><a href="RELEASING.html"><span class="k">Previous</span><b>Releasing</b></a><a href="refit44_report.html"><span class="k">Next</span><b>44.1 kHz refit</b></a></nav></article>
-<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#unreleased-v7-work">Unreleased (v7 work)</a></li><li class="l3"><a href="#added">Added</a></li><li class="l3"><a href="#changed">Changed</a></li><li class="l2"><a href="#v6-0-0">v6.0.0</a></li><li class="l3"><a href="#added-2">Added</a></li><li class="l3"><a href="#changed-2">Changed</a></li><li class="l2"><a href="#v5-0-0">v5.0.0</a></li></ol></details></aside></div>
+<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#unreleased-v7-work">Unreleased (v7 work)</a></li><li class="l3"><a href="#added">Added</a></li><li class="l3"><a href="#changed">Changed</a></li><li class="l2"><a href="#v6-0-0">v6.0.0</a></li><li class="l3"><a href="#added-2">Added</a></li><li class="l3"><a href="#changed-2">Changed</a></li><li class="l3"><a href="#unchanged">Unchanged</a></li><li class="l2"><a href="#v5-0-0">v5.0.0</a></li><li class="l3"><a href="#added-3">Added</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>
 <script src="../assets/js/nav.js"></script>

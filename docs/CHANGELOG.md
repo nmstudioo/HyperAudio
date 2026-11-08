@@ -1,5 +1,7 @@
 # Changelog
 
+What changed in each version, newest first. Profile files are frozen per release; v6.0.0 changed tooling, tests, docs and the site, not the profiles.
+
 ## Unreleased (v7 work)
 
 ### Added
@@ -31,6 +33,14 @@
 - Repository structure separates backend testing from the frontend.
 - Navigation consolidated into a shared `nav.js`.
 
+### Unchanged
+
+- All six profile files are byte-identical to v5.0.0; see `releases/6.0.0/DIFF.md`.
+
 ## v5.0.0
 
+### Added
+
 - Initial stable release with six RootlessJamesDSP profiles for the KZ EDX Pro and the Redmi 12.
+- VDC with matched 44.1 and 48 kHz banks.
+- Limiter with a 1.5 ms lookahead and a true-peak guard.
