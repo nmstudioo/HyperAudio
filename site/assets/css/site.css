@@ -366,6 +366,8 @@ background:color-mix(in srgb,var(--acc) 12%,transparent);border:1px solid color-
 
 .fc.rec .fc-rec:not(#_){display:inline-flex}
 
+:root[data-theme="light"] .fc-rec:not(#_){color:#7d4c00}
+
 .fc.rec{
 border-color:color-mix(in srgb,var(--acc) 45%,var(--bd));
 box-shadow:0 0 0 1px color-mix(in srgb,var(--acc) 14%,transparent),0 24px 50px -34px color-mix(in srgb,var(--acc) 55%,transparent)}
