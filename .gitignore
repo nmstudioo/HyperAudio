@@ -1,2 +1,7 @@
 __pycache__/
 build_temp/
+node_modules/
+package.json
+package-lock.json
+.lighthouseci/
+lhci-reports/

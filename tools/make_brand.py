@@ -5,7 +5,8 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from PIL import Image
-R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));R=ROOT+'/site'
+VER=open(ROOT+'/VERSION').read().strip()
 B=R+'/assets/brand';I=R+'/assets/icons'
 F={w:TTFont(f'/usr/share/fonts/opentype/inter/Inter-{w}.otf') for w in('Bold','SemiBold','Medium')}
 def text(s,x,y,size,w='Bold',track=0,fill='#fff',anchor='start',extra=''):
@@ -60,7 +61,7 @@ def art(W,H):
     for t in('VDC','IMPULSE RESPONSE','LIVEPROG'):
         tw=sum(F['SemiBold']['hmtx'][F['SemiBold'].getBestCmap()[ord(c)]][0] for c in t)*14*s/F['SemiBold']['head'].unitsPerEm+1.4*s*len(t)+36*s
         b+=f'<rect x="{cx:.1f}" y="{cy:.1f}" width="{tw:.1f}" height="{38*s:.1f}" rx="{19*s:.1f}" fill="#fff" fill-opacity=".05" stroke="{AMB}" stroke-opacity=".45"/>'+text(t,cx+tw/2,cy+25*s,14*s,'SemiBold',1.4*s,AMB,'middle');cx+=tw+12*s
-    b+=text('v5.0.0',W-80*s,64*s+34*s,22*s,'SemiBold',1*s,AMB,'end')+text('KZ EDX PRO  ·  REDMI 12',W-80*s,64*s+62*s,15*s,'Medium',1.6*s,'#8f8f8f','end')
+    b+=text('v'+VER,W-80*s,64*s+34*s,22*s,'SemiBold',1*s,AMB,'end')+text('KZ EDX PRO  ·  REDMI 12',W-80*s,64*s+62*s,15*s,'Medium',1.6*s,'#8f8f8f','end')
     d=f'''<radialGradient id="bg1" cx=".12" cy=".05" r=".8"><stop offset="0" stop-color="{AMB}" stop-opacity=".16"/><stop offset="1" stop-color="{AMB}" stop-opacity="0"/></radialGradient>
 <radialGradient id="bg2" cx=".95" cy="1" r=".7"><stop offset="0" stop-color="#7a4cff" stop-opacity=".10"/><stop offset="1" stop-color="#7a4cff" stop-opacity="0"/></radialGradient>
 <linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{AMB}" stop-opacity=".30"/><stop offset="1" stop-color="{AMB}" stop-opacity="0"/></linearGradient>
@@ -73,12 +74,13 @@ w(I+'/maskable.svg',svg(512,512,mk,defs(),'HyperAudio'))
 # rasterise
 from playwright.sync_api import sync_playwright
 jobs=[(B+'/github-cover.svg',B+'/github-cover.png',1280,640),(B+'/og-image.svg',B+'/og-image.png',1200,630),(B+'/logo-mark.svg',I+'/icon-512.png',512,512),(B+'/logo-mark.svg',I+'/icon-192.png',192,192),(I+'/maskable.svg',I+'/maskable-512.png',512,512),(I+'/maskable.svg',I+'/apple-touch-icon.png',180,180),(I+'/favicon.svg',I+'/favicon-32.png',32,32),(I+'/favicon.svg',I+'/favicon-48.png',48,48)]
+import tempfile;T=tempfile.mkdtemp()
 with sync_playwright() as p:
     br=p.chromium.launch();pg=br.new_page()
     for s,o,ww,hh in jobs:
-        pg.set_viewport_size({'width':ww,'height':hh});open(R+'/tools/_t.html','w').write(f'<body style="margin:0"><img src="{s}" width={ww} height={hh} style="display:block">');pg.goto('file://'+R+'/tools/_t.html');pg.wait_for_timeout(150);pg.screenshot(path=o,omit_background=True)
+        pg.set_viewport_size({'width':ww,'height':hh});open(T+'/_t.html','w').write(f'<body style="margin:0"><img src="{s}" width={ww} height={hh} style="display:block">');pg.goto('file://'+T+'/_t.html');pg.wait_for_timeout(150);pg.screenshot(path=o,omit_background=True)
     br.close()
 # apple-touch: opaque, no transparent corners (iOS rounds itself)
 im=Image.open(I+'/apple-touch-icon.png').convert('RGB');im.save(I+'/apple-touch-icon.png')
 Image.open(I+'/favicon-48.png').convert('RGBA').save(R+'/favicon.ico',sizes=[(48,48),(32,32),(16,16)])
-os.remove(R+'/tools/_t.html');print('ok')
+os.remove(T+'/_t.html');print('ok')

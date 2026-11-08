@@ -1,4 +1,5 @@
 const {chromium}=require('playwright');let axe=null;try{axe=require('axe-core')}catch(e){}
+if(!axe&&process.env.CI){console.log('a11y FAIL: axe-core not installed (required in CI)');process.exit(1)}
 const base=process.argv[2]||'http://localhost:8765/';
 const pages=['index.html','compare.html','finder.html','archive.html','changelog.html','docs/index.html','docs/EVIDENCE.html','docs/OPEN.html','docs/CHANGELOG.html'];
 (async()=>{const b=await chromium.launch();let bad=0;

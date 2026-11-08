@@ -4,7 +4,7 @@ Project Handoff & Blockers
 Current State (v6.0.0)
 
 · The live site is stable and running on v6.0.0.
-· CI/CD is fully optimized (cached) and green.
+· CI/CD is cached and runs the full gate before every Pages deploy; check the latest Actions run for its current status.
 · All v6 backend logic, documentation, and UI features are merged and tested.
 
 Remaining Verification Blockers

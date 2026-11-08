@@ -11,7 +11,8 @@ def url(u):
     if p.startswith('docs/') and p.endswith('.md') and p[5:-3] in DOCS: return p[5:-3] + '.html' + h
     return GH + p + h
 def inline(s):
-    s = html.escape(s, quote=False); codes = []
+    s = html.escape(s.replace('\\|', '|'), quote=False); codes = []
+    s = re.sub(r'&lt;(/?)(br|kbd|sub|sup|b|i|em|strong|code)\s*/?&gt;', lambda m: '<%s%s>' % (m[1], m[2]), s)
     s = re.sub(r'`([^`]+)`', lambda m: codes.append(m[1]) or '\0%d\0' % (len(codes) - 1), s)
     s = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: '<a href="%s"%s>%s</a>' % (html.escape(url(m[2])), ' target="_blank" rel="noopener"' if url(m[2]).startswith('http') else '', m[1]), s)
     s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s); s = re.sub(r'(?<![\w*])\*([^*]+)\*(?![\w*])', r'<i>\1</i>', s)
@@ -24,22 +25,37 @@ def md(text):
             j = i + 1
             while j < len(L) and not L[j].startswith('```'): j += 1
             out.append('<pre><code>%s</code></pre>' % html.escape('\n'.join(L[i+1:j]), quote=False)); i = j + 1; continue
+        if re.match(r'^\s{0,3}([-*_])(\s*\1){2,}\s*$', l): out.append('<hr>'); i += 1; continue
+        if l.startswith('>'):
+            q = []
+            while i < len(L) and L[i].startswith('>'): q.append(re.sub(r'^>\s?', '', L[i])); i += 1
+            out.append('<blockquote>%s</blockquote>' % md('\n'.join(q))[0]); continue
         m = re.match(r'^(#{1,4})\s+(.*)$', l)
         if m:
             n = len(m[1]); title = title or m[2]; out.append('<h%d>%s</h%d>' % (n, inline(m[2]), n)); i += 1; continue
         if l.startswith('|') and i + 1 < len(L) and re.match(r'^\|[\s:|-]+\|?\s*$', L[i+1]):
-            cells = lambda r: [c.strip() for c in r.strip().strip('|').split('|')]
+            cells = lambda r: [c.strip() for c in re.split(r'(?<!\\)\|', r.strip().strip('|'))]
             t = '<div class="tw" tabindex="0"><table class="evt"><thead><tr>%s</tr></thead><tbody>' % ''.join('<th>%s</th>' % inline(c) for c in cells(l)); i += 2
             while i < len(L) and L[i].startswith('|'): t += '<tr>%s</tr>' % ''.join('<td>%s</td>' % inline(c) for c in cells(L[i])); i += 1
             out.append(t + '</tbody></table></div>'); continue
         m = re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', l)
         if m:
-            tag = 'ol' if m[2][0].isdigit() else 'ul'; st = int(m[2][:-1]) if tag == 'ol' else 1; items = []
-            while i < len(L) and (mm := re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', L[i])): items.append(inline(mm[3])); i += 1
-            out.append('<%s%s>%s</%s>' % (tag, ' start="%d"' % st if st > 1 else '', ''.join('<li>%s</li>' % x for x in items), tag)); continue
+            def lst(i, ind):
+                tag = 'ol' if re.match(r'\d', L[i].lstrip()) else 'ul'; st = int(re.match(r'\s*(\d+)', L[i])[1]) if tag == 'ol' else 1; items = []
+                while i < len(L) and (mm := re.match(r'^(\s*)([-*]|\d+\.)\s+(.*)$', L[i])):
+                    d = len(mm[1].replace('\t', '    '))
+                    if d < ind: break
+                    if d > ind:
+                        sub, i = lst(i, d)
+                        if items: items[-1] += sub
+                        else: items.append(sub)
+                        continue
+                    items.append(inline(mm[3])); i += 1
+                return '<%s%s>%s</%s>' % (tag, ' start="%d"' % st if st > 1 else '', ''.join('<li>%s</li>' % x for x in items), tag), i
+            h, i = lst(i, len(m[1].replace('\t', '    '))); out.append(h); continue
         if l.strip():
             p = []
-            while i < len(L) and L[i].strip() and not re.match(r'^(#{1,4}\s|```|\||\s*([-*]|\d+\.)\s)', L[i]): p.append(L[i].strip()); i += 1
+            while i < len(L) and L[i].strip() and not re.match(r'^(#{1,4}\s|```|\||>|\s*([-*]|\d+\.)\s)', L[i]): p.append(L[i].strip()); i += 1
             out.append('<p>%s</p>' % inline(' '.join(p)) if p else ''); i += 0 if p else 1; continue
         i += 1
     return '\n'.join(out), title or 'Docs'

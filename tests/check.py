@@ -6,8 +6,9 @@ from verify import sha
 err = []
 def need(c, m):
     if not c: err.append(m)
+cur_v = open(f'{ROOT}/VERSION').read().strip()
 # 1 release hashes: SHA256SUMS vs files, profiles.json vs files, site copy vs release
-for rd in sorted(glob.glob(f'{ROOT}/releases/v*')):
+for rd in sorted(d for d in glob.glob(f'{ROOT}/releases/*') if os.path.isfile(f'{d}/SHA256SUMS.txt')):
     v = os.path.basename(rd)
     for ln in open(f'{rd}/SHA256SUMS.txt').read().split('\n'):
         if ln:
@@ -22,7 +23,9 @@ for rd in sorted(glob.glob(f'{ROOT}/releases/v*')):
     if os.path.isdir(sd):
         for f in os.listdir(sd):
             if os.path.isfile(f'{rd}/{f}'): need(sha(f'{sd}/{f}') == sha(f'{rd}/{f}'), f'{v}: site copy differs {f}')
-        for f in glob.glob(f'{sd}/*/*'): need(sha(f) == sha(f'{rd}/' + f.split(sd + '/')[1]), f'{v}: site copy differs {f}')
+        for f in glob.glob(f'{sd}/*/*'): need(os.path.exists(f'{rd}/' + f.split(sd + '/')[1]) and sha(f) == sha(f'{rd}/' + f.split(sd + '/')[1]), f'{v}: site copy differs {f}')
+        for f in glob.glob(f'{rd}/*/*'): need(os.path.isfile(f'{sd}/' + f.split(rd + '/')[1]), f'{v}: site copy missing {f.split(rd + "/")[1]}')
+    else: need(v != cur_v, f'{v}: site/downloads/{v} missing')
 cur = open(f'{ROOT}/VERSION').read().strip()
 need(json.load(open(f'{ROOT}/site/data/profiles.json'))['version'] == cur, 'site/data/profiles.json version != VERSION')
 # 2 rebuild into temp dir; member files must match published release hashes (reproducibility)
@@ -47,6 +50,10 @@ r = subprocess.run([sys.executable, f'{ROOT}/build/docs_site.py', '--check'], ca
 r = subprocess.run([sys.executable, f'{ROOT}/build/seo.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
 r = subprocess.run([sys.executable, f'{ROOT}/tests/seo_audit.py'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip()[:300])
 r = subprocess.run(['node', f'{ROOT}/tests/links.js'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
+# 3c service worker precache list must exist on disk
+sw = open(f'{ROOT}/site/sw.js', encoding='utf-8').read(); m = re.search(r'const SHELL = \[(.*?)\];', sw, re.S)
+for u in re.findall(r"'([^']+)'", m[1] if m else ''): need(os.path.exists(f'{ROOT}/site/{u}') or u == './', f'sw.js SHELL entry missing on disk: {u}')
+need(bool(m), 'sw.js SHELL list not found')
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')

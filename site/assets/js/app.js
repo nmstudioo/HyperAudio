@@ -499,7 +499,7 @@ const FAQ = [
 [
 "VDC file",
 "What is a VDC file?",
-"A set of biquad filters that ViPER-DDC applies first. In v5 each profile has one VDC with a 48 kHz bank and a 44.1 kHz bank, fitted so both banks give the same curve.",
+"A set of biquad filters that ViPER-DDC applies first. Each profile has one VDC with a 48 kHz bank and a 44.1 kHz bank, fitted so both banks give the same curve.",
 ],
 [
 "Impulse response",
@@ -509,7 +509,7 @@ const FAQ = [
 [
 "Script",
 "What does the script do?",
-"A Liveprog EEL2 script. In v5 it is the safety and character layer: input guard, a limiter with a 1.5 ms lookahead and a true-peak detector, plus profile controls such as Binaural Width, Dialogue Boost or loudness makeup.",
+"A Liveprog EEL2 script. It is the safety and character layer: input guard, a limiter with a 1.5 ms lookahead and a true-peak detector, plus profile controls such as Binaural Width, Dialogue Boost or loudness makeup.",
 ],
 [
 "Pairing",

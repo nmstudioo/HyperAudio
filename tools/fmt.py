@@ -290,6 +290,9 @@ def collect(args):
     return sorted(out)
 
 if __name__ == '__main__':
+    if '--help' in sys.argv or '-h' in sys.argv: print(__doc__); sys.exit(0)
+    bad_flags = [x for x in sys.argv[1:] if x.startswith('-') and x not in ('--check', '--dry')]
+    if bad_flags: print('fmt: unknown option %s\n%s' % (' '.join(bad_flags), __doc__)); sys.exit(2)
     a = [x for x in sys.argv[1:] if not x.startswith('--')]; check, dry = '--check' in sys.argv, '--dry' in sys.argv
     res = {'same': 0, 'changed': 0, 'FAILED': 0}; bad = []
     for f in collect(a):
