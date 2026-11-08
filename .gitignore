@@ -5,3 +5,4 @@ package.json
 package-lock.json
 .lighthouseci/
 lhci-reports/
+.hyperaudio-v7-backup/
