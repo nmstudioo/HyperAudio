@@ -893,3 +893,5 @@ body:has(.v7-dock:not([hidden])){padding-bottom:calc(88px + env(safe-area-inset-
 code,.sha,.dl-size,.dl-gc,.evt td,.v7-profile-metrics b{font-variant-numeric:tabular-nums;font-feature-settings:"zero" 0}
 
 .evt-b,.evc,.fc-rec,.sb-badge{letter-spacing:.05em}
+
+.ibtn{width:var(--hit);height:var(--hit)}
