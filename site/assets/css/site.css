@@ -1033,3 +1033,18 @@ body.n-pg main.pg > h1{font-size:var(--fs-4);line-height:1.1;letter-spacing:var(
 .pg{padding-inline:var(--gutter)}
 
 :where(p,li,.lead){max-width:var(--measure)}
+
+/* == v8.3 carousel gutter + ring clearance == */
+@media (max-width:767px){
+#setup #step2{background:none;border:0;border-radius:0;box-shadow:none;padding:0}
+#setup #step2 #snd{
+display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+margin:0 calc(-1 * var(--pp,16px));padding:var(--space-2) var(--pp,16px) var(--space-4);scroll-padding-inline:var(--pp,16px);
+background:none;border:0;box-shadow:none;border-radius:0;gap:var(--space-3)}
+#setup #step2 #snd::-webkit-scrollbar{display:none}
+#setup #step2 #snd .snd-c,#setup #step2 #snd .snd-c:last-child:nth-child(odd){
+flex:0 0 min(80%,300px);grid-column:auto;min-height:0;scroll-snap-align:start}
+#setup #step2 #snd .snd-c[aria-pressed="true"]{
+box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 70%,transparent),0 12px 28px -16px color-mix(in srgb,var(--acc) 60%,transparent)}
+#setup #step2 .st-h{margin-bottom:var(--space-3)}
+}
