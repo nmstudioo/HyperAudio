@@ -869,3 +869,7 @@ body:has(.v7-dock:not([hidden])) .toasts{bottom:calc(96px + env(safe-area-inset-
 .btn:active,.nb:active,.snd-c:active,.out-c:active,.rec:active,.file-card:active,.legend button:active,.seg button:active{
 transform:none}
 }
+
+/* == v8 Touch Target Overrides == */
+.btn.sm,.vt button,.chip[role="button"],.chip[tabindex="0"]{
+min-height:var(--hit)!important;display:inline-flex;align-items:center;justify-content:center}
