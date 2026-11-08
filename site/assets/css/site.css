@@ -931,3 +931,14 @@ scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scro
 @media (prefers-reduced-motion:reduce){
 #snd{scroll-behavior:auto}
 }
+
+@media (max-width:767px){
+#setup #step2 #snd{
+margin:0 calc(-1 * var(--pp,16px));padding:var(--space-2) var(--pp,16px) var(--space-4);scroll-padding-inline:var(--pp,16px);
+background:none;border:0;box-shadow:none;border-radius:0;gap:var(--space-3)}
+#setup #step2 #snd .snd-c,#setup #step2 #snd .snd-c:last-child:nth-child(odd){
+flex:0 0 min(80%,300px);min-height:0;scroll-snap-align:start}
+#setup #step2 #snd .snd-c[aria-pressed="true"]{
+box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 70%,transparent),0 12px 28px -16px color-mix(in srgb,var(--acc) 60%,transparent)}
+#setup #step2 .st-h{margin-bottom:var(--space-3)}
+}
