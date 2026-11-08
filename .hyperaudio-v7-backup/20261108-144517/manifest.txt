@@ -1,0 +1,9 @@
+site/index.html
+site/finder.html
+site/compare.html
+site/changelog.html
+site/archive.html
+site/assets/js/app.js
+site/assets/js/pages.js
+site/assets/js/nav.js
+build/seo.py
