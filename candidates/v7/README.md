@@ -4,6 +4,9 @@ Nothing in src/profiles is changed. Evidence: calculated only; device and listen
 ## 1. Shared limiter core v7 (all six profiles) — candidates/v7/eel/
 16-tap Kaiser(4) true-peak detector, centre-aligned, 1.5% guard, latency 79 samples. Worst 8x true-peak overshoot +0.25 dB (v5 +1.7..+1.95 dB); sample peak never above ceiling. See build/v7/ and candidates/v7/docs/V7_REPORT.md.
 
+### Gate scope
+The shipped v5 EELs are checked by the release build against their recorded v5 baseline (tones 0.35 dB, broadband noise 2.5 dB). The strict v7 candidate gate remains 0.5 dB for both tones and noise and is run against all six files in `candidates/v7/eel/` by `python3 tests/gate_v7_limiter.py`. This separates generations; it does not relax the v7 candidate requirement.
+
 ## 2. IEM HD target candidates — candidates/v7/iem-hd/
 Same IRS and fitter; only the target differs. A = Harman IE 2019, B = JM-1 (renormalised at 1 kHz), C = v5 target (byte-identical VDC/IRS to src/profiles/iem-hd).
 All three pass tests/gate_candidate.py (IRS peak 0.694, L1 1.071, tail -80 dB; poles <= 0.969; banks 0.03-0.05 dB; chain -0.50 dB; limiter gates).

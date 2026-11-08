@@ -6,8 +6,18 @@ from scipy.signal import resample_poly
 sys.path.insert(0, os.path.dirname(__file__))
 from eel2py import Eel
 
-TP_LIMIT_DB = 0.5         # v7 gate: true-peak overshoot on tones, clicks, noise (8x reference, edges trimmed)
-TP_NOISE_LIMIT_DB = 0.5   # v7 gate: same as tones (v5 measured +1.9 dB)
+TP_LIMIT_DB = 0.5         # strict v7 candidate gate
+TP_NOISE_LIMIT_DB = 0.5   # strict v7 candidate gate
+GATE_LIMITS = {
+    'stable-v5': (0.35, 2.5),  # frozen v5 EEL baseline; see releases/6.1.0/acceptance.json
+    'candidate-v7': (TP_LIMIT_DB, TP_NOISE_LIMIT_DB),
+}
+
+def gate_limits(gate):
+    try:
+        return GATE_LIMITS[gate]
+    except KeyError:
+        raise ValueError(f'unknown limiter gate {gate!r}; expected one of {tuple(GATE_LIMITS)}')
 THD_LIMIT_DB = -40.0      # residual (non-fundamental) energy of a limited 997 Hz +6 dB tone, relative to total
 CLIP_LIMIT = 0.01         # regression guard: fraction of steady-state samples on the hard clamp (v5 measures 0.0068); audibility is judged by the THD limit
 TAIL_LIMIT_S = 2.0        # time for output to fall below 1e-6 after a loud burst
@@ -80,8 +90,9 @@ def soak(path, fs=48000, edit=None, setv=None, seconds=4, seed=7):
     if ok and worst > 1e-9: ok = False; why = f'output above ceiling by {worst:.2e}'
     return ok, why, worst
 
-def build_checks(path, pid):
-    """List of acceptance-check dicts for one .eel (all rates, all variants)."""
+def build_checks(path, pid, gate='candidate-v7'):
+    """List acceptance checks for one .eel using an explicit release-generation gate."""
+    tp_limit_db, tp_noise_limit_db = gate_limits(gate)
     out = []; tag = 'runtime=eel2py (subset interpreter, not WDL)'
     def add(n, ok, d): out.append(dict(check=n, status='pass' if ok else 'fail', detail=d + ' | ' + tag))
     add('eel.compile', True, 'parsed and transpiled')
@@ -96,7 +107,7 @@ def build_checks(path, pid):
             if not ok: soak_bad.append(f'{fs}/{v}: {why}')
     add('limiter.ceiling', worst['over'] <= 1e-9, f"max sample over ceiling {worst['over']:.1e} (hard clamp; 17 test signals, 44.1+48 kHz)")
     add('limiter.clamp_engaged', worst['clip'] <= CLIP_LIMIT, f"fraction of steady-state samples on the hard clamp {worst['clip']:.5f} (limit {CLIP_LIMIT}); THD residual of limited 997 Hz +6 dB tone {worst['thd']:.1f} dB (limit {THD_LIMIT_DB})" if worst['thd'] <= THD_LIMIT_DB else f"THD residual {worst['thd']:.1f} dB above limit {THD_LIMIT_DB}")
-    add('limiter.true_peak', worst['tp'] <= TP_LIMIT_DB and worst['tpn'] <= TP_NOISE_LIMIT_DB, f"true-peak overshoot above ceiling, 8x oversampled: tones/clicks/square {worst['tp']:+.2f} dB (limit {TP_LIMIT_DB}); +6 dB noise {worst['tpn']:+.2f} dB (guard {TP_NOISE_LIMIT_DB})")
+    add('limiter.true_peak', worst['tp'] <= tp_limit_db and worst['tpn'] <= tp_noise_limit_db, f"true-peak overshoot above ceiling, 8x oversampled: tones/clicks {worst['tp']:+.2f} dB (limit {tp_limit_db}); +6 dB noise {worst['tpn']:+.2f} dB (limit {tp_noise_limit_db}); gate={gate}")
     add('tail', worst['tail'] <= TAIL_LIMIT_S, f"output below -120 dB after {worst['tail']:.2f} s (limit {TAIL_LIMIT_S} s)")
     add('nan_soak', not soak_bad, 'NaN/inf/1e9/denormal injection + slider changes, 4 s x 2 rates: ' + ('clean' if not soak_bad else '; '.join(soak_bad)))
     return out

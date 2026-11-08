@@ -24,11 +24,14 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Hashes, rebuild reproducibility, stamps, links, JS syntax
         run: python3 tests/check.py
+      - name: Limiter gate policy regression
+        run: python3 tests/eel/gate_policy_test.py
       - name: Full build with runtime acceptance (response, EEL parse, limiter, tail, NaN soak) and drift diff
         run: |
           python3 build/docs_site.py
           python3 build/seo.py
           python3 build/build.py --out /tmp/rel
+          python3 tests/gate_v7_limiter.py
           cat /tmp/rel/DIFF.md 2>/dev/null || true
       - name: Cache Playwright browsers
         uses: actions/cache@v5

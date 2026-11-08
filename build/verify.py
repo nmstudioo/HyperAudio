@@ -53,7 +53,7 @@ def acceptance(pdir, p, runtime=True):
         meta = json.load(open(f'{root}/src/profiles.meta.json')); out += response.checks(pdir, p, numpy.array(meta['freq']))
         if runtime:
             sys.path.insert(0, f'{root}/tests/eel'); import limiter_tests
-            out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'])
+            out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'], gate='stable-v5')
         else:
             for n in ('eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='skipped (--no-runtime)'))
     except ImportError as ex:

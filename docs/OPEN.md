@@ -20,7 +20,7 @@ Status of the v6 work. The shipped profile files differ from v5.0.0 only in the 
 | 3 | Response-error check | Done: VDC times IRS reproduces the stored correction (0.03 dB RMS); checks live in `build/response.py` | Nothing |
 | 4 | Speaker boost cap (+8 dB) | Unchanged. Applied boost is +7.3 to +8.2 dB against +10.7 to +11.6 needed; mean shortfall is about -2 dB, not 3 to 5 | Generator for the +10/+12 variants, then a device test |
 | 5 | Protection V6 loudness (IR peak 2.24 against 1.25) | Build not found in the v5 files | Name the build or send the generator |
-| 6 | True-peak overshoot (+0.19 dB) | Measured +0.20 dB confirmed; candidate `L_D + 5` rejected (worse on the real EEL); limiter unchanged, see [the note](../candidates/v6/limiter-isp-alignment.md) | Nothing, unless clipping is heard |
+| 6 | Limiter true-peak (v5 baseline) | Tones/clicks +0.20 dB; +6 dB noise +1.9 dB. The `L_D + 5` alignment candidate was rejected. The v7 candidate is evaluated separately against the strict <= +0.5 dB tone/noise gate. | Device and CPU test before promoting v7 |
 | 7 | 44.1 kHz bank | Refit promoted in 6.1.0; listening check reported by the author | None; there is no instrument measurement |
 | 8 | Profile EEL (Pop, EDM and others) | Not in the repo; no unstable path found by reading | A symptom description; fixes are in [the notes](../candidates/v6/profile-eel-notes.md); then a device test |
 | 9 | Device evidence | All six builds `untested` | One pass or fail per build (build, device, date, result) |
