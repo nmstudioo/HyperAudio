@@ -405,3 +405,93 @@ left:var(--space-1);top:var(--space-3);bottom:var(--space-3);width:3px;border-ra
 .sb-scrim:not([hidden]){animation:none}
 .sb .nl:active{transform:none}
 }
+
+/* == v10 docs cards, footer, drawer, responsive, micro-polish == */
+@media (max-width:767px){
+.dcard,.v6ev,.ev-pc,.evx-t,.file-card,.rjd{padding:var(--space-4)}
+.fc:not(#_),.evx-t.card:not(#_){padding:var(--space-4);gap:var(--space-3)}
+.dl-groups:not(#_),.ev-grid,.evx-tiers,.cmpg,.files-grid,.files-list{gap:var(--space-3)}
+.fc-f:not(#_){padding:var(--space-3);gap:var(--space-3)}
+.dcard h3,.v6ev h3,.ev-pc h3{margin:0 0 var(--space-2)}
+.dcard p,.v6ev p,.ev-pc p{margin:0 0 var(--space-3)}
+.dcard :last-child,.v6ev :last-child,.ev-pc :last-child{margin-bottom:0}
+.v6ev{margin-top:var(--space-5)}
+.ev-read .ev-notes{gap:var(--space-3)}
+.sf{margin-top:var(--space-6)}
+.sf-in{gap:var(--space-4);padding:var(--space-6) var(--space-4) 0}
+.sf-brand{
+flex-direction:row;gap:var(--space-3);padding:var(--space-2) var(--space-4) var(--space-2) var(--space-3);
+border:1px solid var(--bd2);border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--e1)}
+.sf-mark{height:var(--space-6);display:flex;align-items:center}
+.sf .n-ver{
+display:inline-flex;align-items:center;gap:var(--space-2);padding-left:var(--space-3);border-left:1px solid var(--bd2);
+font:var(--fw-strong) var(--fs-xs)/1 var(--mono);letter-spacing:.04em;color:var(--acc)}
+.sf .n-ver:not(:empty)::before{
+content:"";width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px var(--acc-bg)}
+.sf-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2);width:100%;max-width:360px}
+.sf-l a{
+justify-content:center;min-height:var(--hit);border:1px solid var(--bd2);border-radius:var(--r-pill);background:var(--surface);
+font:var(--fw-ui) var(--fs-s)/1 var(--sans);text-decoration:none;transition:var(--tr-ui)}
+.sf-l a:active{transform:scale(.98);background:var(--elev)}
+.sf-l a:last-child:nth-child(odd){grid-column:1/-1}
+.sf p{max-width:36ch;text-wrap:balance}
+body footer.ft{gap:var(--space-4);padding-top:var(--space-5)}
+body footer.ft .ft-l a:active{transform:scale(.98)}
+.sb{
+background:radial-gradient(120% 38% at 0 0,color-mix(in oklab,var(--acc) 12%,transparent),transparent 70%),color-mix(in oklab,var(--surface) 94%,transparent)}
+.sb-top{padding:0 var(--space-1) var(--space-4);border-bottom:1px solid var(--bd)}
+.sb-bt b{font-size:1.0625rem;letter-spacing:-.02em}
+.sb .nl{padding-inline:var(--space-2);gap:var(--space-3)}
+.sb .nl .ni{
+box-sizing:content-box;width:20px;height:20px;padding:var(--space-2);border-radius:var(--r-sm);
+background:color-mix(in oklab,var(--tx) 6%,transparent);border:1px solid var(--bd);transition:var(--tr-ui)}
+.sb .nl[aria-current] .ni{
+background:var(--acc);color:var(--on-acc);border-color:transparent;
+box-shadow:0 4px 12px -4px color-mix(in oklab,var(--acc) 60%,transparent)}
+.sb .nl[aria-current]::before{display:none}
+.sb-bot{padding-top:var(--space-3);gap:var(--space-3)}
+.sb-cr{text-align:center}
+}
+
+@media (min-width:768px) and (max-width:1099px){
+#snd{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fc:not(#_){padding:var(--space-4)}
+}
+
+@media (min-width:1600px){
+:root{--content-max:1320px}
+body.n-pg main.pg{max-width:1120px}
+}
+
+@media (pointer:coarse){
+.sb .nl,.mh-b,.nb,.btn{min-height:var(--hit)}
+}
+
+@view-transition{navigation:auto}
+
+html{scroll-behavior:smooth;overscroll-behavior-y:none;hanging-punctuation:first allow-end}
+
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+@view-transition{navigation:none}
+}
+
+a:not(.btn,.nl,.sf-l a,.ft-l a){text-decoration-thickness:1px;text-underline-offset:.2em}
+
+a:not(.btn,.nl):hover{text-decoration-thickness:2px}
+
+::placeholder{color:var(--mut);opacity:1}
+
+input,textarea{caret-color:var(--acc)}
+
+:where(button,a,summary,select){-webkit-user-select:none;user-select:none}
+
+:where(details){interpolate-size:allow-keywords}
+
+:where(details)::details-content{transition:block-size .25s ease,content-visibility .25s allow-discrete}
+
+@media (prefers-reduced-motion:reduce){
+:where(details)::details-content{transition:none}
+}
+
+img{image-rendering:auto;-webkit-user-drag:none}
