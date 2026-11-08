@@ -6,11 +6,10 @@ Writes per page: <title>, description, canonical, robots, Open Graph, Twitter ca
 plus a short static "About this page" for pages whose body is filled by JavaScript. Optional search-console tokens: build/seo_config.json."""
 import html, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = 'https://nmstudioo.github.io/HyperAudio/'
+from siteconfig import SITE as BASE, REPO
 NAME = 'HyperAudio'
 IMG = BASE + 'assets/brand/og-image.png'
 AUTHOR = 'Noushad Mostafa'
-REPO = 'https://github.com/nmstudioo/HyperAudio'
 # path (relative to site/) -> (title, description, breadcrumb name). Titles <= 60 chars, descriptions 70-160.
 P = {
  'index.html': ('HyperAudio · RootlessJamesDSP profiles for KZ EDX Pro', 'Calibrated RootlessJamesDSP profiles for the KZ EDX Pro IEM and Redmi 12 speaker: VDC, impulse response and Liveprog files, with honest evidence labels.', 'Home'),

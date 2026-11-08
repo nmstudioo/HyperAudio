@@ -2,7 +2,8 @@
 """Render docs/*.md to site/docs/*.html so doc links exist on the published site."""
 import html, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GH = 'https://github.com/nmstudioo/HyperAudio/blob/main/'
+from siteconfig import REPO, BRANCH
+GH = f'{REPO}/blob/{BRANCH}/'
 DOCS = sorted(f[:-3] for f in os.listdir(f'{ROOT}/docs') if f.endswith('.md'))
 def url(u):
     m = re.match(r'^(?:\./|\.\./|/)?(.*?)(#.*)?$', u); p, h = m[1], m[2] or ''

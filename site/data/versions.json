@@ -1,8 +1,19 @@
 [
  {
+  "v": "v6.0.1",
+  "date": "2026-11-08",
+  "status": "current",
+  "notes": [
+   "Profile files unchanged; metadata and tooling fixes",
+   "Release folders use plain version names; SETUP.txt beside loose files",
+   "Status no longer claims device testing"
+  ],
+  "dl": "downloads/6.0.1/SHA256SUMS.txt"
+ },
+ {
   "v": "v6.0.0",
   "date": "2026-11-05",
-  "status": "current",
+  "status": "previous",
   "notes": [
    "Repo restructure, one-command build, CI, per-release folders",
    "44.1 kHz refit candidates for four VDCs (not released)",
@@ -19,7 +30,7 @@
    "VDC with matched 44.1/48 kHz banks",
    "Limiter with 1.5 ms lookahead and true-peak guard"
   ],
-  "dl": "downloads/v5.0.0/SHA256SUMS.txt"
+  "dl": "downloads/5.0.0/SHA256SUMS.txt"
  },
  {
   "v": "v4",

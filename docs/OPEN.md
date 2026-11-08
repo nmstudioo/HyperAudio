@@ -27,5 +27,5 @@ Status of the v6 work. The shipped profile files are byte-identical to v5.0.0; v
 | 10 | Acoustic measurements | None | A mic measurement, or the site keeps saying "calculated" |
 | 11 | Self-hosted fonts | Google Fonts fallback (the sandbox could not download) | woff2 files for Plus Jakarta Sans and JetBrains Mono |
 | 12 | v1 to v4 history | The archive lists them as "no record in repo" | Old notes or files |
-| 13 | Release v6.0.0 | Not cut | VERSION bump, build, freeze, replace the hardcoded "v5.0.0" in `index.html`, preview branch approval |
+| 13 | Release v6.0.1 | Built and frozen in the repo | Tag `v6.0.1` and confirm the release workflow is green |
 | 14 | KZ EDX Pro · GHD candidate | In `candidates/v6/iem-ghd`; offline gates pass (calculated) | Limiter figures match v5 exactly (unexplained), CPU, `init_done` in JamesDSP, one listening check |

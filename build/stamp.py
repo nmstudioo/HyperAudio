@@ -22,9 +22,14 @@ def versions(s):
     if not found: d.insert(0, dict(v=f'v{ver}', date=rel, status='current', notes=['See docs/CHANGELOG.md'], dl=f'downloads/{ver}/SHA256SUMS.txt'))
     return json.dumps(d, indent=1, ensure_ascii=False) + '\n'
 
+from siteconfig import REPO, OWNER_SITE
+def nav(s):
+    s = re.sub(r'(var GH = ")[^"]*(")', lambda m: m[1] + REPO + m[2], s)
+    return re.sub(r'(<p class="sf-l"><a href=")[^"]*(")', lambda m: m[1] + OWNER_SITE + m[2], s)
+
 def sw(s): return re.sub(r"(const VERSION = ')[^']*(')", rf'\g<1>{ver}\g<2>', s)
 
-T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw}
+T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav}
 check = '--check' in sys.argv; bad = []
 for p, f in T.items():
     fp = f'{ROOT}/{p}'

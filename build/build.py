@@ -28,6 +28,7 @@ for p in meta['profiles']:
         files.append(dict(kind=n.rsplit('.', 1)[1], name=n, bytes=os.path.getsize(f'{dst}/{n}'), sha256=h, path=f'downloads/{ver}/{pid}/{n}'))
         sums.append(f'{h}  {ver}/{pid}/{n}'); items.append((n, open(f'{dst}/{n}', 'rb').read()))
     setup = open(f'{src}/SETUP.txt', encoding='utf-8').read().replace('{{VERSION}}', ver).encode()
+    open(f'{dst}/SETUP.txt', 'wb').write(setup); sums.append(f'{sha(dst + "/SETUP.txt")}  {ver}/{pid}/SETUP.txt')
     bundle = zipit(f'{rel}/HyperAudio_{ver}_{pid}.zip', items + [('SETUP.txt', setup)])
     all_items += [(f'{pid}/{n}', d) for n, d in items]
     q = {k: v for k, v in p.items() if k != 'file_order'}; q['files'] = files; q['bundle'] = bundle; profs.append(q)

@@ -16,6 +16,25 @@ What changed in each version, newest first. Profile files are frozen per release
 
 - Docs pages redesigned: shared navigation, section tabs, table of contents, code blocks with copy buttons, previous and next links.
 
+## v6.0.1
+
+Profile files are unchanged (byte-identical to v5.0.0 and v6.0.0); this release corrects metadata, packaging and tooling.
+
+### Fixed
+
+- Integrity gate now covers every release folder, including `releases/6.0.0`, and the service worker precache list.
+- Status text no longer claims "device-tested"; all six builds remain `untested` until each is re-run.
+- Light-theme contrast of the Recommended badge (a11y gate).
+- Docs renderer: quotes, nested lists, rules, escaped table pipes.
+- Service worker: no caching of downloads or `?p=` URLs, capped runtime cache, font caching, honest offline fallback.
+
+### Changed
+
+- Release folders use plain version names (`5.0.0`, `6.0.0`, `6.0.1`); archived file contents are untouched.
+- Loose profile folders in `releases/` and `site/downloads/` now include `SETUP.txt`.
+- Repository and site URLs come from `site.config.json`.
+- CI: current action versions, Dependabot, pinned `ubuntu-24.04`, deploy gated on the full verify job.
+
 ## v6.0.0
 
 ### Added
