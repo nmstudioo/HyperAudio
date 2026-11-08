@@ -188,7 +188,7 @@ base +
 base +
 'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
 '</span><span class="n-ver"></span></div>' +
-'<p class="sf-e">Device-tested · responses calculated, not measured</p>' +
+'<p class="sf-e">Offline checks · no acoustic measurement recorded</p>' +
 '<p class="sf-c">Tested by Noushad Mostafa</p>' +
 '<p class="sf-l"><a href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer">Website</a>' +
 '<a href="' +

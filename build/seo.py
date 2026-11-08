@@ -15,7 +15,7 @@ P = {
  'index.html': ('HyperAudio · RootlessJamesDSP profiles for KZ EDX Pro', 'Calibrated RootlessJamesDSP profiles for the KZ EDX Pro IEM and Redmi 12 speaker: VDC, impulse response and Liveprog files, with honest evidence labels.', 'Home'),
  'compare.html': ('Compare DSP profiles · HyperAudio', 'Overlay the predicted frequency response of two HyperAudio profiles. Responses are calculated from the shipped VDC and impulse response files, not measured.', 'Compare'),
  'finder.html': ('Profile finder · HyperAudio', 'Answer two questions about your output and get the matching HyperAudio RootlessJamesDSP profile for the KZ EDX Pro or the Redmi 12 speaker.', 'Finder'),
- 'archive.html': ('Version archive · HyperAudio', 'HyperAudio release history from v1 to the current 6.0.0: dates, status and checksums where the repository has them, and a clear note where it has no record.', 'Archive'),
+ 'archive.html': ('Version archive · HyperAudio', 'HyperAudio release history from version 1 to the current stable release, with dates, status and checksums where available.', 'Archive'),
  'changelog.html': ('Changelog · HyperAudio', 'What changed in each HyperAudio release: profiles, tooling, tests and site, with dates and the current version.', 'Changelog'),
  'docs/index.html': ('Documentation · HyperAudio', 'How HyperAudio profiles are built, what the evidence shows, known limits, open items and how to reproduce the build.', 'Docs'),
  'docs/METHOD.html': ('Method: how the profiles are built · HyperAudio', 'Chain order in RootlessJamesDSP (VDC, convolver, Liveprog), how each stage is fitted and how the targets and limits are chosen.', 'Method'),
