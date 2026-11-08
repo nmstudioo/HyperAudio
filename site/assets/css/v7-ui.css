@@ -452,3 +452,133 @@ body.n-pg .pg-about {
     transition-duration: .01ms !important;
   }
 }
+
+/* --- v7.1 fixes (found in the rendered audit) --- */
+
+/* Wide screens: steps 1+2 stack on the left, step 3 (files) sits beside them. The old 3-equal-column
+   layout squeezed the output cards (overflowing the column) and the three profile cards (about 100 px each). */
+#outs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#outs .out-c {
+  min-width: 0;
+}
+
+#outs .out-c em {
+  white-space: nowrap;
+}
+
+@media (min-width: 1051px) {
+  #setup .steps3 {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas: "s1 s3" "s2 s3";
+    grid-template-rows: auto 1fr;
+  }
+
+  #setup .steps3 > li {
+    height: auto;
+  }
+
+  #setup .steps3 > li {
+    align-self: start;
+  }
+
+  #setup #step1 { grid-area: s1; }
+  #setup #step2 { grid-area: s2; }
+  #setup #step3 { grid-area: s3; position: sticky; top: 16px; }
+}
+
+@media (max-width: 760px) {
+  #outs {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* An empty live-region should not render as a stray circle under the download button. */
+#getSt:empty {
+  display: none;
+}
+
+/* Verification disclosure: visible affordance, 44 px target. */
+.verify summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--tx2);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.verify summary::-webkit-details-marker {
+  display: none;
+}
+
+.verify summary::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .15s ease;
+}
+
+.verify[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.verify summary:hover {
+  color: var(--tx);
+}
+
+.verify dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 14px;
+  margin: 10px 0 0;
+  font-size: 12.5px;
+}
+
+.verify dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Evidence pills may wrap on narrow screens without turning into a lopsided capsule. */
+.evt-b {
+  white-space: normal;
+  border-radius: var(--v7-radius-md, 12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verify summary::before {
+    transition: none;
+  }
+}
+
+/* Finder: the reasoning list reused the .why link style (dotted underline, nowrap); the result card ran text into its button. */
+ol.why,
+ul.why {
+  display: block;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  text-decoration: none;
+  white-space: normal;
+}
+
+#res {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+#res .v7-use-profile {
+  margin-top: 10px;
+}

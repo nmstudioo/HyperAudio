@@ -95,7 +95,7 @@ function drawChartRaw(host, c) {
 host._c = c;
 const W = Math.max(260, host.clientWidth - 16),
 H = Math.round(Math.max(230, Math.min(380, W * 0.5))),
-m = { l: 38, r: 10, t: 10, b: 24 };
+m = { l: 38, r: 10, t: 22, b: 24 };
 const [x0, x1] = c.xr || [20, 20000];
 let lo = 1e9,
 hi = -1e9;
@@ -132,7 +132,7 @@ g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="
 const major = v === 100 || v === 1000 || v === 10000;
 g += `<line y1="${m.t}" y2="${H - m.b}" x1="${P(X(v))}" x2="${P(X(v))}" stroke="var(--tx)" stroke-opacity="${major ? 0.1 : 0.045}"/><text x="${X(v)}" y="${H - 7}" text-anchor="middle" font-size="10.5" fill="${major ? "var(--tx2)" : "var(--mut)"}">${v >= 1000 ? v / 1000 + "k" : v}</text>`;
 });
-g += `<text x="${m.l - 8}" y="${m.t - 1}" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--mut)">dB</text>`;
+g += `<text x="${m.l - 8}" y="${m.t - 13}" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--mut)">dB</text>`;
 c.series.forEach((s, si) => {
 if (s.hidden) return;
 if (s.area) {

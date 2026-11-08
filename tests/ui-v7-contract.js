@@ -36,6 +36,11 @@ need(!seo.includes("current 6.0.0"), "archive SEO still advertises 6.0.0 as curr
 need(css.includes("@media (max-width: 480px)"), "mobile styling is missing");
 need(sw.includes("assets/css/v7-ui.css"), "service worker does not precache the v7 stylesheet");
 need(sw.includes("assets/js/v7-ui.js"), "service worker does not precache the v7 UI script");
+need(css.includes("#getSt:empty"), "empty download status must not render a stray circle");
+need(css.includes("grid-template-areas"), "wide-screen chooser layout is missing");
+need(css.includes("ol.why"), "finder reasoning list must reset the .why link style");
+need(!index.includes("Swipe to see all"), "stale swipe instruction remains (profile cards are not a carousel)");
+need(read("site/assets/js/chart.js").includes("t: 22"), "chart top margin must leave room for the dB unit label");
 need(profileData.version === "6.1.0", "this overlay must not silently bump the stable DSP release");
 need(profileData.profiles.length === 6, "stable profile set changed unexpectedly");
 need(profileData.profiles.every((p) => p.files.length === 3), "a stable profile no longer has its matched three-file set");
