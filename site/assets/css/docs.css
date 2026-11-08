@@ -118,7 +118,8 @@ background:var(--surface);box-shadow:var(--lift);color:var(--tx);text-decoration
 .dh .lead{margin:0 0 10px}
 
 .dh .src{
-display:inline-flex;align-items:center;gap:6px;min-height:36px;font:500 12px var(--mono);color:var(--mut);text-decoration:none}
+display:inline-flex;align-items:center;gap:6px;min-height:var(--hit);font:500 12px var(--mono);color:var(--mut);
+text-decoration:none}
 
 .dh .src:hover{color:var(--acc)}
 
@@ -151,8 +152,8 @@ text-transform:uppercase;color:var(--mut)}
 .dtoc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--bd)}
 
 .dtoc a{
-display:block;padding:6px 12px;margin-left:-1px;border-left:2px solid transparent;color:var(--tx2);text-decoration:none;
-line-height:1.4}
+display:flex;align-items:center;min-height:var(--hit);padding:4px 12px;margin-left:-1px;border-left:2px solid transparent;
+color:var(--tx2);text-decoration:none;line-height:1.4}
 
 .dtoc a:hover{color:var(--tx)}
 
