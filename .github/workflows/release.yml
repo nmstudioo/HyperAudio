@@ -2,16 +2,18 @@ name: release
 on:
   push: { tags: ['v*'] }
 permissions: { contents: write }
+concurrency: { group: 'release-${{ github.ref }}', cancel-in-progress: false }
 jobs:
   release:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with: { node-version: 24 }
-      - run: pip install numpy scipy
+      - run: pip install -r requirements.txt
       - name: Tag must match VERSION
         run: test "${GITHUB_REF_NAME}" = "v$(cat VERSION)" || { echo "tag ${GITHUB_REF_NAME} != v$(cat VERSION)"; exit 1; }
       - name: Gate (hashes, reproducible rebuild, stamps, links)
