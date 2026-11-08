@@ -4,6 +4,13 @@ What changed in each version, newest first. Profile files are frozen per release
 
 ## Unreleased (v7 work)
 
+### DSP v7 candidates (not shipped)
+
+- `candidates/v7`: IEM HD targets A/B/C, iem-v4, iem-v10, spk-v6, spk-v8, spk-v10; checksums and gates in `tests/gate_v7_candidates.py`.
+- Limiter: true-peak detector, worst 8x overshoot +0.25 dB (calculated).
+- Protection V6: IR peak 2.24 resolved by folding the low sections into the IRS.
+- `tools/promote_v7.py --hd A|B|C` promotes a candidate set. Evidence stays "not device-tested".
+
 ### UI 7.0.0 (site only; DSP release stays 6.1.0)
 
 - Folded the first v7 overlay (`v7-ui.js`, `v7-ui.css`) into `app.js` and `site.css`; no MutationObservers, no runtime copy rewrites.

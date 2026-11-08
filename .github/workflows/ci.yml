@@ -52,6 +52,21 @@ jobs:
         run: |
           python3 tests/gate_v7_limiter.py
           date -u > /tmp/v7gate.ok
+      - name: Restore v7 pair gate result
+        id: v7pairs
+        uses: actions/cache@v5
+        with:
+          path: /tmp/v7pairs.ok
+          key: v7pairs-v1-${{ hashFiles('candidates/v7/**', 'tests/gate_candidate.py', 'tests/gate_v7_candidates.py', 'tests/eel/**', 'requirements.txt') }}
+      - name: v7 candidate pair gates (IRS, VDC, EEL, checksums)
+        if: steps.v7pairs.outputs.cache-hit != 'true'
+        run: |
+          python3 tests/gate_v7_candidates.py
+          date -u > /tmp/v7pairs.ok
+      # Informational: float rounding can change with numpy/scipy versions, so a mismatch warns but does not fail CI.
+      - name: Generator reproduction vs releases/5.0.0 (informational)
+        continue-on-error: true
+        run: python3 tests/gen_repro.py
       - name: Drift report
         run: cat /tmp/rel/DIFF.md 2>/dev/null || true
       - name: Cache Playwright browsers
