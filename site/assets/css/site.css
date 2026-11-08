@@ -896,41 +896,11 @@ code,.sha,.dl-size,.dl-gc,.evt td,.v7-profile-metrics b{font-variant-numeric:tab
 
 .ibtn{width:var(--hit);height:var(--hit)}
 
-/* == v8.2 mobile profile carousel (step 2) == */
-@media (max-width:767px){
-#setup #step2{background:none;border:0;border-radius:0;box-shadow:none;padding:0}
-#snd{
-display:flex;gap:var(--space-3);overflow-x:auto;overflow-y:hidden;padding:var(--space-1) 2px var(--space-3);
-scroll-snap-type:x mandatory;scroll-padding-inline:2px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
-scrollbar-width:none}
-#snd::-webkit-scrollbar{display:none}
-#snd .snd-c,#snd .snd-c:last-child:nth-child(odd){
-flex:0 0 min(78%,280px);grid-column:auto;min-height:180px;scroll-snap-align:start}
-}
-
-@media (prefers-reduced-motion:reduce){
-#snd{scroll-behavior:auto}
-}
-
 /* == v8.2 checkbox hit area == */
 .ck input{inset:-8px;width:auto;height:auto}
 
 /* == v8.2 checkbox hit area == */
 .ck input{inset:-8px;width:auto;height:auto}
-
-/* == v8.2 mobile profile carousel (step 2) == */
-@media (max-width:767px){
-li#step2{background:none;border:0;border-radius:0;box-shadow:none;padding:0}
-#snd{
-display:flex;gap:var(--space-3);overflow-x:auto;overflow-y:hidden;padding:var(--space-1) 0 var(--space-3) 0;
-scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-#snd::-webkit-scrollbar{display:none}
-#snd .snd-c,#snd .snd-c:last-child:nth-child(odd){flex:0 0 85%;grid-column:auto;min-height:180px;scroll-snap-align:start}
-}
-
-@media (prefers-reduced-motion:reduce){
-#snd{scroll-behavior:auto}
-}
 
 @media (max-width:767px){
 #setup #step2 #snd{
