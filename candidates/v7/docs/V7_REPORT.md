@@ -5,3 +5,6 @@
    Predicted level vs C (calculated, includes chain gain): 20-100 Hz A -1.1 / B -5.9; 100-500 A -2.2 / B -4.6; 2-5 kHz A +0.5 / B -2.2; 10-16 kHz A -2.1 / B +0.3 dB.
 4. Listening protocol (reported evidence once done): level-matched (preGain10 A -2, B +21, C 0), blind, 3 sessions, same tracks; note bass, 3-8 kHz brightness, fatigue; reply with the winner.
 5. Not done: speaker V6 candidate, other four profiles, JM-1 source URL, device and phone CPU tests, Harman 250 Hz / 3-8 kHz trim.
+
+## Addendum: speaker V6 candidate
+See candidates/v7/README.md section 4. tests/gate_candidate.py now supports 2-channel speaker IRS (chain on channel 0, 100 Hz-16 kHz) and uses pole radius <= 0.985.

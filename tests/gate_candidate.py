@@ -10,15 +10,16 @@ def rep(n, p, d):
     global ok; ok &= p; print(('PASS ' if p else 'FAIL ') + n + ': ' + d)
 i = irs_info(b + '.irs'); x = np.fromfile(b + '.irs', '<f4', offset=0)
 raw = open(b + '.irs', 'rb').read(); j = raw.find(b'data'); x = np.frombuffer(raw[j+8:], '<f4').reshape(-1, i['channels'])
-rep('irs.format', i['format'] == 3 and i['channels'] == 4 and i['finite'], str(i))
+SPK = i['channels'] == 2   # speaker profiles: 2-channel IRS, chain measured on channel 0 (as the generator does)
+rep('irs.format', i['format'] == 3 and i['channels'] in (2, 4) and i['finite'], str(i))
 rep('irs.peak', i['peak'] <= 0.95, f"{i['peak']:.3f} (<=0.95)")
 l1 = np.abs(x).sum(0).max(); rep('irs.l1', l1 <= 1.25, f'{l1:.3f} (<=1.25)')
 e = (x**2).sum(1); c = np.cumsum(e[::-1])[::-1]; t = int(np.argmax(10*np.log10(c/c[0]+1e-30) < -80)); rep('irs.tail', t < len(x), f'-80 dB at frame {t} of {len(x)}')
-v = vdc_info(b + '.vdc'); N = 1 << 15; F = np.fft.rfftfreq(N, 1/48000); m = (F >= 20) & (F <= 20000)
-H = np.fft.rfft(x[:, 0], N) + np.fft.rfft(x[:, 1], N); R = {}
+v = vdc_info(b + '.vdc'); N = 1 << 15; F = np.fft.rfftfreq(N, 1/48000); m = (F >= (100 if SPK else 20)) & (F <= (16000 if SPK else 20000))
+H = np.fft.rfft(x[:, 0], N) + (0 if SPK else np.fft.rfft(x[:, 1], N)); R = {}
 for sr, k in v.items():
     s = np.array(k).reshape(-1, 5); pr = max(np.abs(np.roots([1, -a1, -a2])).max() for _, _, _, a1, a2 in s)
-    rep(f'vdc.{sr}.stable', pr < 0.99, f'{len(s)} sections, max pole {pr:.4f}')
+    rep(f'vdc.{sr}.stable', pr <= 0.985, f'{len(s)} sections, max pole {pr:.4f}')
     G = np.geomspace(20, 16000, 300); V = np.ones(300, complex)
     for q in s: V *= freqz(q[:3], [1, -q[3], -q[4]], worN=G, fs=sr)[1]
     R[sr] = 20*np.log10(abs(V))

@@ -13,3 +13,8 @@ Level-match for blind listening (calculated, A-weighted 100 Hz-10 kHz): preGain1
 cp candidates/v7/iem-hd/<winner>/EDX_HD.{irs,vdc,eel} src/profiles/iem-hd/ ; cp candidates/v7/eel/<other profiles>.eel src/profiles/<dir>/ ; run python3 build/stamp.py ; python3 check.py
 
 Docs: docs/V7_SPEC.md (gates and decisions), docs/V7_PLAN.md (audit + method), docs/V7_REPORT.md (results + listening protocol), all under candidates/v7/docs/.
+
+## 4. Speaker Protection V6 candidate — candidates/v7/spk-v6/ (calculated only)
+Same tuning as v5 (target = the v5 chain response; deviation 0.11 dB rms, 0.37 dB max, 100 Hz-16 kHz; +8 dB boost cap unchanged). Structure changed so the gates hold:
+IRS L1 1.20 (v5 2.24: documented exception removed), max pole 0.976 (v5 0.993), 44.1/48 kHz banks 0.03 dB, chain max -0.50 dB, tail -80 dB at frame 1340. All of tests/gate_candidate.py passes (v5 V6 fails irs.l1 and vdc.stable under the same gates).
+Trade-offs: the IRS is 6.7 dB quieter and the VDC makes the level up (+6.2 dB gain, VDC max +8.4 dB), so the signal between VDC and convolver reaches 2.7x the input peak (calculated, coloured noise). This assumes the effect chain is floating point with no clamp between VDC and convolver: UNTESTED on device. Time-domain residual vs v5: -18 dB (magnitude within 0.37 dB; phase differs). Regenerate: build/v7/generator/build_spk_v7.py <out>.
