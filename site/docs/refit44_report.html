@@ -4,7 +4,7 @@
 <title>44.1 kHz VDC refit report · HyperAudio</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link rel="preload" href="../assets/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/fonts.css">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+<link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
 <!--seo--><meta name="description" content="Report on refitting the 44.1 kHz VDC banks so they match the 48 kHz response within 0.3 dB, with offline verification."/>
 <link rel="canonical" href="https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html"/>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="44.1 kHz VDC refit report · HyperAudio"/>
 <meta name="twitter:description" content="Report on refitting the 44.1 kHz VDC banks so they match the 48 kHz response within 0.3 dB, with offline verification."/>
 <meta name="twitter:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"44.1 kHz refit","item":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"44.1 kHz VDC refit report","description":"Report on refitting the 44.1 kHz VDC banks so they match the 48 kHz response within 0.3 dB, with offline verification.","url":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html","inLanguage":"en","dateModified":"2026-11-08","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html"}</script><!--/seo-->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"44.1 kHz refit","item":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"44.1 kHz VDC refit report","description":"Report on refitting the 44.1 kHz VDC banks so they match the 48 kHz response within 0.3 dB, with offline verification.","url":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html","inLanguage":"en","dateModified":"2026-11-09","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/refit44_report.html"}</script><!--/seo-->
 </head>
 <body>
 <main class="pg dpg" id="main">
@@ -39,7 +39,7 @@
 <p><code>src/dsp/refit44.py</code> compares each 44.1 kHz bank's computed response with the same file's 48 kHz bank on a 600-point grid from 20 Hz to 20 kHz.</p>
 <h2 id="what-changed">What changed<a class="ha" href="#what-changed" aria-label="Link to this section">#</a></h2>
 <ul><li>Only the 44.1 kHz line of four VDCs changes.</li><li>The 48 kHz bank, the section counts and the file format are untouched.</li><li>The refit files are in <code>candidates/v6/</code> and were promoted into <code>src/profiles/</code> in 6.1.0 after a listening check reported by the author.</li></ul>
-<nav class="dnav" aria-label="Previous and next"><a href="CHANGELOG.html"><span class="k">Previous</span><b>Changelog</b></a></nav></article>
+<nav class="dnav" aria-label="Previous and next"><a class="prv" href="CHANGELOG.html"><span class="k">&larr; Previous</span><b>Changelog</b></a></nav></article>
 <aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#result">Result</a></li><li class="l2"><a href="#how-it-was-checked">How it was checked</a></li><li class="l2"><a href="#what-changed">What changed</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>

@@ -1,5 +1,5 @@
-const VERSION = '6.1.0', UI_VERSION = '7.0.0', CACHE = 'hyperaudio-' + VERSION + '-ui' + UI_VERSION;
-const SHELL = ['./', 'index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'assets/css/main.css', 'assets/css/site.css', 'assets/css/tokens.css',
+const VERSION = '7.0.0', UI_VERSION = '7.0.0', CACHE = 'hyperaudio-' + VERSION + '-ui' + UI_VERSION;
+const SHELL = ['./', 'index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'assets/css/base.css', 'assets/css/tokens.css',
 'assets/css/fonts.css', 'assets/css/nav.css', 'assets/css/docs.css', 'assets/js/docs.js', 'data/evidence.json', 'docs/index.html', 'assets/js/app.js', 'assets/js/chart.js', 'assets/js/nav.js', 'assets/js/theme-init.js', 'data/profiles.json', 'data/versions.json', 'data/choose.json', 'manifest.webmanifest', 'assets/fonts/plus-jakarta-sans-latin-400-normal.woff2', 'assets/fonts/plus-jakarta-sans-latin-600-normal.woff2', 'assets/fonts/plus-jakarta-sans-latin-800-normal.woff2', 'assets/fonts/jetbrains-mono-latin-400-normal.woff2', 'assets/fonts/jetbrains-mono-latin-700-normal.woff2', 'assets/icons/favicon.svg'];
 const MAX_RUNTIME = 60;
 const cacheable = u => !/\.(zip|eel|irs|vdc)$/i.test(u.pathname) && !u.pathname.includes('/downloads/');

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Rebuild the v5 VDC/IRS files with build/v7/generator and compare them with the frozen releases/5.0.0 files.
+"""Rebuild the v5 VDC/IRS files with build/generator and compare them with the frozen releases/5.0.0 files.
 Float rounding can change with numpy/scipy versions, so the versions are printed. Usage: python3 tests/gen_repro.py"""
 import hashlib, os, subprocess, sys, tempfile
 import numpy, scipy
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-G = os.path.join(ROOT, 'build', 'v7', 'generator'); REL = os.path.join(ROOT, 'releases', '5.0.0')
+G = os.path.join(ROOT, 'build', 'generator'); REL = os.path.join(ROOT, 'releases', '5.0.0')
 MAP = {'iem_hd': 'iem-hd', 'iem_v10': 'iem-v10', 'iem_v4': 'iem-v4', 'spk_v10': 'spk-v10', 'spk_v8': 'spk-v8', 'spk_v6': 'spk-v6'}
 h = lambda p: hashlib.sha256(open(p, 'rb').read()).hexdigest()
 print('numpy %s scipy %s' % (numpy.__version__, scipy.__version__))

@@ -4,7 +4,7 @@
 <title>Release process · HyperAudio</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link rel="preload" href="../assets/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/fonts.css">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+<link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
 <!--seo--><meta name="description" content="How a HyperAudio release is cut: version stamp, build, freeze, verification and the tag-triggered GitHub release."/>
 <link rel="canonical" href="https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html"/>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="Release process · HyperAudio"/>
 <meta name="twitter:description" content="How a HyperAudio release is cut: version stamp, build, freeze, verification and the tag-triggered GitHub release."/>
 <meta name="twitter:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"Releasing","item":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Release process","description":"How a HyperAudio release is cut: version stamp, build, freeze, verification and the tag-triggered GitHub release.","url":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html","inLanguage":"en","dateModified":"2026-11-08","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html"}</script><!--/seo-->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"Releasing","item":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Release process","description":"How a HyperAudio release is cut: version stamp, build, freeze, verification and the tag-triggered GitHub release.","url":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html","inLanguage":"en","dateModified":"2026-11-09","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/RELEASING.html"}</script><!--/seo-->
 </head>
 <body>
 <main class="pg dpg" id="main">
@@ -41,7 +41,7 @@ python3 build/freeze.py
 git tag v&lt;ver&gt; &amp;&amp; git push --tags</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
 <h2 id="guards">Guards<a class="ha" href="#guards" aria-label="Link to this section">#</a></h2>
 <ul><li><code>build.py</code> refuses to rebuild a release that has a <code>FROZEN</code> file.</li><li><code>tests/check.py</code> fails if a frozen release's <code>SHA256SUMS.txt</code> changes.</li><li>The release notes are the <code>## v&lt;ver&gt;</code> section of <a href="CHANGELOG.html">the changelog</a>, so write it before you tag.</li></ul>
-<nav class="dnav" aria-label="Previous and next"><a href="REPRODUCING.html"><span class="k">Previous</span><b>Reproduce</b></a><a href="CHANGELOG.html"><span class="k">Next</span><b>Changelog</b></a></nav></article>
+<nav class="dnav" aria-label="Previous and next"><a class="prv" href="REPRODUCING.html"><span class="k">&larr; Previous</span><b>Reproduce</b></a><a class="nxt" href="CHANGELOG.html"><span class="k">Next &rarr;</span><b>Changelog</b></a></nav></article>
 <aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#steps">Steps</a></li><li class="l2"><a href="#commands">Commands</a></li><li class="l2"><a href="#guards">Guards</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>

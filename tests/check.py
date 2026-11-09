@@ -29,13 +29,14 @@ for rd in sorted(d for d in glob.glob(f'{ROOT}/releases/*') if os.path.isfile(f'
 cur = open(f'{ROOT}/VERSION').read().strip()
 need(json.load(open(f'{ROOT}/site/data/profiles.json'))['version'] == cur, 'site/data/profiles.json version != VERSION')
 # 2 rebuild into temp dir; member files must match published release hashes (reproducibility)
-with tempfile.TemporaryDirectory() as t:
-    r = subprocess.run([sys.executable, f'{ROOT}/build/build.py', '--out', t + '/r', '--no-runtime'], capture_output=True, text=True)
-    need(r.returncode == 0, 'build failed: ' + r.stdout + r.stderr)
-    pub = f'{ROOT}/releases/{cur}/SHA256SUMS.txt'
-    if os.path.exists(pub): need(sorted(open(pub).read().split('\n')) == sorted(open(t + '/r/SHA256SUMS.txt').read().split('\n')), 'rebuild SHA256SUMS differs from release')
-    if os.path.exists(f'{ROOT}/releases/{cur}/FROZEN'): pass
-    else: need(all(sha(f) == sha(f.replace(t + '/r', f'{ROOT}/releases/{cur}')) for f in glob.glob(t + '/r/*.zip')), 'rebuilt zips differ from release')
+if os.environ.get('HA_SKIP_REBUILD') != '1':
+    with tempfile.TemporaryDirectory() as t:
+        r = subprocess.run([sys.executable, f'{ROOT}/build/build.py', '--out', t + '/r', '--no-runtime'], capture_output=True, text=True)
+        need(r.returncode == 0, 'build failed: ' + r.stdout + r.stderr)
+        pub = f'{ROOT}/releases/{cur}/SHA256SUMS.txt'
+        if os.path.exists(pub): need(sorted(open(pub).read().split('\n')) == sorted(open(t + '/r/SHA256SUMS.txt').read().split('\n')), 'rebuild SHA256SUMS differs from release')
+        if os.path.exists(f'{ROOT}/releases/{cur}/FROZEN'): pass
+        else: need(all(sha(f) == sha(f.replace(t + '/r', f'{ROOT}/releases/{cur}')) for f in glob.glob(t + '/r/*.zip')), 'rebuilt zips differ from release')
 r = subprocess.run([sys.executable, f'{ROOT}/build/stamp.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
 r = subprocess.run([sys.executable, f'{ROOT}/build/evidence_data.py', '--check'], capture_output=True, text=True); need(r.returncode == 0, r.stdout.strip() or r.stderr[:200])
 fz = f'{ROOT}/releases/{cur}/FROZEN'

@@ -364,3 +364,52 @@ box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--danger,#e5675b) 55%,transpare
 .evx-m thead th{font-size:9px;letter-spacing:.04em}
 .tw:has(.evx-m){padding:2px 8px}
 }
+
+/* == docs tabs: scrollable row with edge fade == */
+.dtabs{
+display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+padding-inline-end:var(--space-6);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);
+mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent)}
+
+.dtabs a{flex:none;scroll-snap-align:center;white-space:nowrap}
+
+/* == docs v2: cards and previous/next == */
+.dcards{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-3)}
+
+.dcards li{display:flex;min-width:0}
+
+.dcard{
+display:flex;flex-direction:column;flex:1;gap:var(--space-2);min-height:var(--hit);padding:var(--space-4);
+border:1px solid var(--bd2);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--e1);color:var(--tx);
+text-decoration:none;transition:var(--tr-ui)}
+
+.dcard .k{color:var(--mut)}
+
+.dcard b{font-size:var(--f2);line-height:1.3;color:var(--tx)}
+
+.dcard span.d{
+display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:var(--f1);line-height:1.5;
+color:var(--tx2)}
+
+.dcard .go{
+display:inline-flex;align-items:center;min-height:var(--hit);margin-top:auto;font-size:var(--f1);font-weight:600;color:var(--acc)}
+
+.dcard:active{transform:scale(.99)}
+
+.dnav{grid-template-columns:1fr;gap:var(--space-3);margin-top:var(--space-6)}
+
+.dnav a{
+display:flex;flex-direction:column;gap:var(--space-1);min-height:var(--hit);padding:var(--space-4);border:1px solid var(--bd2);
+border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--e1);color:var(--tx);text-decoration:none;
+transition:var(--tr-ui)}
+
+.dnav a b{font-size:var(--f2);line-height:1.3}
+
+.dnav a:active{transform:scale(.99)}
+
+.dnav .nxt{text-align:end}
+
+@media (min-width:480px){
+.dnav{grid-template-columns:1fr 1fr}
+.dnav .nxt{grid-column:2}
+}

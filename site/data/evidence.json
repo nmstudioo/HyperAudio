@@ -1,5 +1,5 @@
 {
- "version": "6.1.0",
+ "version": "7.0.0",
  "totals": {
   "pass": 108,
   "warn": 0,
@@ -34,15 +34,15 @@
     },
     "spk-v6": {
      "status": "pass",
-     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 4096 frames; irs.peak_matches_meta: file 0.411 meta 0.41; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 7, 48000: 7}; vdc.finite: "
+     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 4096 frames; irs.peak_matches_meta: file 0.203 meta 0.20; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 5, 48000: 5}; vdc.finite: "
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 2048 frames; irs.peak_matches_meta: file 0.785 meta 0.78; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 10, 48000: 10}; vdc.finite: "
+     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 2048 frames; irs.peak_matches_meta: file 0.348 meta 0.35; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 8, 48000: 8}; vdc.finite: "
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 2048 frames; irs.peak_matches_meta: file 0.917 meta 0.92; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 10, 48000: 10}; vdc.finite: "
+     "detail": "eel.lint: ; irs.valid: float WAV 2 ch 48000 Hz 2048 frames; irs.peak_matches_meta: file 0.339 meta 0.34; vdc.banks: banks [44100, 48000]; vdc.sections: sections {44100: 8, 48000: 8}; vdc.finite: "
     }
    }
   },
@@ -53,27 +53,27 @@
    "cells": {
     "iem-hd": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.028 dB, max 0.049 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -2.10 dB, meta -2.1; response.chain_max: max chain gain -0.57 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 0.35 dB (30-16k Hz, level-aligned) vs meta 0.33 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.030 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -2.87 dB, meta -2.9; response.chain_max: max chain gain -0.52 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 0.28 dB (30-16k Hz, level-aligned) vs meta 0.28 dB (band convention inferred; tolerance 0.5 dB)"
     },
     "iem-v4": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.031 dB, max 0.101 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -3.12 dB, meta -3.1; response.chain_max: max chain gain -0.71 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 0.63 dB (30-16k Hz, level-aligned) vs meta 0.65 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.027 dB, max 0.048 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -3.12 dB, meta -3.1; response.chain_max: max chain gain -0.71 dB (must be <= 0 dB; meta chainMax -0.7); response.error_vs_target: recomputed RMS 0.63 dB (30-16k Hz, level-aligned) vs meta 0.63 dB (band convention inferred; tolerance 0.5 dB)"
     },
     "iem-v10": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.031 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -2.28 dB, meta -2.3; response.chain_max: max chain gain -0.61 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 0.50 dB (30-16k Hz, level-aligned) vs meta 0.49 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.031 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -2.28 dB, meta -2.3; response.chain_max: max chain gain -0.61 dB (must be <= 0 dB; meta chainMax -0.6); response.error_vs_target: recomputed RMS 0.50 dB (30-16k Hz, level-aligned) vs meta 0.5 dB (band convention inferred; tolerance 0.5 dB)"
     },
     "spk-v6": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.029 dB, max 0.094 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -4.89 dB, meta -4.9; response.chain_max: max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.56 dB (100-10k Hz, stored level offset) vs meta 3.41 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.027 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -4.89 dB, meta -4.9; response.chain_max: max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.56 dB (100-10k Hz, stored level offset) vs meta 3.41 dB (band convention inferred; tolerance 0.5 dB)"
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.028 dB, max 0.077 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -5.41 dB, meta -5.4; response.chain_max: max chain gain -0.51 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.41 dB (100-10k Hz, stored level offset) vs meta 3.32 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.027 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -5.41 dB, meta -5.4; response.chain_max: max chain gain -0.51 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.41 dB (100-10k Hz, stored level offset) vs meta 3.32 dB (band convention inferred; tolerance 0.5 dB)"
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.030 dB, max 0.072 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -5.30 dB, meta -5.3; response.chain_max: max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.42 dB (100-10k Hz, stored level offset) vs meta 3.34 dB (band convention inferred; tolerance 0.5 dB)"
+     "detail": "response.correction_match: file-derived VDC x IRS vs stored correction: RMS 0.029 dB, max 0.050 dB (limits 0.1 / 0.25); response.gain1k: gain at 1 kHz -5.30 dB, meta -5.3; response.chain_max: max chain gain -0.50 dB (must be <= 0 dB; meta chainMax -0.5); response.error_vs_target: recomputed RMS 3.42 dB (100-10k Hz, stored level offset) vs meta 3.34 dB (band convention inferred; tolerance 0.5 dB)"
     }
    }
   },
@@ -84,7 +84,7 @@
    "cells": {
     "iem-hd": {
      "status": "pass",
-     "detail": "vdc.stable: max pole radius 0.9690 (meta 0.969)"
+     "detail": "vdc.stable: max pole radius 0.9627 (meta 0.963)"
     },
     "iem-v4": {
      "status": "pass",
@@ -96,15 +96,15 @@
     },
     "spk-v6": {
      "status": "pass",
-     "detail": "vdc.stable: max pole radius 0.9930 (meta 0.993)"
+     "detail": "vdc.stable: max pole radius 0.9710 (meta 0.971)"
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "vdc.stable: max pole radius 0.9899 (meta 0.99)"
+     "detail": "vdc.stable: max pole radius 0.9796 (meta 0.98)"
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "vdc.stable: max pole radius 0.9902 (meta 0.99)"
+     "detail": "vdc.stable: max pole radius 0.9794 (meta 0.979)"
     }
    }
   },
@@ -146,27 +146,27 @@
    "cells": {
     "iem-hd": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     },
     "iem-v4": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     },
     "iem-v10": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     },
     "spk-v6": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00680 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
+     "detail": "limiter.ceiling: max sample over ceiling 0.0e+00 (hard clamp; 17 test signals, 44.1+48 kHz) | runtime=eel2py (subset interpreter, not WDL); limiter.clamp_engaged: fraction of steady-state samples on the hard clamp 0.00227 (limit 0.01); THD residual of limited 997 Hz +6 dB tone -47.5 dB (limit -40.0) | runtime=eel2py (subset interpreter, not WDL); limiter.true_peak: true-peak overshoot above ceiling, 8x oversampled: t"
     }
    }
   },
@@ -208,7 +208,7 @@
    "cells": {
     "iem-hd": {
      "status": "pass",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.14 dB over 20-20k Hz (limit 0.3)"
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.03 dB over 20-20k Hz (limit 0.3)"
     },
     "iem-v4": {
      "status": "pass",
@@ -224,11 +224,11 @@
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.02 dB over 20-20k Hz (limit 0.3)"
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.01 dB over 20-20k Hz (limit 0.3)"
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.20 dB over 20-20k Hz (limit 0.3)"
+     "detail": "vdc.sr_consistency: 44.1 kHz bank vs 48 kHz bank max 0.01 dB over 20-20k Hz (limit 0.3)"
     }
    }
   },

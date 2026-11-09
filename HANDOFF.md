@@ -6,7 +6,7 @@ Where the project stands.
 
 - Live site and shipped profiles: v6.1.0 (44.1 kHz bank refit). UI 7.0.0 is site-only.
 - v7 DSP candidates are in `candidates/v7` (IEM HD A/B/C, iem-v4, iem-v10, spk-v6, spk-v8, spk-v10). Offline gates pass (calculated). Nothing is device-tested.
-- The generator is in `build/v7/generator`. It reproduces the v5.0.0 files byte for byte (`tests/gen_repro.py`).
+- The generator is in `build/generator`. It reproduces the v5.0.0 files byte for byte (`tests/gen_repro.py`).
 - The Protection V6 IR peak of 2.24 is fixed in the v7 candidate: the 110 Hz high-pass and low shelf are folded into the IRS, which is scaled to L1 1.20.
 - CI caches the v7 pair gates and the limiter gate; a push without DSP changes stays near 3.5 min.
 

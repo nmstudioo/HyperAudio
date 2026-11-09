@@ -1,4 +1,4 @@
-desc:HyperAudio Speaker Cinema Limiter v8 v5
+desc:HyperAudio Speaker Cinema Limiter v8 v7
 //tags: speaker cinema limiter true-peak
 
 master:1<0,1,1{Bypass,Cinema Spatial Active}>Cinema Engine
@@ -22,13 +22,13 @@ fs = srate > 0 ? srate : 48000;
 pre_k = 1.0 - exp(-1.0 / (0.01 * fs)); preLin = 1.0; preTgt = 1.0; ceilLin = 0.794328; rel_k = 0.001;
 prev_pre = -99999; prev_ceil = -99999; prev_rel = -99999;
 
-// shared limiter core v5: 1.5 ms lookahead, O(1) sliding minimum (monotonic deque), moving-average ramp, gated true-peak
+// shared limiter core v7: 1.5 ms lookahead + 7 samples detector alignment, O(1) sliding minimum (monotonic deque), moving-average ramp, gated true-peak (16-tap Kaiser sinc, 4x)
 L_D = max(2, min(500, floor(0.0015 * fs + 0.5)));
-L_N = L_D + 1; L_cap = L_N + 1;
-L_dlyL = 40000; L_dlyR = L_dlyL + L_N; L_dqV = L_dlyR + L_N; L_dqI = L_dqV + L_cap; L_eB = L_dqI + L_cap;
+L_N = L_D + 1; L_cap = L_N + 1; L_NA = L_N + 7;
+L_dlyL = 40000; L_dlyR = L_dlyL + L_NA; L_dqV = L_dlyR + L_NA; L_dqI = L_dqV + L_cap; L_eB = L_dqI + L_cap;
 L_fadeLen = max(1, floor(0.05 * fs));
 L_i = 0;
-loop(L_N, L_dlyL[L_i] = 0; L_dlyR[L_i] = 0; L_i += 1; );
+loop(L_NA, L_dlyL[L_i] = 0; L_dlyR[L_i] = 0; L_i += 1; );
 L_i = 0;
 loop(L_cap, L_dqV[L_i] = 1.0; L_dqI[L_i] = 0; L_i += 1; );
 L_i = 0;
@@ -43,6 +43,14 @@ ia4 = 0; ib4 = 0;
 ia5 = 0; ib5 = 0;
 ia6 = 0; ib6 = 0;
 ia7 = 0; ib7 = 0;
+ia8 = 0; ib8 = 0;
+ia9 = 0; ib9 = 0;
+ia10 = 0; ib10 = 0;
+ia11 = 0; ib11 = 0;
+ia12 = 0; ib12 = 0;
+ia13 = 0; ib13 = 0;
+ia14 = 0; ib14 = 0;
+ia15 = 0; ib15 = 0;
 
 @sample
 abs(spl0) < 1e6 ? 0 : (spl0 = 0.0);
@@ -52,7 +60,7 @@ master == 0 ? (
 ) : (
   prevMaster == 0 ? (
     L_i = 0;
-    loop(L_N, L_dlyL[L_i] = 0; L_dlyR[L_i] = 0; L_i += 1; );
+    loop(L_NA, L_dlyL[L_i] = 0; L_dlyR[L_i] = 0; L_i += 1; );
     L_i = 0;
     loop(L_cap, L_dqV[L_i] = 1.0; L_dqI[L_i] = 0; L_i += 1; );
     L_i = 0;
@@ -67,6 +75,14 @@ master == 0 ? (
     ia5 = 0; ib5 = 0;
     ia6 = 0; ib6 = 0;
     ia7 = 0; ib7 = 0;
+    ia8 = 0; ib8 = 0;
+    ia9 = 0; ib9 = 0;
+    ia10 = 0; ib10 = 0;
+    ia11 = 0; ib11 = 0;
+    ia12 = 0; ib12 = 0;
+    ia13 = 0; ib13 = 0;
+    ia14 = 0; ib14 = 0;
+    ia15 = 0; ib15 = 0;
     prevMaster = 1;
   );
   (inputGain10 != prev_pre || ceiling10 != prev_ceil || releaseMs != prev_rel) ? (
@@ -82,7 +98,7 @@ master == 0 ? (
   l = mid + side; r = mid - side;
 
   // ---- limiter core (input l,r; output spl0,spl1; needs ceilLin, rel_k) ----
-  // true-peak (gated, unrolled): history shift
+  // true-peak (gated, unrolled, 16-tap Kaiser sinc): history shift
   ia0 = ia1; ib0 = ib1;
   ia1 = ia2; ib1 = ib2;
   ia2 = ia3; ib2 = ib3;
@@ -90,18 +106,26 @@ master == 0 ? (
   ia4 = ia5; ib4 = ib5;
   ia5 = ia6; ib5 = ib6;
   ia6 = ia7; ib6 = ib7;
-  ia7 = l; ib7 = r;
+  ia7 = ia8; ib7 = ib8;
+  ia8 = ia9; ib8 = ib9;
+  ia9 = ia10; ib9 = ib10;
+  ia10 = ia11; ib10 = ib11;
+  ia11 = ia12; ib11 = ib12;
+  ia12 = ia13; ib12 = ib13;
+  ia13 = ia14; ib13 = ib14;
+  ia14 = ia15; ib14 = ib15;
+  ia15 = l; ib15 = r;
   isp_pk = 0;
-  (tpDetect > 0 && max(abs(l), abs(r)) > ceilLin * 0.4) ? ( isp_hot = 8; ) : ( isp_hot -= 1; );
+  (tpDetect > 0 && max(abs(l), abs(r)) > ceilLin * 0.4) ? ( isp_hot = 16; ) : ( isp_hot -= 1; );
   isp_hot > 0 ? (
-    isp_pk = max(isp_pk, abs((ia0 * -0.0058264 + ia1 * 0.0401948 + ia2 * -0.1398249 + ia3 * 0.8902301 + ia4 * 0.2743742 + ia5 * -0.0767304 + ia6 * 0.0181583 + ia7 * -0.0005757)));
-    isp_pk = max(isp_pk, abs((ia0 * -0.0034509 + ia1 * 0.0391804 + ia2 * -0.1462624 + ia3 * 0.6105329 + ia4 * 0.6105329 + ia5 * -0.1462624 + ia6 * 0.0391804 + ia7 * -0.0034509)));
-    isp_pk = max(isp_pk, abs((ia0 * -0.0005757 + ia1 * 0.0181583 + ia2 * -0.0767304 + ia3 * 0.2743742 + ia4 * 0.8902301 + ia5 * -0.1398249 + ia6 * 0.0401948 + ia7 * -0.0058264)));
-    isp_pk = max(isp_pk, abs((ib0 * -0.0058264 + ib1 * 0.0401948 + ib2 * -0.1398249 + ib3 * 0.8902301 + ib4 * 0.2743742 + ib5 * -0.0767304 + ib6 * 0.0181583 + ib7 * -0.0005757)));
-    isp_pk = max(isp_pk, abs((ib0 * -0.0034509 + ib1 * 0.0391804 + ib2 * -0.1462624 + ib3 * 0.6105329 + ib4 * 0.6105329 + ib5 * -0.1462624 + ib6 * 0.0391804 + ib7 * -0.0034509)));
-    isp_pk = max(isp_pk, abs((ib0 * -0.0005757 + ib1 * 0.0181583 + ib2 * -0.0767304 + ib3 * 0.2743742 + ib4 * 0.8902301 + ib5 * -0.1398249 + ib6 * 0.0401948 + ib7 * -0.0058264)));
+    isp_pk = max(isp_pk, abs((ia0 * -0.005102525 + ia1 * 0.010482265 + ia2 * -0.018833394 + ia3 * 0.031572326 + ia4 * -0.051661508 + ia5 * 0.087265300 + ia6 * -0.172996348 + ia7 * 0.900904607 + ia8 * 0.296268866 + ia9 * -0.118593909 + ia10 * 0.066546515 + ia11 * -0.040392769 + ia12 * 0.024525659 + ia13 * -0.014217483 + ia14 * 0.007482058 + ia15 * -0.003249660)));
+    isp_pk = max(isp_pk, abs((ia0 * -0.005825492 + ia1 * 0.012595005 + ia2 * -0.023220457 + ia3 * 0.039432255 + ia4 * -0.064636538 + ia5 * 0.107531911 + ia6 * -0.200264293 + ia7 * 0.634387609 + ia8 * 0.634387609 + ia9 * -0.200264293 + ia10 * 0.107531911 + ia11 * -0.064636538 + ia12 * 0.039432255 + ia13 * -0.023220457 + ia14 * 0.012595005 + ia15 * -0.005825492)));
+    isp_pk = max(isp_pk, abs((ia0 * -0.003249660 + ia1 * 0.007482058 + ia2 * -0.014217483 + ia3 * 0.024525659 + ia4 * -0.040392769 + ia5 * 0.066546515 + ia6 * -0.118593909 + ia7 * 0.296268866 + ia8 * 0.900904607 + ia9 * -0.172996348 + ia10 * 0.087265300 + ia11 * -0.051661508 + ia12 * 0.031572326 + ia13 * -0.018833394 + ia14 * 0.010482265 + ia15 * -0.005102525)));
+    isp_pk = max(isp_pk, abs((ib0 * -0.005102525 + ib1 * 0.010482265 + ib2 * -0.018833394 + ib3 * 0.031572326 + ib4 * -0.051661508 + ib5 * 0.087265300 + ib6 * -0.172996348 + ib7 * 0.900904607 + ib8 * 0.296268866 + ib9 * -0.118593909 + ib10 * 0.066546515 + ib11 * -0.040392769 + ib12 * 0.024525659 + ib13 * -0.014217483 + ib14 * 0.007482058 + ib15 * -0.003249660)));
+    isp_pk = max(isp_pk, abs((ib0 * -0.005825492 + ib1 * 0.012595005 + ib2 * -0.023220457 + ib3 * 0.039432255 + ib4 * -0.064636538 + ib5 * 0.107531911 + ib6 * -0.200264293 + ib7 * 0.634387609 + ib8 * 0.634387609 + ib9 * -0.200264293 + ib10 * 0.107531911 + ib11 * -0.064636538 + ib12 * 0.039432255 + ib13 * -0.023220457 + ib14 * 0.012595005 + ib15 * -0.005825492)));
+    isp_pk = max(isp_pk, abs((ib0 * -0.003249660 + ib1 * 0.007482058 + ib2 * -0.014217483 + ib3 * 0.024525659 + ib4 * -0.040392769 + ib5 * 0.066546515 + ib6 * -0.118593909 + ib7 * 0.296268866 + ib8 * 0.900904607 + ib9 * -0.172996348 + ib10 * 0.087265300 + ib11 * -0.051661508 + ib12 * 0.031572326 + ib13 * -0.018833394 + ib14 * 0.010482265 + ib15 * -0.005102525)));
   );
-  pk = max(max(abs(l), abs(r)), isp_pk);
+  pk = max(max(abs(ia7), abs(ib7)), isp_pk * 1.015);
   req = pk > ceilLin ? ceilLin / pk : 1.0;
   req = min(max(req, 0.0), 1.0);
   L_t += 1;
@@ -116,9 +140,9 @@ master == 0 ? (
   L_chk += 1;
   L_chk >= L_N * 8 ? ( L_i = 0; L_s = 0.0; loop(L_D, L_s += L_eB[L_i]; L_i += 1; ); L_esum = L_s; L_chk = 0; );
   g = min(1.0, L_esum / L_D);
-  L_rp = L_w + 1; L_rp >= L_N ? ( L_rp = 0; );
+  L_rp = L_w + 1; L_rp >= L_NA ? ( L_rp = 0; );
   L_fadeN < L_fadeLen ? ( L_fadeN += 1; fg = L_fadeN / L_fadeLen; ) : ( fg = 1.0; );
   spl0 = min(max(L_dlyL[L_rp] * g * fg, -ceilLin), ceilLin);
   spl1 = min(max(L_dlyR[L_rp] * g * fg, -ceilLin), ceilLin);
-  L_w += 1; L_w >= L_N ? ( L_w = 0; );
+  L_w += 1; L_w >= L_NA ? ( L_w = 0; );
 );

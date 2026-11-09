@@ -11,8 +11,7 @@ favicon.ico, robots.txt
 assets/brand/              logo.svg, logo-light.svg, logo-mark.svg, github-cover.svg/.png, og-image.svg/.png
 assets/icons/              favicon, apple-touch, 192/512 and maskable PNG icons
 tools/make_brand.py        regenerates every brand asset (text is outlined, data from profiles.json)
-assets/css/main.css        original styles (unchanged)
-assets/css/site.css        v5 additions
+assets/css/base.css        main + site styles, merged
 assets/js/theme-init.js    theme before paint
 assets/js/chart.js         response chart (window.HAChart)
 assets/js/app.js           page logic, reads data/profiles.json

@@ -2,7 +2,7 @@
 """WCAG 2.2 check of the v9 OKLCH tokens: text 4.5:1, control borders 3:1."""
 import math, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-S = open(f'{ROOT}/site/assets/css/site.css', encoding='utf-8').read()
+S = open(f'{ROOT}/site/assets/css/base.css', encoding='utf-8').read()
 blk = S[S.index('/* == v9 theme'):S.index('/* == /v9 theme')]
 tok = {n: [tuple(map(float, x.split())) for x in (a, b)] for n, a, b in
        re.findall(r'--([\w-]+):\s*light-dark\(\s*oklch\(([^)]*)\)\s*,\s*oklch\(([^)]*)\)\s*\)', blk)}

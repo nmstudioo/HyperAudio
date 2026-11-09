@@ -165,6 +165,7 @@ tLinks("nl") +
 chip +
 '<div class="sb-ctl">' +
 themeBtn("nb") +
+'<a class="nb" href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Website (opens in new tab)" data-tip="Website"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></a>' +
 '<a class="nb" href="' +
 GH +
 '" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in new tab)" data-tip="GitHub">' +
@@ -175,25 +176,18 @@ ic("gh") +
 var frag = D.createDocumentFragment();
 while (wrap.firstChild) frag.appendChild(wrap.firstChild);
 B.insertBefore(frag, main);
-var foot = D.createElement("div");
-foot.className = "sf";
-foot.setAttribute("role", "contentinfo");
-foot.innerHTML =
-'<div class="sf-in">' +
+var foot = D.createElement('div');
+foot.className = 'sf'; foot.setAttribute('role', 'contentinfo');
+var year = new Date().getFullYear();
+foot.innerHTML = '<div class="sf-in">' +
 '<div class="sf-brand"><span class="sf-mark" role="img" aria-label="HyperAudio">' +
-'<img class="sf-logo sf-logo-dark" src="' +
-base +
-'assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
-'<img class="sf-logo sf-logo-light" src="' +
-base +
-'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
-'</span><span class="n-ver"></span></div>' +
-'<p class="sf-e">Offline checks · no acoustic measurement recorded</p>' +
-'<p class="sf-c">Tested by Noushad Mostafa</p>' +
-'<p class="sf-l"><a href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer">Website</a>' +
-'<a href="' +
-GH +
-'" target="_blank" rel="noopener noreferrer">GitHub</a></p></div>';
+'<img class="sf-logo sf-logo-dark" src="' + base + 'assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
+'<img class="sf-logo sf-logo-light" src="' + base + 'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
+'</span></div>' +
+'<p class="sf-facts">Offline checks · No acoustic measurement recorded · Tested by Noushad Mostafa</p>' +
+'<nav class="sf-n" aria-label="Footer"><a href="/HyperAudio/docs/">Docs</a><a href="/HyperAudio/changelog.html">Changelog</a><a href="/HyperAudio/docs/EVIDENCE.html">Evidence</a></nav>' +
+'<p class="sf-cp">© ' + year + ' Noushad Mostafa · HyperAudio <span class="n-ver"></span></p>' +
+'</div>';
 B.appendChild(foot);
 function themeSync() {
 var l = R.dataset.theme === "light";
@@ -354,7 +348,7 @@ return r.ok ? r.json() : Promise.reject();
 })
 .then(function (d) {
 D.querySelectorAll(".n-ver").forEach(function (n) {
-n.textContent = d.version || "";
+n.textContent = 'Release v' + (d.version || "").replace(/^v/, '');
 });
 var id;
 try {

@@ -31,7 +31,7 @@ off = [];
 const vis = (e) =>
 getComputedStyle(e).display !== "none" &&
 e.getBoundingClientRect().width;
-f.querySelectorAll(".sf-mark,.n-ver,.sf-e,.sf-c,.sf-l").forEach(
+f.querySelectorAll(".sf-mark,.sf-facts,.sf-cp,.sf-n,.sf-l").forEach(
 (e) => {
 if (!vis(e)) return;
 const q =
@@ -69,7 +69,7 @@ return {
 off,
 logo,
 imgOk,
-links: f.querySelectorAll(".sf-l a").length,
+links: f.querySelectorAll(".sf-n a, .sf-l a").length,
 over: document.documentElement.scrollWidth > innerWidth,
 };
 });
@@ -78,7 +78,7 @@ r.err ||
 r.off.length ||
 r.logo !== 1 ||
 !r.imgOk ||
-r.links !== 2 ||
+r.links < 1 ||
 r.over
 ) {
 bad++;

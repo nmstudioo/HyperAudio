@@ -4,7 +4,7 @@
 <title>Reproduce the build · HyperAudio</title><link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
 <script src="../assets/js/theme-init.js"></script>
 <link rel="preload" href="../assets/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/fonts.css">
-<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
+<link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/nav.css"><link rel="stylesheet" href="../assets/css/docs.css">
 <!--seo--><meta name="description" content="Rebuild every HyperAudio profile from source, verify hashes and run the offline acceptance checks on your own machine."/>
 <link rel="canonical" href="https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html"/>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="Reproduce the build · HyperAudio"/>
 <meta name="twitter:description" content="Rebuild every HyperAudio profile from source, verify hashes and run the offline acceptance checks on your own machine."/>
 <meta name="twitter:image" content="https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"Reproducing","item":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Reproduce the build","description":"Rebuild every HyperAudio profile from source, verify hashes and run the offline acceptance checks on your own machine.","url":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html","inLanguage":"en","dateModified":"2026-11-08","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html"}</script><!--/seo-->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nmstudioo.github.io/HyperAudio/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://nmstudioo.github.io/HyperAudio/docs/"},{"@type":"ListItem","position":3,"name":"Reproducing","item":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Reproduce the build","description":"Rebuild every HyperAudio profile from source, verify hashes and run the offline acceptance checks on your own machine.","url":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html","inLanguage":"en","dateModified":"2026-11-09","author":{"@type":"Person","name":"Noushad Mostafa"},"publisher":{"@type":"Person","name":"Noushad Mostafa"},"image":"https://nmstudioo.github.io/HyperAudio/assets/brand/og-image.png","mainEntityOfPage":"https://nmstudioo.github.io/HyperAudio/docs/REPRODUCING.html"}</script><!--/seo-->
 </head>
 <body>
 <main class="pg dpg" id="main">
@@ -40,7 +40,7 @@ python3 tests/check.py        # hashes, links, JS syntax, rebuild parity</code><
 <p>Run it from <code>releases/</code> so the <code>6.0.0/</code> paths in the checksum file resolve. It covers each profile file; the zips are not listed.</p>
 <h2 id="frozen-releases">Frozen releases<a class="ha" href="#frozen-releases" aria-label="Link to this section">#</a></h2>
 <p>Releases with a <code>FROZEN</code> file are never rebuilt in place. Zip bytes depend on the zip tool, so the check compares member-file hashes for frozen releases instead of the zip hashes.</p>
-<nav class="dnav" aria-label="Previous and next"><a href="OPEN.html"><span class="k">Previous</span><b>Open items</b></a><a href="RELEASING.html"><span class="k">Next</span><b>Releasing</b></a></nav></article>
+<nav class="dnav" aria-label="Previous and next"><a class="prv" href="OPEN.html"><span class="k">&larr; Previous</span><b>Open items</b></a><a class="nxt" href="RELEASING.html"><span class="k">Next &rarr;</span><b>Releasing</b></a></nav></article>
 <aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol><li class="l2"><a href="#rebuild">Rebuild</a></li><li class="l2"><a href="#verify">Verify</a></li><li class="l2"><a href="#frozen-releases">Frozen releases</a></li></ol></details></aside></div>
 </main>
 <script src="../assets/js/docs.js"></script>

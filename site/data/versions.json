@@ -1,8 +1,17 @@
 [
  {
+  "v": "v7.0.0",
+  "date": "2026-11-09",
+  "status": "current",
+  "notes": [
+   "See docs/CHANGELOG.md"
+  ],
+  "dl": "downloads/7.0.0/SHA256SUMS.txt"
+ },
+ {
   "v": "v6.1.0",
   "date": "2026-11-08",
-  "status": "current",
+  "status": "previous",
   "notes": [
    "44.1 kHz refit for iem-v4, iem-v10, spk-v8 and spk-v10",
    "Bank mismatch down from 0.9-1.6 dB to 0.2 dB or less (calculated)",
