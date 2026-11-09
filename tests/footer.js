@@ -31,7 +31,7 @@ off = [];
 const vis = (e) =>
 getComputedStyle(e).display !== "none" &&
 e.getBoundingClientRect().width;
-f.querySelectorAll(".sf-mark,.n-ver,.sf-e,.sf-c,.sf-l").forEach(
+f.querySelectorAll(".sf-mark,.sf-facts,.sf-cp,.sf-n,.sf-l").forEach(
 (e) => {
 if (!vis(e)) return;
 const q =
