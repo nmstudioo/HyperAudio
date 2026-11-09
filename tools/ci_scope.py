@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """CI scope: which job groups a change needs. Fails safe to everything."""
 import os, subprocess
-DSP = ('src/profiles', 'candidates/', 'releases/', 'VERSION', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/freeze.py', 'build/generator/', 'build/dsp/', 'tests/eel/', 'tests/gate_', 'tests/gen_repro.py', 'requirements.txt')
-GEN = ('build/generator/', 'build/dsp/', 'tests/gen_repro.py', 'releases/5.0.0/')
-SITE = ('site/', 'docs/', 'VERSION', 'build/docs_site.py', 'build/seo.py', 'build/stamp.py', 'build/evidence_data.py', 'tests/overflow.js', 'tests/footer.js', 'tests/links.js', 'tests/a11y.js', 'tests/budget.js', 'tests/ui-behavior.js', 'tests/screenshots.js', 'tests/ui-v7-contract.js', 'tests/seo_audit.py')
+DSP = ('src/profiles', 'candidates/', 'releases/', 'VERSION', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/freeze.py', 'build/generator/', 'tests/eel/', 'tests/gen_repro.py', 'requirements.txt')
+GEN = ('build/generator/', 'tests/gen_repro.py', 'releases/5.0.0/')
+SITE = ('site/', 'docs/', 'VERSION', 'build/docs_site.py', 'build/seo.py', 'build/stamp.py', 'build/evidence_data.py', 'tests/overflow.js', 'tests/footer.js', 'tests/links.js', 'tests/a11y.js', 'tests/budget.js', 'tests/ui-behavior.js', 'tests/screenshots.js', 'tests/seo_audit.py')
 ALL = ('.github/workflows/ci.yml', 'tools/ci_scope.py')
 def changed():
     ev, b = os.environ.get('EVENT', ''), os.environ.get('BEFORE', '')

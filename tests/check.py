@@ -58,4 +58,27 @@ need(bool(m), 'sw.js SHELL list not found')
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')
+# 5 static site invariants (moved from tests/ui-v7-contract.js)
+import math
+S = f'{ROOT}/site'; rd = lambda q: open(f'{S}/{q}', encoding='utf-8').read()
+FONTS = ['plus-jakarta-sans-latin-400-normal', 'plus-jakarta-sans-latin-600-normal', 'plus-jakarta-sans-latin-800-normal', 'jetbrains-mono-latin-400-normal', 'jetbrains-mono-latin-700-normal']
+def fin(v):
+    try: return math.isfinite(float(v))
+    except (TypeError, ValueError): return False
+for n in ('index', 'compare', 'finder', 'archive', 'changelog', '404'):
+    s = rd(f'{n}.html')
+    need('Content-Security-Policy' in s, f'{n}.html has no CSP meta')
+    need(not re.search(r'fonts\.g(oogleapis|static)\.com', s), f'{n}.html loads Google Fonts')
+    need('assets/css/fonts.css' in s, f'{n}.html does not load fonts.css')
+for f in FONTS:
+    need(os.path.exists(f'{S}/assets/fonts/{f}.woff2'), f'font file missing: {f}.woff2')
+    need(f in rd('assets/css/fonts.css'), f'fonts.css does not reference {f}')
+need('assets/css/fonts.css' in rd('sw.js'), 'sw.js SHELL lacks fonts.css')
+pd = json.load(open(f'{S}/data/profiles.json'))
+need(len(pd['profiles']) == 6, 'stable profile set changed unexpectedly')
+need(all(len(p['files']) == 3 for p in pd['profiles']), 'a profile no longer has its matched three-file set')
+need(all(fin(p.get('stats', {}).get(k)) for p in pd['profiles'] for k in ('rms', 'chainMax', 'sections', 'irsPeak')), 'profile metric fields missing or non-finite')
+need('Offline + author device test' not in rd('index.html'), 'stale evidence badge on index.html')
+need("Tested on the author's phone" not in rd('index.html'), 'unqualified device-test claim on index.html')
+need('no acoustic measurement recorded' in rd('assets/js/nav.js').lower(), 'footer evidence copy is not qualified (nav.js)')
 print('\n'.join('FAIL ' + e for e in err) or 'all checks passed'); sys.exit(1 if err else 0)

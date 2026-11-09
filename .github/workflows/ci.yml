@@ -44,9 +44,6 @@ jobs:
         env:
           HA_SKIP_REBUILD: ${{ needs.prep.outputs.dsp == 'true' && '0' || '1' }}
         run: python3 tests/check.py
-      - name: UI contract (static; retired when P3 ports it into check.py)
-        run: node tests/ui-v7-contract.js
-
   dsp:
     needs: prep
     if: needs.prep.outputs.dsp == 'true'

@@ -1,4 +1,4 @@
-"""Offline checks shared by build and CI. Stdlib only."""
+"""Offline checks shared by build and CI. Stdlib at import time; numpy-based checks load lazily."""
 import hashlib, json, os, re, struct, math
 
 def sha(p): return hashlib.sha256(open(p, 'rb').read()).hexdigest()
@@ -29,6 +29,28 @@ def eel_lint(path):
         if code.count(a) != code.count(b): err.append('unbalanced ' + a + b)
     return err
 
+def file_limits(pdir, p):
+    import numpy as np
+    out = []
+    def add(n, ok, d): out.append(dict(check=n, status='pass' if ok else 'fail', detail=d))
+    for f in p['file_order']:
+        path = os.path.join(pdir, f); k = f.rsplit('.', 1)[1]
+        if k == 'irs':
+            i = irs_info(path); raw = open(path, 'rb').read(); j = raw.find(b'data')
+            n = struct.unpack('<I', raw[j + 4:j + 8])[0]
+            x = np.frombuffer(raw[j + 8:j + 8 + n], '<f4').reshape(-1, i['channels'])
+            add('irs.peak_limit', i['peak'] <= 0.95, '%.3f (<=0.95)' % i['peak'])
+            l1 = float(np.abs(x).sum(0).max()); add('irs.l1', l1 <= 1.25, '%.3f (<=1.25)' % l1)
+            e = (x ** 2).sum(1); c = np.cumsum(e[::-1])[::-1]; below = 10 * np.log10(c / c[0] + 1e-30) < -80
+            t = int(np.argmax(below)) if below.any() else len(x)
+            add('irs.tail', t < len(x), '-80 dB at frame %d of %d' % (t, len(x)))
+        elif k == 'vdc':
+            for sr, b in sorted(vdc_info(path).items()):
+                s = np.array(b).reshape(-1, 5)
+                pr = float(max(np.abs(np.roots([1, -a1, -a2])).max() for _, _, _, a1, a2 in s))
+                add('vdc.pole_radius', pr <= 0.985, '%d Hz: max pole %.4f (<=0.985)' % (sr, pr))
+    return out
+
 def acceptance(pdir, p, runtime=True):
     """Per-build checks computable offline. Checks needing an EEL runtime are reported not_run, never faked."""
     out = []
@@ -50,13 +72,13 @@ def acceptance(pdir, p, runtime=True):
     import sys; root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
         import numpy; sys.path.insert(0, os.path.dirname(__file__)); import response
-        meta = json.load(open(f'{root}/src/profiles.meta.json')); out += response.checks(pdir, p, numpy.array(meta['freq']))
+        meta = json.load(open(f'{root}/src/profiles.meta.json')); out += response.checks(pdir, p, numpy.array(meta['freq'])); out += file_limits(pdir, p)
         if runtime:
             sys.path.insert(0, f'{root}/tests/eel'); import limiter_tests
-            out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'], gate='candidate-v7')
+            out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'], gate='release')
         else:
             for n in ('eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='skipped (--no-runtime)'))
     except ImportError as ex:
-        for n in ('response.correction_match', 'eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='needs numpy/scipy: ' + str(ex)))
+        for n in ('response.correction_match', 'irs.peak_limit', 'irs.l1', 'irs.tail', 'vdc.pole_radius', 'eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'): out.append(dict(check=n, status='not_run', detail='needs numpy/scipy: ' + str(ex)))
     out.append(dict(check='cpu', status='not_run', detail='needs on-device measurement; interpreter timing is not representative'))
     return out

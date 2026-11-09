@@ -1,5 +1,7 @@
 """numpy reference of the shared limiter core (float64). Same structure as the EEL: lookahead D, sliding-min of required gain,
-moving-average smoothing, detector = windowed-sinc interpolation at 3 intermediate phases (4x)."""
+moving-average smoothing, detector = windowed-sinc interpolation at 3 intermediate phases (4x).
+v7 settings: limit(x, nt=16, align=True, guard=1.015) with KB=4.0.
+The release-grade gate calls for an EEL-vs-reference cross-check; it is not automated yet."""
 import numpy as np
 from collections import deque
 KB=None
