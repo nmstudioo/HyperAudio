@@ -9,7 +9,25 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  prep:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      dsp: ${{ steps.s.outputs.dsp }}
+      gen: ${{ steps.s.outputs.gen }}
+      site: ${{ steps.s.outputs.site }}
+    steps:
+      - uses: actions/checkout@v6
+        with: { fetch-depth: 0 }
+      - id: s
+        run: python3 tools/ci_scope.py
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE_REF: ${{ github.base_ref }}
+
   verify:
+    needs: prep
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -22,23 +40,37 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -r requirements.txt
-      - name: Hashes, rebuild reproducibility, stamps, links, JS syntax
+      - name: Hashes, stamps, links, JS syntax (full rebuild only when DSP changed)
+        env:
+          HA_SKIP_REBUILD: ${{ needs.prep.outputs.dsp == 'true' && '0' || '1' }}
         run: python3 tests/check.py
-      - name: Limiter gate policy regression
-        run: python3 tests/eel/gate_policy_test.py
-      - name: Docs and SEO regenerate (always; seconds)
+      - name: Docs and SEO regenerate (seconds)
         run: |
           python3 build/docs_site.py
           python3 build/seo.py
-      # Content-addressed skip: the slow runtime acceptance only depends on the DSP files, the release inputs and the code that checks them.
-      # Same inputs => restore the previous (successful) result instead of recomputing. Caches are written only by successful runs.
+
+  dsp:
+    needs: prep
+    if: needs.prep.outputs.dsp == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Limiter gate policy regression
+        run: python3 tests/eel/gate_policy_test.py
       - name: Restore runtime acceptance result
         id: acc
         uses: actions/cache@v5
         with:
           path: /tmp/rel
           key: acceptance-v1-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/freeze.py', 'tests/eel/**', 'requirements.txt') }}
-      - name: Full build with runtime acceptance (response, EEL parse, limiter, tail, NaN soak) and drift diff
+      - name: Full build with runtime acceptance and drift diff
         if: steps.acc.outputs.cache-hit != 'true'
         run: python3 build/build.py --out /tmp/rel
       - name: Restore v7 candidate gate result
@@ -63,12 +95,24 @@ jobs:
         run: |
           python3 tests/gate_v7_candidates.py
           date -u > /tmp/v7pairs.ok
-      # Informational: float rounding can change with numpy/scipy versions, so a mismatch warns but does not fail CI.
       - name: Generator reproduction vs releases/5.0.0 (informational)
+        if: needs.prep.outputs.gen == 'true'
         continue-on-error: true
         run: python3 tests/gen_repro.py
       - name: Drift report
         run: cat /tmp/rel/DIFF.md 2>/dev/null || true
+      - uses: actions/upload-artifact@v7
+        with: { name: acceptance, path: /tmp/rel/acceptance.json, if-no-files-found: ignore }
+
+  browser:
+    needs: prep
+    if: needs.prep.outputs.site == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with: { node-version: 24 }
       - name: Cache Playwright browsers
         uses: actions/cache@v5
         with:
@@ -93,14 +137,12 @@ jobs:
       - name: Lighthouse CI (a11y >= 0.95 is a hard gate)
         run: npx --yes @lhci/cli@0.14.0 autorun --config=.lighthouserc.json
       - uses: actions/upload-artifact@v7
-        with: { name: acceptance, path: /tmp/rel/acceptance.json }
-      - uses: actions/upload-artifact@v7
         if: always()
         with: { name: lighthouse, path: lhci-reports, if-no-files-found: ignore }
 
   deploy:
-    needs: verify
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [prep, verify, dsp, browser]
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions: { contents: read, pages: write, id-token: write }
