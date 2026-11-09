@@ -1,4 +1,4 @@
-/* ==== main.css ==== */
+/* == main.css == */
 /* == HyperAudio CSS — unified token-based layer == */
 /* == STYLE BLOCK 1 (original) == */
 /* == HyperAudio — monochrome "engine room" theme == */
@@ -2750,7 +2750,7 @@ animation-duration:0.01ms!important;animation-iteration-count:1!important;transi
 scroll-behavior:auto!important}
 }
 
-/* ==== site.css ==== */
+/* == site.css == */
 /* == v5 additions on top of main.css == */
 .dl-gh .btn{margin-left:auto;flex:none}
 
@@ -3757,17 +3757,23 @@ body.n-pg main.pg > h1{font-size:var(--fs-4);line-height:1.1;letter-spacing:var(
 
 :where(p,li,.lead){max-width:var(--measure)}
 
-/* == v8.3 carousel gutter + ring clearance == */
 @media (max-width:767px){
 #setup #step2{background:none;border:0;border-radius:0;box-shadow:none;padding:0}
+#setup #step2 .st-h{margin-bottom:var(--space-3)}
 #setup #step2 #snd{
-display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
-margin:0 calc(-1 * var(--pp,16px));padding:var(--space-2) var(--pp,16px) var(--space-4);scroll-padding-inline:var(--pp,16px);
-background:none;border:0;box-shadow:none;border-radius:0;gap:var(--space-3)}
+position:relative;display:flex;gap:var(--space-3);margin:0;padding:var(--space-2) 0 var(--space-4);overflow-x:auto;
+overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0;overscroll-behavior-x:contain;scrollbar-width:none;
+background:none;border:0;border-radius:0;box-shadow:none}
 #setup #step2 #snd::-webkit-scrollbar{display:none}
 #setup #step2 #snd .snd-c,#setup #step2 #snd .snd-c:last-child:nth-child(odd){
-flex:0 0 min(80%,300px);grid-column:auto;min-height:0;scroll-snap-align:start}
+flex:0 0 min(84%,300px);grid-column:auto;min-height:0;scroll-snap-align:start}
 #setup #step2 #snd .snd-c[aria-pressed="true"]{
-box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 70%,transparent),0 12px 28px -16px color-mix(in srgb,var(--acc) 60%,transparent)}
-#setup #step2 .st-h{margin-bottom:var(--space-3)}
+box-shadow:var(--lift),0 14px 28px -20px color-mix(in srgb,var(--acc) 60%,transparent)}
+#setup #step2 #snd .snd-c:focus-visible{outline-offset:-2px!important}
+}
+
+/* == v13 compare overlay: no overflow at 320px == */
+@media (max-width:480px){
+.cmp-ovl{display:flex;flex-wrap:wrap;align-items:center;width:100%;min-width:0;gap:var(--space-2)}
+.cmp-ovl select{flex:1 1 9rem;width:auto;min-width:0;max-width:100%}
 }
