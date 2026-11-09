@@ -25,6 +25,8 @@ jobs:
         run: |
           python3 tools/record_device.py iem-hd pass "KZ EDX Pro" "Blind A/B/C listening by the author: A (Harman IE 2019) won, balanced and crisper than v6, level matched, no distortion or fatigue. B was bass heavy and the most fatiguing; C ranked third."
           python3 tools/record_device.py spk-v6 pass "Redmi 12" "Author listening: no clipping or distortion at loud volumes. Reported significantly quieter than v6.1.0, with clearly better punch and sharpness."
+      - name: Clear stale freeze marker
+        run: rm -f "releases/${{ inputs.version }}/FROZEN" || true
       - name: Build with runtime acceptance (slow)
         run: python3 build/build.py
       - name: Docs, site data, ship, freeze
