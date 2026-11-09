@@ -618,3 +618,14 @@ padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1)}
 .sf .sf-mark{margin-top:var(--space-2)}
 
 .sf .n-ver{margin-top:calc(var(--space-2) * -1);margin-bottom:var(--space-2)}
+
+/* == v14 Footer icon links == */
+.sf-l{gap:var(--space-3)!important}
+
+.sf-l a{
+display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--bd);
+background:var(--surface);color:var(--tx2);text-decoration:none;transition:all 0.2s ease;padding:0;min-height:auto}
+
+.sf-l a:hover{color:var(--tx);border-color:var(--acc);background:var(--elev)}
+
+.sf-l a svg{width:20px;height:20px}
