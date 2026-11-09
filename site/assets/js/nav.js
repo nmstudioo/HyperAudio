@@ -179,19 +179,15 @@ B.insertBefore(frag, main);
 var foot = D.createElement("div");
 foot.className = "sf";
 foot.setAttribute("role", "contentinfo");
-foot.innerHTML =
-'<div class="sf-in">' +
+foot.innerHTML = '<div class="sf-in">' +
 '<div class="sf-brand"><span class="sf-mark" role="img" aria-label="HyperAudio">' +
-'<img class="sf-logo sf-logo-dark" src="' +
-base +
-'assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
-'<img class="sf-logo sf-logo-light" src="' +
-base +
-'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
-'</span><span class="n-ver"></span></div>' +
-'<ul class="sf-facts"><li>Offline checks</li><li>No acoustic measurement recorded</li><li>Tested by Noushad Mostafa</li></ul>' +
+'<img class="sf-logo sf-logo-dark" src="' + base + 'assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
+'<img class="sf-logo sf-logo-light" src="' + base + 'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
+'</span><span class="sf-name">HyperAudio</span></div>' +
+'<p class="sf-facts">Offline checks · No acoustic measurement recorded · Tested by Noushad Mostafa</p>' +
 '<nav class="sf-n" aria-label="Footer"><a href="/HyperAudio/docs/">Docs</a><a href="/HyperAudio/changelog.html">Changelog</a><a href="/HyperAudio/docs/EVIDENCE.html">Evidence</a></nav>' +
-'<p class="sf-cp">© ' + new Date().getFullYear() + ' Noushad Mostafa · HyperAudio</p></div>';
+'<p class="sf-cp">© 2026 Noushad Mostafa · HyperAudio <span class="n-ver"></span></p>' +
+'</div>';
 B.appendChild(foot);
 function themeSync() {
 var l = R.dataset.theme === "light";

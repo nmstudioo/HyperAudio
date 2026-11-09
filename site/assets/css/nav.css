@@ -712,3 +712,30 @@ letter-spacing:0;text-transform:none;color:var(--mut)}
 @media (max-width:767px){
 .sb .sb-ctl [data-n-theme]{display:none}
 }
+
+/* == footer v4: editorial minimalist == */
+.sf-in{gap:var(--space-4)!important;padding:var(--space-6) var(--space-4)!important}
+
+.sf-brand{display:flex;flex-direction:column;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2)}
+
+.sf-name{font:800 var(--fs-1) var(--sans);letter-spacing:-.02em;color:var(--tx)}
+
+.sf-facts{margin:0;font:400 var(--fs-s)/1.6 var(--sans);color:var(--tx2);text-align:center;letter-spacing:0;text-transform:none}
+
+.sf-n{display:flex;justify-content:center;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4)}
+
+.sf-n a{
+font:600 var(--fs-0) var(--sans);color:var(--tx);text-decoration:underline;text-underline-offset:4px;
+text-decoration-color:var(--bd2);transition:color 0.2s,text-decoration-color 0.2s}
+
+.sf-n a:hover{color:var(--acc);text-decoration-color:var(--acc)}
+
+.sf-cp{
+margin:0;padding-top:var(--space-4);border-top:1px solid var(--bd);width:100%;max-width:400px;font:400 var(--fs-s) var(--sans);
+color:var(--mut);text-align:center}
+
+.sf .sf-cp .n-ver{
+display:inline;min-height:0;margin:0 0 0 var(--space-2);padding:0;border:0;border-radius:0;background:none;box-shadow:none;
+font:600 var(--fs-s) var(--mono);letter-spacing:.04em;text-transform:none;color:var(--acc)}
+
+.sf .sf-cp .n-ver:empty{display:none}
