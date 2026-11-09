@@ -12,11 +12,11 @@ const app = read("site/assets/js/app.js");
 const pages = read("site/assets/js/pages.js");
 const nav = read("site/assets/js/nav.js");
 const chart = read("site/assets/js/chart.js");
-const css = read("site/assets/css/site.css");
+const css = read("site/assets/css/base.css");
 const sw = read("site/sw.js");
 const profileData = JSON.parse(read("site/data/profiles.json"));
 const html = ["index", "compare", "finder", "archive", "changelog", "404"].map((n) => [n, read(`site/${n}.html`)]);
-need(!exists("site/assets/js/v7-ui.js") && !exists("site/assets/css/v7-ui.css"), "overlay files must stay merged into app.js / site.css");
+need(!exists("site/assets/js/v7-ui.js") && !exists("site/assets/css/v7-ui.css"), "overlay files must stay merged into app.js / base.css");
 html.forEach(([n, s]) => {
 need(!/v7-ui\.(js|css)/.test(s), `${n}.html still references the overlay`);
 need(!/fonts\.g(oogleapis|static)\.com/.test(s), `${n}.html still loads Google Fonts`);

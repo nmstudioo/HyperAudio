@@ -18,7 +18,7 @@ Status of the v6 work. The shipped profile files differ from v5.0.0 only in the 
 | 1 | CI on GitHub | Workflow updated (installs numpy and scipy, runs the full acceptance suite); not yet run on GitHub | Push the repo and confirm Actions are green |
 | 2 | EEL compile, limiter ceiling, tail, CPU, NaN tests | Done offline via `tests/eel` (eel2py): ceiling, true-peak, THD, tail and NaN soak pass on all six; `cpu` stays `not_run` | Optional: confirm on real WDL or ysfx; `cpu` needs a device |
 | 3 | Response-error check | Done: VDC times IRS reproduces the stored correction (0.03 dB RMS); checks live in `build/response.py` | Nothing |
-| 4 | Speaker boost cap (+8 dB) | Unchanged. Generator now in `build/v7/generator`; +10/+12 variants not built | Decide whether to build them, then a device test |
+| 4 | Speaker boost cap (+8 dB) | Unchanged. Generator now in `build/generator`; +10/+12 variants not built | Decide whether to build them, then a device test |
 | 5 | Protection V6 loudness (IR peak 2.24 against 1.25) | Explained and fixed in the v7 candidate: low-frequency sections folded into the IRS, L1 1.20 (calculated) | Device check of the VDC-to-convolver level path |
 | 6 | Limiter true-peak | v7 candidate: worst 8x overshoot +0.25 dB (v5 baseline +1.7 to +1.95 dB noise); latency 79 samples | Device and CPU test before promoting |
 | 7 | 44.1 kHz bank | Refit promoted in 6.1.0; listening check reported by the author | None; there is no instrument measurement |
