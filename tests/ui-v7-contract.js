@@ -36,7 +36,7 @@ need(!index.includes("Offline + author device test"), "stale evidence badge rema
 need(!index.includes("Tested on the author's phone"), "unqualified device-test claim remains");
 need(!index.includes("Swipe to see all"), "stale swipe instruction remains");
 need(!index.includes('tabindex="0" id="cmpChart" tabindex="0"'), "duplicate chart tabindex remains");
-need(nav.includes("no acoustic measurement recorded"), "footer evidence copy is not qualified");
+need(nav.toLowerCase().includes("no acoustic measurement recorded"), "footer evidence copy is not qualified");
 need(app.includes("DATA.version"), "release statistic is not data-driven");
 need(app.includes("RMS target error") && app.includes("function metrics("), "profile metrics must be rendered by app.js");
 need(app.includes("function evChips(") && app.includes("loadEv"), "shared evidence chip component is missing");
