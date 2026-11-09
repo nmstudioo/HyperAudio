@@ -689,3 +689,21 @@ display:inline-flex;align-items:center;min-height:var(--hit);color:var(--tx);fon
 text-decoration:underline;text-underline-offset:3px}
 
 .sf-n a:hover{color:var(--acc)}
+
+/* == footer v2: brand block, fact pills, nav, copyright == */
+.sf .sf-brand{gap:var(--space-3)}
+
+.sf .n-ver{
+display:inline-flex;align-items:center;gap:var(--space-2);min-height:var(--space-6);padding:0 var(--space-3);
+border:1px solid color-mix(in srgb,var(--acc) 40%,var(--bd2));border-radius:var(--radius-pill);background:var(--acc-soft);
+font:600 var(--f0)/1 var(--mono);letter-spacing:.04em;text-transform:none}
+
+.sf-facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-2)}
+
+.sf-facts li{
+padding:var(--space-2) var(--space-3);border:1px solid var(--bd2);border-radius:var(--radius-pill);background:var(--surface);
+color:var(--tx2);font:500 var(--f0)/1.4 var(--sans)}
+
+.sf .sf-cp{
+width:100%;max-width:320px;padding-top:var(--space-4);border-top:1px solid var(--bd);font:400 var(--f0)/1.5 var(--sans);
+letter-spacing:0;text-transform:none;color:var(--mut)}
