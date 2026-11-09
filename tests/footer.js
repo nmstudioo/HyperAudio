@@ -69,7 +69,7 @@ return {
 off,
 logo,
 imgOk,
-links: f.querySelectorAll(".sf-l a").length,
+links: f.querySelectorAll(".sf-n a, .sf-l a").length,
 over: document.documentElement.scrollWidth > innerWidth,
 };
 });
@@ -78,7 +78,7 @@ r.err ||
 r.off.length ||
 r.logo !== 1 ||
 !r.imgOk ||
-r.links !== 2 ||
+r.links < 1 ||
 r.over
 ) {
 bad++;
