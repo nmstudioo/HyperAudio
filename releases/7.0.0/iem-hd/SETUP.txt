@@ -1,0 +1,6 @@
+HyperAudio 7.0.0 - KZ EDX Pro · HD
+RootlessJamesDSP order: VDC > Convolver (IRS) > Liveprog (EEL).
+1) ViPER-DDC: load EDX_HD.vdc
+2) Convolver: load EDX_HD.irs, optimization Original
+3) Liveprog: load EDX_HD.eel
+Convolver preamp 0 dB, EEL post gain 0 dB. Leave True Peak Detect on.

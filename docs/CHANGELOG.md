@@ -2,6 +2,15 @@
 
 What changed in each version, newest first. Profile files are frozen per release; v6.0.0 changed tooling, tests, docs and the site, not the profiles.
 
+## v7.0.0
+
+Calculated and offline-checked only; no device tests for these files yet.
+
+- Shared limiter core v7 in all six scripts: 16-tap Kaiser true-peak detector, centre-aligned lookahead, worst 8x overshoot +0.25 dB (v5: +1.7 to +1.95 dB), +0.15 ms latency.
+- IEM HD target: Harman IE 2019 (new fit).
+- Speakers: the 110 Hz high-pass and low shelf moved from the VDC into the IRS (chain response unchanged); max pole radius 0.971 to 0.980; Protection V6 IRS L1 2.24 to 1.20.
+- IEM Spatial V4 and Reference V10: new limiter only.
+
 ## Unreleased (v7 work)
 
 ### DSP v7 candidates (not shipped)
