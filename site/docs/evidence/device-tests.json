@@ -54,6 +54,24 @@
    "test": "no crackle",
    "result": "untested",
    "notes": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+  },
+  {
+   "release": "v7.0.0",
+   "build": "iem-hd",
+   "device": "KZ EDX Pro",
+   "date": "2026-11-09",
+   "test": "listening pass",
+   "result": "pass",
+   "notes": "Blind A/B/C listening by the author: A (Harman IE 2019) won, balanced and crisper than v6, level matched, no distortion or fatigue. B was bass heavy and the most fatiguing; C ranked third."
+  },
+  {
+   "release": "v7.0.0",
+   "build": "spk-v6",
+   "device": "Redmi 12",
+   "date": "2026-11-09",
+   "test": "listening pass",
+   "result": "pass",
+   "notes": "Author listening: no clipping or distortion at loud volumes. Reported significantly quieter than v6.1.0, with clearly better punch and sharpness."
   }
  ]
 }
