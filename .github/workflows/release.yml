@@ -1,14 +1,50 @@
 name: release
 on:
+  workflow_dispatch:
+    inputs:
+      version: { description: 'Version to prepare (must equal VERSION on the selected ref)', required: true }
   push: { tags: ['v*'] }
 permissions: { contents: write }
 concurrency: { group: 'release-${{ github.ref }}', cancel-in-progress: false }
+
 jobs:
-  release:
+  prepare:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      VER: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12', cache: pip, cache-dependency-path: requirements.txt }
+      - run: pip install -r requirements.txt
+      - name: Input must equal VERSION
+        run: test "$VER" = "$(cat VERSION)" || { echo "input $VER != VERSION $(cat VERSION)"; exit 1; }
+      - name: Build with runtime acceptance (slow; refuses a FROZEN release)
+        run: python3 build/build.py
+      - name: Regenerate site data and gate
+        run: python3 tools/ship.py
+      - name: Freeze
+        run: python3 build/freeze.py
+      - name: Gate again (verifies the frozen hash)
+        run: python3 tests/check.py
+      - name: Push release branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "release/v$VER"
+          git add -A
+          git commit -m "release: v$VER"
+          git push origin "release/v$VER"
+
+  publish:
+    if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
+        with: { fetch-depth: 0 }
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
       - uses: actions/setup-node@v6
@@ -16,6 +52,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Tag must match VERSION
         run: test "${GITHUB_REF_NAME}" = "v$(cat VERSION)" || { echo "tag ${GITHUB_REF_NAME} != v$(cat VERSION)"; exit 1; }
+      - name: Tagged commit must be on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "tag is not on main"; exit 1; }
       - name: Gate (hashes, reproducible rebuild, stamps, links)
         run: python3 tests/check.py
       - name: Rebuild with full acceptance and require zero failures
