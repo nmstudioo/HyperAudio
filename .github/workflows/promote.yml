@@ -18,8 +18,12 @@ jobs:
       - run: pip install numpy scipy
       - name: Run promotion script
         run: python3 tools/promote_v7.py --hd ${{ github.event.inputs.hd }}
-      - name: Run ship pipeline
+      - name: Build release artifacts (creates releases/7.0.0/acceptance.json)
+        run: python3 build/build.py
+      - name: Run ship pipeline (regenerates site data)
         run: python3 tools/ship.py
+      - name: Freeze release
+        run: python3 build/freeze.py
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
