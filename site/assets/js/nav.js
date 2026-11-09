@@ -176,17 +176,17 @@ ic("gh") +
 var frag = D.createDocumentFragment();
 while (wrap.firstChild) frag.appendChild(wrap.firstChild);
 B.insertBefore(frag, main);
-var foot = D.createElement("div");
-foot.className = "sf";
-foot.setAttribute("role", "contentinfo");
+var foot = D.createElement('div');
+foot.className = 'sf'; foot.setAttribute('role', 'contentinfo');
+var year = new Date().getFullYear();
 foot.innerHTML = '<div class="sf-in">' +
 '<div class="sf-brand"><span class="sf-mark" role="img" aria-label="HyperAudio">' +
 '<img class="sf-logo sf-logo-dark" src="' + base + 'assets/brand/logo.svg" width="440" height="96" alt="" decoding="async">' +
 '<img class="sf-logo sf-logo-light" src="' + base + 'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
-'</span><span class="sf-name">HyperAudio</span></div>' +
+'</span></div>' +
 '<p class="sf-facts">Offline checks · No acoustic measurement recorded · Tested by Noushad Mostafa</p>' +
 '<nav class="sf-n" aria-label="Footer"><a href="/HyperAudio/docs/">Docs</a><a href="/HyperAudio/changelog.html">Changelog</a><a href="/HyperAudio/docs/EVIDENCE.html">Evidence</a></nav>' +
-'<p class="sf-cp">© 2026 Noushad Mostafa · HyperAudio <span class="n-ver"></span></p>' +
+'<p class="sf-cp">© ' + year + ' Noushad Mostafa · HyperAudio <span class="n-ver"></span></p>' +
 '</div>';
 B.appendChild(foot);
 function themeSync() {
