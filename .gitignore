@@ -4,7 +4,6 @@
 *.rej
 *~
 .DS_Store
-.hyperaudio-v7-backup/
 .lighthouseci/
 __pycache__/
 build_temp/
