@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Refit each VDC's 44.1 kHz bank so its response matches the same VDC's 48 kHz bank.
-Usage: python3 src/dsp/refit44.py [OUT_DIR]   (default candidates/v6). Inputs are never modified."""
+Usage: python3 src/dsp/refit44.py [OUT_DIR]   (default refit44_out). Inputs are never modified."""
 import json, os, re, sys, numpy as np
 from scipy.optimize import least_squares
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-out = sys.argv[1] if len(sys.argv) > 1 else f'{ROOT}/candidates/v6'
+out = sys.argv[1] if len(sys.argv) > 1 else f'{ROOT}/refit44_out'
 F = np.geomspace(20, 20000, 600)
 def H(c, fs, f=F):
     w = np.exp(-1j*2*np.pi*f/fs); h = np.ones_like(w)

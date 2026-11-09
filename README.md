@@ -107,8 +107,6 @@ cd releases && sha256sum -c 6.0.0/SHA256SUMS.txt
 | [Reproduce](docs/REPRODUCING.md) | Rebuild and verify from source |
 | [Releasing](docs/RELEASING.md) | Cut and freeze a release |
 | [Changelog](docs/CHANGELOG.md) | What changed in each version |
-| [Candidates](candidates/README.md) | Unreleased experiments and rejected ideas |
-| [Handoff](HANDOFF.md) | Blockers and how to resume |
 
 The same docs are rendered on the [live site](https://nmstudioo.github.io/HyperAudio/docs/).
 
@@ -119,13 +117,11 @@ HyperAudio/
 ├── site/          Live web interface (HTML, CSS, JS) and downloads
 ├── releases/      Frozen, versioned releases with checksums (6.1.0, 6.0.1, 6.0.0, 5.0.0)
 ├── src/           Source profiles and metadata
-├── candidates/    Unreleased experiments (v6)
 ├── docs/          Source Markdown, rendered to site/docs/
 ├── build/         build.py, response.py, docs_site.py, freeze.py, stamp.py, seo.py
 ├── tests/         check.py, eel/, a11y.js, overflow.js, links.js
 ├── tools/         Formatter and JS verifier
 ├── .github/       CI, Pages and release workflows
-├── HANDOFF.md     Open blockers and how to resume
 ├── VERSION        Current version string
 └── index.html     Root redirect to /site/
 ```

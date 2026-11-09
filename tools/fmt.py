@@ -281,7 +281,7 @@ def process(path, check, dry):
 
 def collect(args):
     if args: return [os.path.abspath(a) for a in args]
-    skip = ('/site/docs/', '/site/downloads/', '/releases/', '/node_modules/', '/.git/', '/candidates/', '/src/')
+    skip = ('/site/docs/', '/site/downloads/', '/releases/', '/node_modules/', '/.git/', '/src/')
     out = []
     for d, _, fs in os.walk(ROOT):
         p = d.replace(os.sep, '/') + '/'

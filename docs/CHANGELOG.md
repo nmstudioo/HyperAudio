@@ -11,22 +11,15 @@ Calculated and offline-checked only; no device tests for these files yet.
 - Speakers: the 110 Hz high-pass and low shelf moved from the VDC into the IRS (chain response unchanged); max pole radius 0.971 to 0.980; Protection V6 IRS L1 2.24 to 1.20.
 - IEM Spatial V4 and Reference V10: new limiter only.
 
-## Unreleased (v7 work)
+### Site
 
-### DSP v7 candidates (not shipped)
-
-- `candidates/v7`: IEM HD targets A/B/C, iem-v4, iem-v10, spk-v6, spk-v8, spk-v10; checksums and gates in `tests/gate_v7_candidates.py`.
-- Limiter: true-peak detector, worst 8x overshoot +0.25 dB (calculated).
-- Protection V6: IR peak 2.24 resolved by folding the low sections into the IRS.
-- `tools/promote_v7.py --hd A|B|C` promotes a candidate set. Evidence stays "not device-tested".
-
-### UI 7.0.0 (site only; DSP release stays 6.1.0)
-
-- Folded the first v7 overlay (`v7-ui.js`, `v7-ui.css`) into `app.js` and `site.css`; no MutationObservers, no runtime copy rewrites.
+- Folded the first v7 overlay (`v7-ui.js`, `v7-ui.css`) into `app.js` and `base.css`; no MutationObservers, no runtime copy rewrites.
 - Response chart: fixed vertical scale per output, high-pass band on speaker profiles, display-only 1/6 and 1/3 octave smoothing, same-output overlay, spoken readout for keyboard users.
 - One evidence chip component (calculated, offline checks, device record, acoustic) used in the files step and the evidence cards.
 - Sticky download dock on small screens while choosing a profile.
 - Self-hosted fonts, a content security policy, a service worker cache keyed to a separate `UI_VERSION`, and behaviour tests (`tests/ui-behavior.js`).
+
+## Unreleased
 
 ### Added
 
