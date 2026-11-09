@@ -707,3 +707,8 @@ color:var(--tx2);font:500 var(--f0)/1.4 var(--sans)}
 .sf .sf-cp{
 width:100%;max-width:320px;padding-top:var(--space-4);border-top:1px solid var(--bd);font:400 var(--f0)/1.5 var(--sans);
 letter-spacing:0;text-transform:none;color:var(--mut)}
+
+/* == sidebar: theme toggle only on desktop (mobile header has it) == */
+@media (max-width:767px){
+.sb .sb-ctl [data-n-theme]{display:none}
+}

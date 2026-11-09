@@ -165,6 +165,7 @@ tLinks("nl") +
 chip +
 '<div class="sb-ctl">' +
 themeBtn("nb") +
+'<a class="nb" href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Website (opens in new tab)" data-tip="Website"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></a>' +
 '<a class="nb" href="' +
 GH +
 '" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in new tab)" data-tip="GitHub">' +

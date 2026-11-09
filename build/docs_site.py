@@ -118,7 +118,7 @@ def render():
         pn = ''
         if len(ORDER_ALL) > 1:
             pv, nx = (ORDER_ALL[i - 1] if i else None), (ORDER_ALL[i + 1] if i + 1 < len(ORDER_ALL) else None)
-            pn = '<nav class="dnav" aria-label="Previous and next">' + ('<a href="%s.html"><span class="k">Previous</span><b>%s</b></a>' % (pv, html.escape(LABEL.get(pv, titles[pv]))) if pv else '') + ('<a href="%s.html"><span class="k">Next</span><b>%s</b></a>' % (nx, html.escape(LABEL.get(nx, titles[nx]))) if nx else '') + '</nav>'
+            pn = '<nav class="dnav" aria-label="Previous and next">' + ('<a class="prv" href="%s.html"><span class="k">&larr; Previous</span><b>%s</b></a>' % (pv, html.escape(LABEL.get(pv, titles[pv]))) if pv else '') + ('<a class="nxt" href="%s.html"><span class="k">Next &rarr;</span><b>%s</b></a>' % (nx, html.escape(LABEL.get(nx, titles[nx]))) if nx else '') + '</nav>'
         tl = ''.join('<li class="l%d"><a href="#%s">%s</a></li>' % (lv, k, html.escape(t)) for lv, t, k in toc)
         tocx = '<aside class="dtoc" aria-label="On this page"><details open><summary>On this page</summary><ol>%s</ol></details></aside>' % tl if len(toc) >= 3 else ''
         src = '<a class="src" href="%sdocs/%s.md" target="_blank" rel="noopener">docs/%s.md &middot; edit on GitHub</a>' % (GH, n, n)
