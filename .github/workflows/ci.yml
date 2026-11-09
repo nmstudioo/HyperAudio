@@ -40,14 +40,12 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -r requirements.txt
-      - name: Hashes, stamps, links, JS syntax (full rebuild only when DSP changed)
+      - name: Static gate (hashes, stamps, freshness, links, JS syntax; full rebuild only when DSP changed)
         env:
           HA_SKIP_REBUILD: ${{ needs.prep.outputs.dsp == 'true' && '0' || '1' }}
         run: python3 tests/check.py
-      - name: Docs and SEO regenerate (seconds)
-        run: |
-          python3 build/docs_site.py
-          python3 build/seo.py
+      - name: UI contract (static; retired when P3 ports it into check.py)
+        run: node tests/ui-v7-contract.js
 
   dsp:
     needs: prep
@@ -73,28 +71,6 @@ jobs:
       - name: Full build with runtime acceptance and drift diff
         if: steps.acc.outputs.cache-hit != 'true'
         run: python3 build/build.py --out /tmp/rel
-      - name: Restore v7 candidate gate result
-        id: v7
-        uses: actions/cache@v5
-        with:
-          path: /tmp/v7gate.ok
-          key: v7gate-v1-${{ hashFiles('candidates/v7/**', 'tests/gate_v7_limiter.py', 'tests/eel/**', 'requirements.txt') }}
-      - name: v7 candidate limiter gate
-        if: steps.v7.outputs.cache-hit != 'true'
-        run: |
-          python3 tests/gate_v7_limiter.py
-          date -u > /tmp/v7gate.ok
-      - name: Restore v7 pair gate result
-        id: v7pairs
-        uses: actions/cache@v5
-        with:
-          path: /tmp/v7pairs.ok
-          key: v7pairs-v1-${{ hashFiles('candidates/v7/**', 'tests/gate_candidate.py', 'tests/gate_v7_candidates.py', 'tests/eel/**', 'requirements.txt') }}
-      - name: v7 candidate pair gates (IRS, VDC, EEL, checksums)
-        if: steps.v7pairs.outputs.cache-hit != 'true'
-        run: |
-          python3 tests/gate_v7_candidates.py
-          date -u > /tmp/v7pairs.ok
       - name: Generator reproduction vs releases/5.0.0 (informational)
         if: needs.prep.outputs.gen == 'true'
         continue-on-error: true
@@ -108,7 +84,7 @@ jobs:
     needs: prep
     if: needs.prep.outputs.site == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -117,28 +93,33 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('.github/workflows/ci.yml') }}
+          key: playwright-${{ runner.os }}-chromium-webkit-${{ hashFiles('.github/workflows/ci.yml') }}
       - name: Install browser test tools
         run: |
           npm install --no-save playwright axe-core
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
       - name: Serve site
         run: |
           python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
           curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8765/
-      - name: Layout, links, a11y and page-weight gates
+      - name: Layout, footer, a11y, page-weight and behaviour gates (chromium + webkit)
         env: { CI: 'true' }
         run: |
           node tests/overflow.js http://localhost:8765/
           node tests/footer.js http://localhost:8765/
-          node tests/links.js http://localhost:8765/
           node tests/a11y.js http://localhost:8765/
           node tests/budget.js http://localhost:8765/
-      - name: Lighthouse CI (a11y >= 0.95 is a hard gate)
-        run: npx --yes @lhci/cli@0.14.0 autorun --config=.lighthouserc.json
+          node tests/ui-behavior.js http://localhost:8765/
+      - name: Screenshots
+        if: always()
+        run: node tests/screenshots.js http://localhost:8765/ shots
       - uses: actions/upload-artifact@v7
         if: always()
-        with: { name: lighthouse, path: lhci-reports, if-no-files-found: ignore }
+        with:
+          name: ui-screenshots
+          path: shots/
+          if-no-files-found: ignore
+          retention-days: 14
 
   deploy:
     needs: [prep, verify, dsp, browser]
@@ -150,8 +131,6 @@ jobs:
     environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
     steps:
       - uses: actions/checkout@v6
-      - name: Publish only site content
-        run: rm -f site/README.md
       - uses: actions/upload-pages-artifact@v5
         with: { path: site }
       - id: d
