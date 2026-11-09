@@ -629,3 +629,8 @@ background:var(--surface);color:var(--tx2);text-decoration:none;transition:all 0
 .sf-l a:hover{color:var(--tx);border-color:var(--acc);background:var(--elev)}
 
 .sf-l a svg{width:20px;height:20px}
+
+/* == v14.1 footer icon links: center fix == */
+.sf-l{
+display:flex!important;flex-direction:row;justify-content:center;flex-wrap:wrap;width:auto!important;max-width:100%!important;
+grid-template-columns:none!important}
