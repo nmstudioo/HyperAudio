@@ -188,8 +188,9 @@ base +
 base +
 'assets/brand/logo-light.svg" width="440" height="96" alt="" decoding="async">' +
 '</span><span class="n-ver"></span></div>' +
-'<p class="sf-e">Offline checks · no acoustic measurement recorded</p>' +
+'<p class="sf-e">Offline checks</p><p class="sf-e2">No acoustic measurement recorded</p>' +
 '<p class="sf-c">Tested by Noushad Mostafa</p>' +
+'<nav class="sf-n" aria-label="Footer"><a href="/HyperAudio/docs/">Docs</a><a href="/HyperAudio/changelog.html">Changelog</a><a href="/HyperAudio/docs/EVIDENCE.html">Evidence</a></nav>' +
 '<p class="sf-l"><a href="https://nmstudioo.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></a>' +
 '<a href="' +
 GH +

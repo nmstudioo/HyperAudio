@@ -364,3 +364,11 @@ box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--danger,#e5675b) 55%,transpare
 .evx-m thead th{font-size:9px;letter-spacing:.04em}
 .tw:has(.evx-m){padding:2px 8px}
 }
+
+/* == docs tabs: scrollable row with edge fade == */
+.dtabs{
+display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+padding-inline-end:var(--space-6);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);
+mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent)}
+
+.dtabs a{flex:none;scroll-snap-align:center;white-space:nowrap}

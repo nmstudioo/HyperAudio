@@ -30,3 +30,7 @@ D.querySelectorAll(".prose h2[id],.prose h3[id]").forEach(function (h) { io.obse
 var t = D.querySelector(".dtoc details");
 if (t && window.matchMedia("(max-width: 999px)").matches) t.removeAttribute("open");
 })();
+(function () {
+var t = document.querySelector(".dtabs"), a = t && t.querySelector("[aria-current=page]");
+if (a) t.scrollLeft += a.getBoundingClientRect().left - t.getBoundingClientRect().left - (t.clientWidth - a.offsetWidth) / 2;
+})();

@@ -678,3 +678,14 @@ padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1)}
 .sb-ctl .nb{width:var(--hit);height:var(--hit)}
 .sb .sb-cr{display:none}
 }
+
+/* == footer: readable text + nav row == */
+.sf .sf-e,.sf .sf-e2{font:500 var(--f0)/1.6 var(--sans);letter-spacing:0;text-transform:none;color:var(--tx2)}
+
+.sf-n{display:flex;justify-content:center;flex-wrap:wrap;gap:0 var(--space-5)}
+
+.sf-n a{
+display:inline-flex;align-items:center;min-height:var(--hit);color:var(--tx);font:600 var(--f1)/1 var(--sans);
+text-decoration:underline;text-underline-offset:3px}
+
+.sf-n a:hover{color:var(--acc)}
