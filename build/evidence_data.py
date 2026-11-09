@@ -5,9 +5,9 @@ import json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ver = open(f'{ROOT}/VERSION').read().strip()
 GROUPS = [
- ('files', 'Files valid', 'IRS format and peak, VDC banks and sections, script lint', ['irs.valid', 'irs.peak_matches_meta', 'vdc.banks', 'vdc.sections', 'vdc.finite', 'eel.lint']),
+ ('files', 'Files valid', 'IRS format and peak, VDC banks and sections, script lint', ['irs.valid', 'irs.peak_matches_meta', 'vdc.banks', 'vdc.sections', 'vdc.finite', 'eel.lint', 'irs.peak_limit', 'irs.l1', 'irs.tail']),
  ('response', 'Response matches curves', 'VDC x IRS reproduces the stored correction (self-consistency, not a measurement)', ['response.correction_match', 'response.gain1k', 'response.chain_max', 'response.error_vs_target']),
- ('stable', 'VDC filters stable', 'All poles inside the unit circle', ['vdc.stable']),
+ ('stable', 'VDC filters stable', 'All poles inside the unit circle', ['vdc.stable', 'vdc.pole_radius']),
  ('compile', 'Script compiles', 'Runs on eel2py, a subset interpreter, not the WDL runtime', ['eel.compile']),
  ('limiter', 'Limiter holds the ceiling', 'Sample peak, true peak, hard-clamp engagement', ['limiter.ceiling', 'limiter.clamp_engaged', 'limiter.true_peak']),
  ('soak', 'Tail and NaN soak', 'Silence after a burst, no non-finite output', ['tail', 'nan_soak']),

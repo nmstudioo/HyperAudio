@@ -6,12 +6,9 @@ from scipy.signal import resample_poly
 sys.path.insert(0, os.path.dirname(__file__))
 from eel2py import Eel
 
-TP_LIMIT_DB = 0.5         # strict v7 candidate gate
-TP_NOISE_LIMIT_DB = 0.5   # strict v7 candidate gate
-GATE_LIMITS = {
-    'stable-v5': (0.35, 2.5),  # frozen v5 EEL baseline; see releases/6.1.0/acceptance.json
-    'candidate-v7': (TP_LIMIT_DB, TP_NOISE_LIMIT_DB),
-}
+TP_LIMIT_DB = 0.5         # true-peak overshoot limit
+TP_NOISE_LIMIT_DB = 0.5   # true-peak overshoot limit
+GATE_LIMITS = {'release': (TP_LIMIT_DB, TP_NOISE_LIMIT_DB)}
 
 def gate_limits(gate):
     try:
@@ -90,7 +87,7 @@ def soak(path, fs=48000, edit=None, setv=None, seconds=4, seed=7):
     if ok and worst > 1e-9: ok = False; why = f'output above ceiling by {worst:.2e}'
     return ok, why, worst
 
-def build_checks(path, pid, gate='candidate-v7'):
+def build_checks(path, pid, gate='release'):
     """List acceptance checks for one .eel using an explicit release-generation gate."""
     tp_limit_db, tp_noise_limit_db = gate_limits(gate)
     out = []; tag = 'runtime=eel2py (subset interpreter, not WDL)'
