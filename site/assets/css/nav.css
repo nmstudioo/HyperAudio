@@ -607,3 +607,14 @@ padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1)}
 .sb-ctl .nb{width:var(--hit);height:var(--hit)}
 .sb .sb-cr{display:none}
 }
+
+/* == v13 footer lockup: stacked + centred (footer.js gate) == */
+.sf-brand{flex-direction:column;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4)}
+
+.sf .n-ver{padding-left:0;border-left:0}
+
+.sf-brand{display:contents}
+
+.sf .sf-mark{margin-top:var(--space-2)}
+
+.sf .n-ver{margin-top:calc(var(--space-2) * -1);margin-bottom:var(--space-2)}
