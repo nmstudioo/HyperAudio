@@ -4,11 +4,11 @@
 
 <p align="center">
 <a href="https://nmstudioo.github.io/HyperAudio/"><img src="https://img.shields.io/badge/OPEN%20THE%20SITE-HYPERAUDIO-f5b84b?style=for-the-badge&labelColor=0c0c0c" alt="Open the site"></a>
-<a href="releases/6.1.0/HyperAudio_6.1.0_all.zip"><img src="https://img.shields.io/badge/DOWNLOAD-ALL%20SIX%20PROFILES-9a9a9a?style=for-the-badge&labelColor=0c0c0c" alt="Download all six profiles"></a>
+<a href="releases/7.0.0/HyperAudio_7.0.0_all.zip"><img src="https://img.shields.io/badge/DOWNLOAD-ALL%20SIX%20PROFILES-9a9a9a?style=for-the-badge&labelColor=0c0c0c" alt="Download all six profiles"></a>
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/VERSION-6.0.0-f5b84b?style=flat-square&labelColor=0c0c0c" alt="Version 6.0.0">
+<img src="https://img.shields.io/badge/VERSION-7.0.0-f5b84b?style=flat-square&labelColor=0c0c0c" alt="Version 7.0.0">
 <img src="https://img.shields.io/badge/STATUS-STABLE-f5b84b?style=flat-square&labelColor=0c0c0c" alt="Status: stable">
 <img src="https://img.shields.io/badge/IEM-KZ%20EDX%20PRO-f5b84b?style=flat-square&labelColor=0c0c0c" alt="IEM: KZ EDX Pro">
 <img src="https://img.shields.io/badge/SPEAKER-REDMI%2012-f5b84b?style=flat-square&labelColor=0c0c0c" alt="Speaker: Redmi 12">
@@ -71,7 +71,7 @@ Keep the Convolver preamp and the EEL post gain at 0 dB.
 
 Claims come in three tiers that are never mixed.
 
-- **Offline, automated.** 19 checks on each of 6 builds in [`acceptance.json`](releases/6.1.0/acceptance.json): 108 pass, 0 warn, 6 not run (`cpu`).
+- **Offline, automated.** 19 checks on each of 6 builds in [`acceptance.json`](releases/7.0.0/acceptance.json): 108 pass, 0 warn, 6 not run (`cpu`).
 - **Device-reported.** Author-reported listening passes for all six builds are recorded in [`device-tests.json`](docs/evidence/device-tests.json). They are not instrument measurements.
 - **Acoustic measurement.** None. Every curve is **calculated**, not measured.
 
@@ -81,18 +81,18 @@ The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot 
 
 | Package | Size |
 |:--|--:|
-| [**All six profiles**](releases/6.1.0/HyperAudio_6.1.0_all.zip) | 58.4 KB |
-| [KZ EDX Pro · HD](releases/6.1.0/HyperAudio_6.1.0_iem-hd.zip) | 27.8 KB |
-| [KZ EDX Pro · Spatial V4](releases/6.1.0/HyperAudio_6.1.0_iem-v4.zip) | 3.2 KB |
-| [KZ EDX Pro · Reference V10](releases/6.1.0/HyperAudio_6.1.0_iem-v10.zip) | 3.7 KB |
-| [Redmi 12 · Protection V6](releases/6.1.0/HyperAudio_6.1.0_spk-v6.zip) | 9.4 KB |
-| [Redmi 12 · Cinema V8](releases/6.1.0/HyperAudio_6.1.0_spk-v8.zip) | 11.5 KB |
-| [Redmi 12 · Dynamic V10](releases/6.1.0/HyperAudio_6.1.0_spk-v10.zip) | 4.3 KB |
+| [**All six profiles**](releases/7.0.0/HyperAudio_7.0.0_all.zip) | 73.4 KB |
+| [KZ EDX Pro · HD](releases/7.0.0/HyperAudio_7.0.0_iem-hd.zip) | 28.4 KB |
+| [KZ EDX Pro · Spatial V4](releases/7.0.0/HyperAudio_7.0.0_iem-v4.zip) | 3.7 KB |
+| [KZ EDX Pro · Reference V10](releases/7.0.0/HyperAudio_7.0.0_iem-v10.zip) | 4.1 KB |
+| [Redmi 12 · Protection V6](releases/7.0.0/HyperAudio_7.0.0_spk-v6.zip) | 17.1 KB |
+| [Redmi 12 · Cinema V8](releases/7.0.0/HyperAudio_7.0.0_spk-v8.zip) | 10.5 KB |
+| [Redmi 12 · Dynamic V10](releases/7.0.0/HyperAudio_7.0.0_spk-v10.zip) | 11.1 KB |
 
-Changes from the previous release are listed in `releases/6.1.0/DIFF.md`. To verify the files in `releases/6.1.0/`:
+Changes from the previous release are listed in `releases/7.0.0/DIFF.md`. To verify the files in `releases/7.0.0/`:
 
 ```bash
-cd releases && sha256sum -c 6.0.0/SHA256SUMS.txt
+cd releases && sha256sum -c 7.0.0/SHA256SUMS.txt
 ```
 
 ## Documentation
@@ -115,7 +115,7 @@ The same docs are rendered on the [live site](https://nmstudioo.github.io/HyperA
 ```text
 HyperAudio/
 ├── site/          Live web interface (HTML, CSS, JS) and downloads
-├── releases/      Frozen, versioned releases with checksums (6.1.0, 6.0.1, 6.0.0, 5.0.0)
+├── releases/      Frozen, versioned releases with checksums (7.0.0, 6.1.0, 6.0.0, 5.0.0)
 ├── src/           Source profiles and metadata
 ├── docs/          Source Markdown, rendered to site/docs/
 ├── build/         build.py, response.py, docs_site.py, stamp.py, seo.py

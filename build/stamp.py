@@ -80,7 +80,7 @@ def readme(s):
     ds = sorted((d for d in os.listdir(f'{ROOT}/releases') if os.path.isfile(f'{ROOT}/releases/{d}/SHA256SUMS.txt')), key=lambda x: tuple(int(i) for i in x.split('.')), reverse=True)
     return re.sub(r'(Frozen, versioned releases with checksums \()[^)]*(\))', lambda m: m[1] + ', '.join(ds) + m[2], s)
 
-T = {'site/index.html\': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav, 'README.md': readme}
+T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav, 'README.md': readme}
 check = '--check' in sys.argv; bad = []
 for p, f in T.items():
     fp = f'{ROOT}/{p}'
