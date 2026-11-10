@@ -4,7 +4,7 @@ import os, subprocess
 DSP = ('src/profiles', 'releases/', 'VERSION', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/generator/', 'tests/eel/', 'tests/gen_repro.py', 'requirements.txt')
 GEN = ('build/generator/', 'tests/gen_repro.py', 'releases/5.0.0/')
 SITE = ('site/', 'docs/', 'VERSION', 'build/docs_site.py', 'build/seo.py', 'build/stamp.py', 'build/evidence_data.py', 'tests/overflow.js', 'tests/footer.js', 'tests/links.js', 'tests/a11y.js', 'tests/budget.js', 'tests/ui-behavior.js', 'tests/screenshots.js', 'tests/seo_audit.py')
-ALL = ('.github/workflows/ci.yml', 'tools/ci_scope.py')
+ALL = ('.github/workflows/ci.yml', 'tools/ci_scope.py', 'package.json', 'package-lock.json')
 def changed():
     ev, b = os.environ.get('EVENT', ''), os.environ.get('BEFORE', '')
     if ev == 'pull_request': rng = 'origin/%s...HEAD' % os.environ.get('BASE_REF', 'main')

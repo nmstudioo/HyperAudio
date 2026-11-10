@@ -9,6 +9,4 @@ __pycache__/
 build_temp/
 lhci-reports/
 node_modules/
-package-lock.json
-package.json
 site/downloads/
