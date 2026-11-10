@@ -31,5 +31,5 @@ def checks(pdir, p, F):
     else: e = (e + np.mean(np.array(c['predicted']) - raw - sc))[(F >= 100) & (F <= 10000)]; band = '100-10k Hz, stored level offset'
     add('response.error_vs_target', abs(np.sqrt((e ** 2).mean()) - p['stats']['rms']) <= 0.5, f"recomputed RMS {np.sqrt((e**2).mean()):.2f} dB ({band}) vs meta {p['stats']['rms']} dB (band convention inferred; tolerance 0.5 dB)")
     B = vdc_info(v); d4 = vdc_db(v, 44100, F)[0] - V; mx = abs(d4).max()
-    out.append(dict(check='vdc.sr_consistency', status='pass' if mx <= 0.3 else 'warn', detail=f'44.1 kHz bank vs 48 kHz bank max {mx:.2f} dB over 20-20k Hz (limit 0.3)' + ('' if mx <= 0.3 else '; known v5 deviation, refit in candidates/v6 awaiting listening check')))
+    out.append(dict(check='vdc.sr_consistency', status='pass' if mx <= 0.3 else 'warn', detail=f'44.1 kHz bank vs 48 kHz bank max {mx:.2f} dB over 20-20k Hz (limit 0.3)' + ('' if mx <= 0.3 else '; known v5 deviation')))
     return out
