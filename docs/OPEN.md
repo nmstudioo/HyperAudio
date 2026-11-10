@@ -26,5 +26,5 @@ Status after v7.0.0. Everything shipped is calculated or offline-checked; nothin
 | 11 | Self-hosted fonts | Done: Plus Jakarta Sans and JetBrains Mono, latin subset, via `tools/fetch_fonts.sh` | Nothing |
 | 12 | v1 to v4 history | The archive lists them as "no record in repo" | Old notes or files |
 | 13 | v7 byte reproducibility | `build/generator/build_v5.py` reproduces v5 byte for byte. Nothing in CI regenerates the v7 files (`build_cand.py`, `build_spk_fold.py`, `gen_eel.py`) | A CI step that regenerates and compares |
-| 14 | Stored profile stats | `chainMax` and related stats were computed on the 120-point site grid and can miss narrow peaks | Compute them on a fine grid inside `build/build.py` |
-| 15 | Release links | `downloads/6.0.1/` does not exist, so the archive link for 6.0.1 is dead | Point 6.0.1 at its GitHub Release or at 6.0.0 |
+| 14 | Stored profile stats | `stats.derived` check warns when stored stats drift from the files (fine grid); `build.py --write-stats` refreshes them for new versions. v7.0.0 stored values are frozen as shipped | Run `--write-stats` before the next release |
+| 15 | Release links | Done: the archive drops download links for versions with no `releases/` folder | Nothing |

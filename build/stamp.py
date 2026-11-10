@@ -21,6 +21,13 @@ def versions(s):
         elif e.get('status') in ('current', 'in progress'):
             e['status'] = 'previous'
     if not found: d.insert(0, dict(v=f'v{ver}', date=rel, status='current', notes=['See docs/CHANGELOG.md'], dl=f'downloads/{ver}/SHA256SUMS.txt'))
+    for e in d:
+        if e.get('dl') and not os.path.isdir(f"{ROOT}/releases/{e['dl'].split('/')[1]}"): e.pop('dl')
+    cur = d[0]
+    if cur['v'] == f'v{ver}' and cur.get('notes') == ['See docs/CHANGELOG.md']:
+        m = re.search(r'^## v' + re.escape(ver) + r'\b(.*?)(?=^## |\Z)', open(f'{ROOT}/docs/CHANGELOG.md', encoding='utf-8').read(), re.S | re.M)
+        b = [l[2:].strip().replace('`', '') for l in (m[1] if m else '').splitlines() if l.startswith('- ')][:4]
+        if b: cur['notes'] = b
     return json.dumps(d, indent=1, ensure_ascii=False) + '\n'
 
 from siteconfig import REPO, OWNER_SITE

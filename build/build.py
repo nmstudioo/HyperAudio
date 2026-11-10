@@ -5,9 +5,13 @@ acceptance.json, DIFF.md to releases/<ver>/ and publishes them to site/."""
 import argparse, json, os, shutil, sys, zipfile
 sys.path.insert(0, os.path.dirname(__file__)); from verify import sha, acceptance
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); ap.add_argument('--no-runtime', action='store_true'); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); ap.add_argument('--no-runtime', action='store_true'); ap.add_argument('--write-stats', action='store_true'); a = ap.parse_args()
 ver = open(f'{ROOT}/VERSION').read().strip()
 meta = json.load(open(f'{ROOT}/src/profiles.meta.json'))
+if a.write_stats:
+    import derive_stats
+    for q in meta['profiles']: q['stats'].update(derive_stats.derive(f'{ROOT}/src/profiles/{q["id"]}', q))
+    open(f'{ROOT}/src/profiles.meta.json', 'w', encoding='utf-8').write(json.dumps(meta, separators=(',', ':'))); print('stats written to src/profiles.meta.json')
 rel = a.out or f'{ROOT}/releases/{ver}'
 if os.path.exists(f'{rel}/FROZEN') and not a.out: sys.exit(f'{ver} is FROZEN; bump VERSION or use --out')
 shutil.rmtree(rel, ignore_errors=True); os.makedirs(rel)
