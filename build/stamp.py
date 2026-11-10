@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Single version source. Stamps VERSION into site files. `--check` fails (exit 1) if anything is stale.
-Run automatically by build/build.py; CI runs `python3 build/stamp.py --check` via tests/check.py."""
+Run by tools/ship.py; CI runs `python3 build/stamp.py --check` via tests/check.py."""
 import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ver = open(f'{ROOT}/VERSION').read().strip()

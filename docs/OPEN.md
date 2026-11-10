@@ -21,7 +21,7 @@ Status after v7.0.0. Everything shipped is calculated or offline-checked; nothin
 | 6 | Limiter true-peak | Shared v7 core shipped: worst 8x overshoot +0.25 dB, latency 79 samples (calculated). One gate, <= 0.5 dB | Device and CPU test; automate the EEL-vs-reference cross-check |
 | 7 | 44.1 kHz bank | Refit shipped in 6.1.0; v7 speaker banks refit to the 48 kHz response; listening check reported by the author | None; there is no instrument measurement |
 | 8 | Profile EEL (Pop, EDM and others) | Not shipped; suspects are listed in [Method](METHOD.md) | A symptom description, then a device test |
-| 9 | Device evidence | All v7.0.0 builds `untested`; the IEM HD A/B/C blind listening result is recorded in `device-tests.json` where reported | One pass or fail per build (build, device, date, result) |
+| 9 | Device evidence | v7.0.0 `iem-hd` and `spk-v6` have a reported listening pass (the author's own test, not an instrument measurement); the other four builds have no entry | One pass or fail per remaining build (build, device, date, result) |
 | 10 | Acoustic measurements | None | A mic measurement, or the site keeps saying "calculated" |
 | 11 | Self-hosted fonts | Done: Plus Jakarta Sans and JetBrains Mono, latin subset, via `tools/fetch_fonts.sh` | Nothing |
 | 12 | v1 to v4 history | The archive lists them as "no record in repo" | Old notes or files |

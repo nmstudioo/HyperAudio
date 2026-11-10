@@ -64,7 +64,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: /tmp/rel
-          key: acceptance-v1-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/freeze.py', 'tests/eel/**', 'requirements.txt') }}
+          key: acceptance-v1-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'tests/eel/**', 'requirements.txt') }}
       - name: Full build with runtime acceptance and drift diff
         if: steps.acc.outputs.cache-hit != 'true'
         run: python3 build/build.py --out /tmp/rel

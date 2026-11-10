@@ -118,7 +118,7 @@ HyperAudio/
 ├── releases/      Frozen, versioned releases with checksums (6.1.0, 6.0.1, 6.0.0, 5.0.0)
 ├── src/           Source profiles and metadata
 ├── docs/          Source Markdown, rendered to site/docs/
-├── build/         build.py, response.py, docs_site.py, freeze.py, stamp.py, seo.py
+├── build/         build.py, response.py, docs_site.py, stamp.py, seo.py
 ├── tests/         check.py, eel/, a11y.js, overflow.js, links.js
 ├── tools/         Formatter and JS verifier
 ├── .github/       CI, Pages and release workflows
