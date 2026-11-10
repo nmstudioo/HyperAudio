@@ -108,7 +108,7 @@ ev = p.evidence || {};
 $("#res").innerHTML =
 `<b>${esc(p.name)}</b><span>${esc(p.desc)}</span>`;
 const action = document.createElement("a");
-action.className = "v7-use-profile";
+action.className = "use-profile";
 action.href = "index.html?p=" + encodeURIComponent(p.id) + "#setup";
 action.textContent = "Use this profile";
 $("#res").appendChild(action);
