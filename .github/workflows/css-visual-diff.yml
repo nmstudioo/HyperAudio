@@ -1,0 +1,39 @@
+name: css-visual-diff
+on:
+  workflow_dispatch:
+    inputs:
+      base: { description: 'Base ref to compare against', default: main }
+      max_pct: { description: 'Allowed differing pixels per screenshot, percent', default: '0' }
+permissions: { contents: read }
+jobs:
+  diff:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with: { path: new }
+      - uses: actions/checkout@v6
+        with: { ref: '${{ inputs.base }}', path: old }
+      - uses: actions/setup-node@v6
+        with: { node-version: 24 }
+      - run: |
+          cd new
+          npm ci
+          npx playwright install --with-deps chromium
+      - run: |
+          python3 old/build/build.py --publish
+          python3 new/build/build.py --publish
+      - run: |
+          python3 -m http.server 8801 --directory old/site >/dev/null 2>&1 &
+          python3 -m http.server 8802 --directory new/site >/dev/null 2>&1 &
+          curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8801/
+          curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8802/
+          cd new
+          node tests/shots_all.js http://localhost:8801/ ../old-shots
+          node tests/shots_all.js http://localhost:8802/ ../new-shots
+      - run: |
+          pip install pillow
+          python3 new/tests/visual_diff.py old-shots new-shots diffs '${{ inputs.max_pct }}'
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with: { name: visual-diff, path: diffs/, if-no-files-found: ignore }
