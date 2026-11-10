@@ -93,7 +93,7 @@ jobs:
           key: playwright-${{ runner.os }}-chromium-webkit-${{ hashFiles('.github/workflows/ci.yml') }}
       - name: Install browser test tools
         run: |
-          npm install --package-lock-only && npm ci
+          npm ci
           npx playwright install --with-deps chromium webkit
       - name: Publish downloads from releases/
         run: python3 build/build.py --publish
