@@ -110,7 +110,6 @@ margin:0;font:500 10px/1.7 var(--mono);letter-spacing:0.12em;text-transform:uppe
 html[data-sb="full"] body.n-on{padding-left:248px}
 html[data-sb="rail"] body.n-on{padding-left:72px}
 html{scroll-padding-top:24px}
-.getbar{display:none!important}
 }
 
 @media (min-width: 768px){
@@ -415,7 +414,6 @@ left:var(--space-1);top:var(--space-3);bottom:var(--space-3);width:3px;border-ra
 .dcard h3,.v6ev h3,.ev-pc h3{margin:0 0 var(--space-2)}
 .dcard p,.v6ev p,.ev-pc p{margin:0 0 var(--space-3)}
 .dcard :last-child,.v6ev :last-child,.ev-pc :last-child{margin-bottom:0}
-.v6ev{margin-top:var(--space-5)}
 .ev-read .ev-notes{gap:var(--space-3)}
 .sf{margin-top:var(--space-6)}
 .sf-in{gap:var(--space-4);padding:var(--space-6) var(--space-4) 0}
@@ -435,8 +433,6 @@ font:var(--fw-ui) var(--fs-s)/1 var(--sans);text-decoration:none;transition:var(
 .sf-l a:active{transform:scale(.98);background:var(--elev)}
 .sf-l a:last-child:nth-child(odd){grid-column:1/-1}
 .sf p{max-width:36ch;text-wrap:balance}
-body footer.ft{gap:var(--space-4);padding-top:var(--space-5)}
-body footer.ft .ft-l a:active{transform:scale(.98)}
 .sb{
 background:radial-gradient(120% 38% at 0 0,color-mix(in oklab,var(--acc) 12%,transparent),transparent 70%),color-mix(in oklab,var(--surface) 94%,transparent)}
 .sb-top{padding:0 var(--space-1) var(--space-4);border-bottom:1px solid var(--bd)}
