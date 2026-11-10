@@ -10,6 +10,7 @@ def url(u):
     if re.match(r'^(https?:|mailto:|#)', u): return u
     if p.endswith('.md') and p[:-3].split('/')[-1] in DOCS and not p.startswith(('src', 'releases')): return p[:-3].split('/')[-1] + '.html' + h
     if p.startswith('docs/') and p.endswith('.md') and p[5:-3] in DOCS: return p[5:-3] + '.html' + h
+    if p.startswith('evidence/') and p.endswith('.json') and os.path.exists(f'{ROOT}/docs/{p}'): return p + h
     return GH + p + h
 def inline(s):
     s = html.escape(s.replace('\\|', '|'), quote=False); codes = []
