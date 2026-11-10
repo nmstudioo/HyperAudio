@@ -72,10 +72,10 @@ Keep the Convolver preamp and the EEL post gain at 0 dB.
 Claims come in three tiers that are never mixed.
 
 - **Offline, automated.** 19 checks on each of 6 builds in [`acceptance.json`](releases/6.1.0/acceptance.json): 108 pass, 0 warn, 6 not run (`cpu`).
-- **Device-reported.** The author reports an IEM pass and no crackle on the speaker builds. Per-build entries in [`device-tests.json`](docs/evidence/device-tests.json) are still `untested`.
+- **Device-reported.** Author-reported listening passes for all six builds are recorded in [`device-tests.json`](docs/evidence/device-tests.json). They are not instrument measurements.
 - **Acoustic measurement.** None. Every curve is **calculated**, not measured.
 
-The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot is about +0.2 dB on tones and clicks, and no bank exists for sample rates other than 44.1 and 48 kHz. All are listed in [Limits](docs/LIMITS.md).
+The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot is at most +0.25 dB (calculated, 8x oversampling), and no bank exists for sample rates other than 44.1 and 48 kHz. All are listed in [Limits](docs/LIMITS.md).
 
 ## Downloads
 
@@ -89,7 +89,7 @@ The limits worth knowing: speaker boost is capped at +8 dB, true-peak overshoot 
 | [Redmi 12 · Cinema V8](releases/6.1.0/HyperAudio_6.1.0_spk-v8.zip) | 11.5 KB |
 | [Redmi 12 · Dynamic V10](releases/6.1.0/HyperAudio_6.1.0_spk-v10.zip) | 4.3 KB |
 
-Only the 44.1 kHz bank of four VDCs differs from v5.0.0 (see `releases/6.1.0/DIFF.md`). To verify the files in `releases/6.1.0/`:
+Changes from the previous release are listed in `releases/6.1.0/DIFF.md`. To verify the files in `releases/6.1.0/`:
 
 ```bash
 cd releases && sha256sum -c 6.0.0/SHA256SUMS.txt
@@ -129,9 +129,8 @@ HyperAudio/
 ## Rebuild
 
 ```bash
-python3 build/build.py        # profiles, releases/<version>/ and site/ downloads
-python3 build/docs_site.py    # render docs/ to site/docs/
-python3 tests/check.py        # syntax, structure, links, docs freshness
+python3 tools/ship.py            # regenerate derived files, then gate
+python3 tools/ship.py --release  # full build, freeze, gate
 node tests/overflow.js        # layout gates (needs Playwright)
 ```
 

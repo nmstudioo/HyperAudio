@@ -1,7 +1,7 @@
 """SEO gate (offline, stdlib). python3 tests/seo_audit.py  -> exit 1 on any failure."""
 import glob, json, os, re, sys
 from html.parser import HTMLParser
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); S = f'{ROOT}/site'; BASE = 'https://nmstudioo.github.io/HyperAudio/'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); S = f'{ROOT}/site'; sys.path.insert(0, f'{ROOT}/build'); from siteconfig import SITE as BASE
 errs = []
 def need(c, m):
     if not c: errs.append(m)
