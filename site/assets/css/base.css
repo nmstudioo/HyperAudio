@@ -2430,12 +2430,12 @@ body.n-pg .fq select,body.n-pg .sel select{width:100%;min-height:48px;border-rad
 
 body.n-pg .pick,body.n-pg .cmpg,body.n-pg .pg-about{border-radius:var(--v7-radius-lg)}
 
-.v7-use-profile{
+.use-profile{
 display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:12px;padding:0 16px;
 border:1px solid var(--tx);border-radius:var(--r-pill);background:var(--tx);color:var(--bg);font-size:13px;font-weight:700;
 text-decoration:none}
 
-.v7-use-profile:hover{opacity:.86}
+.use-profile:hover{opacity:.86}
 
 @media (max-width: 1050px){
 #setup .steps3{grid-template-columns:1fr}
@@ -2516,7 +2516,7 @@ ol.why,ul.why{display:block;margin:12px 0;font-size:14px;font-weight:400;line-he
 
 #res{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 
-#res .v7-use-profile{margin-top:12px}
+#res .use-profile{margin-top:12px}
 
 .evrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 
