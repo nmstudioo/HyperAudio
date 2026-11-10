@@ -73,6 +73,7 @@ def acceptance(pdir, p, runtime=True):
     try:
         import numpy; sys.path.insert(0, os.path.dirname(__file__)); import response
         meta = json.load(open(f'{root}/src/profiles.meta.json')); out += response.checks(pdir, p, numpy.array(meta['freq'])); out += file_limits(pdir, p)
+        import derive_stats; out += derive_stats.check(pdir, p)
         if runtime:
             sys.path.insert(0, f'{root}/tests/eel'); import limiter_tests
             out += limiter_tests.build_checks(os.path.join(pdir, [f for f in p['file_order'] if f.endswith('.eel')][0]), p['id'], gate='release')
