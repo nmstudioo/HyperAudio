@@ -1,0 +1,21 @@
+name: css-coverage
+on: workflow_dispatch
+permissions: { contents: read }
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with: { node-version: 24 }
+      - run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - run: python3 build/build.py --publish
+      - run: |
+          python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
+          curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8765/
+          node tests/css_coverage.js http://localhost:8765/ css-coverage.json
+      - uses: actions/upload-artifact@v7
+        with: { name: css-coverage, path: css-coverage.json }
