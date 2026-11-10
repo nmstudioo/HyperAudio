@@ -363,7 +363,7 @@ background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--acc) 45%,tr
 
 .nl[aria-current] .ni{color:var(--acc)}
 
-.n-chip-b small,.sb-bt small,.sb-h,.sb-cr,.sf p,.mh-sub,.v7-profile-metrics small,.dk-s,.evc,.evt-b,.fc-rec,.sb-badge,.eyebrow,.ver-l small{
+.n-chip-b small,.sb-bt small,.sb-h,.sb-cr,.sf p,.mh-sub,.profile-metrics small,.dk-s,.evc,.evt-b,.fc-rec,.sb-badge,.eyebrow,.ver-l small{
 font-size:var(--fs-xs)}
 
 .n-chip-b small,.sb-h,.sb-cr,.evc,.evt-b,.fc-rec,.sb-badge,.eyebrow{letter-spacing:var(--ls-caps)}

@@ -24,7 +24,7 @@ for (const dev of ["iem", "spk"]) {
 await page.click(`[data-out="${dev}"]`);
 const ids = await page.$$eval("#snd .snd-c", (c) => c.map((x) => x.dataset.p));
 ok(ids.length === 3, `${name}: ${dev} should list 3 profiles, got ${ids.length}`);
-ok((await page.$$eval("#snd .v7-profile-metrics", (m) => m.length)) === ids.length, `${name}: ${dev} cards must all show metrics`);
+ok((await page.$$eval("#snd .profile-metrics", (m) => m.length)) === ids.length, `${name}: ${dev} cards must all show metrics`);
 const ranges = [];
 for (const id of ids) {
 await page.click(`#snd [data-p="${id}"]`);
