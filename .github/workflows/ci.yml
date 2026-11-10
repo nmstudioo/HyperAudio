@@ -17,7 +17,7 @@ jobs:
       gen: ${{ steps.s.outputs.gen }}
       site: ${{ steps.s.outputs.site }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - id: s
         run: python3 tools/ci_scope.py
@@ -31,10 +31,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with: { node-version: 24 }
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -50,8 +50,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -61,7 +61,7 @@ jobs:
         run: python3 tests/eel/gate_policy_test.py
       - name: Restore runtime acceptance result
         id: acc
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: /tmp/rel
           key: acceptance-v1-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'tests/eel/**', 'requirements.txt') }}
@@ -83,11 +83,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with: { node-version: 24 }
       - name: Cache Playwright browsers
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-chromium-webkit-${{ hashFiles('.github/workflows/ci.yml') }}
@@ -129,7 +129,7 @@ jobs:
     concurrency: { group: pages, cancel-in-progress: false }
     environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Publish downloads from releases/
         run: python3 build/build.py --publish
       - uses: actions/upload-pages-artifact@v5
