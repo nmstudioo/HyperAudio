@@ -7,6 +7,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def run(*a):
     r = subprocess.run([sys.executable, *a], cwd=ROOT, capture_output=True, text=True); return r.returncode, (r.stdout + r.stderr).strip()
 def gen():
+    run('build/build.py', '--publish')
     for s in ('build/evidence_data.py', 'build/docs_site.py', 'tools/fmt.py', 'build/seo.py', 'build/stamp.py'):
         c, o = run(s)
         print('%-24s %s' % (s, 'ok' if c == 0 else 'FAILED\n' + o))

@@ -35,7 +35,32 @@ def nav(s):
     s = re.sub(r'(var GH = ")[^"]*(")', lambda m: m[1] + REPO + m[2], s)
     return re.sub(r'(<p class="sf-l"><a href=")[^"]*(")', lambda m: m[1] + OWNER_SITE + m[2], s)
 
-def sw(s): return re.sub(r"(const VERSION = ')[^']*(')", rf'\g<1>{ver}\g<2>', s)
+import hashlib, posixpath
+PAGES = ['index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'docs/index.html']
+EXTRA = ['data/evidence.json', 'data/profiles.json', 'data/versions.json', 'data/choose.json', 'manifest.webmanifest']
+ASSET = ('.css', '.js', '.woff2', '.svg', '.webmanifest')
+def shell():
+    S = f'{ROOT}/site'; out = set(EXTRA)
+    def add(base, u):
+        u = u.split('?')[0].split('#')[0]
+        if not u or re.match(r'^(https?:|mailto:|tel:|data:|javascript:|/)', u): return
+        q = posixpath.normpath(posixpath.join(posixpath.dirname(base), u))
+        if q.startswith('..') or q.startswith('downloads/') or not q.endswith(ASSET): return
+        if os.path.isfile(f'{S}/{q}'): out.add(q)
+    for pg in PAGES:
+        if not os.path.exists(f'{S}/{pg}'): continue
+        out.add(pg)
+        for u in re.findall(r'(?:href|src)="([^"]+)"', open(f'{S}/{pg}', encoding='utf-8').read()): add(pg, u)
+    for f in list(out):
+        if f.endswith('.css'):
+            for u in re.findall(r'url\(\s*["\']?([^)"\']+)', open(f'{S}/{f}', encoding='utf-8').read()): add(f, u)
+    return ['./'] + sorted(out)
+def sw(s):
+    sh = shell(); h = hashlib.sha256()
+    for f in sh[1:]:
+        if os.path.exists(f'{ROOT}/site/{f}'): h.update(open(f'{ROOT}/site/{f}', 'rb').read())
+    s = re.sub(r"^const VERSION = .*$", f"const VERSION = '{ver}', CACHE = 'hyperaudio-' + VERSION + '-{h.hexdigest()[:8]}';", s, count=1, flags=re.M)
+    return re.sub(r"const SHELL = \[.*?\];", lambda m: 'const SHELL = [' + ', '.join("'%s'" % u for u in sh) + '];', s, count=1, flags=re.S)
 
 T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav}
 check = '--check' in sys.argv; bad = []

@@ -95,6 +95,8 @@ jobs:
         run: |
           npm install --no-save playwright axe-core
           npx playwright install --with-deps chromium webkit
+      - name: Publish downloads from releases/
+        run: python3 build/build.py --publish
       - name: Serve site
         run: |
           python3 -m http.server 8765 --directory site >/dev/null 2>&1 &
@@ -128,6 +130,8 @@ jobs:
     environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
     steps:
       - uses: actions/checkout@v6
+      - name: Publish downloads from releases/
+        run: python3 build/build.py --publish
       - uses: actions/upload-pages-artifact@v5
         with: { path: site }
       - id: d
