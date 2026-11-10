@@ -77,37 +77,37 @@
    "release": "v7.0.0",
    "build": "iem-v4",
    "device": "KZ EDX Pro",
-   "date": "2026-11-10",
+   "date": "2026-11-08",
    "test": "listening pass",
    "result": "pass",
-   "notes": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+   "notes": "Author-reported listening pass. Not an instrument measurement."
   },
   {
    "release": "v7.0.0",
    "build": "iem-v10",
    "device": "KZ EDX Pro",
-   "date": "2026-11-10",
+   "date": "2026-11-08",
    "test": "listening pass",
    "result": "pass",
-   "notes": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+   "notes": "Author-reported listening pass. Not an instrument measurement."
   },
   {
    "release": "v7.0.0",
    "build": "spk-v8",
    "device": "Redmi 12 speaker",
-   "date": "2026-11-10",
+   "date": "2026-11-08",
    "test": "listening pass",
    "result": "pass",
-   "notes": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+   "notes": "Author-reported listening pass. Not an instrument measurement."
   },
   {
    "release": "v7.0.0",
    "build": "spk-v10",
    "device": "Redmi 12 speaker",
-   "date": "2026-11-10",
+   "date": "2026-11-08",
    "test": "listening pass",
    "result": "pass",
-   "notes": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+   "notes": "Author-reported listening pass. Not an instrument measurement."
   }
  ]
 }
