@@ -1,31 +1,30 @@
 # Open items
 
-Status of the v6 work. The shipped profile files differ from v5.0.0 only in the 44.1 kHz bank of four VDCs (iem-v4, iem-v10, spk-v8, spk-v10).
+Status after v7.0.0. Everything shipped is calculated or offline-checked; nothing in v7.0.0 is device-tested.
 
 ## At a glance
 
-- **Closed offline:** 3 (response error), 6 (true-peak candidate rejected, limiter unchanged) and 2 (all but `cpu`).
-- **Waiting on a device or instrument:** 9, 10, the `cpu` check in 2, and the device test in 4.
-- **Waiting on the author:** 8, 11, 12, 13, and the generator in 4.
-- **Waiting on one listening check:** 7.
-- **Waiting on GitHub:** 1.
-- **Candidate:** 14 has its own open list in [candidates/v6/iem-ghd](../candidates/v6/iem-ghd/README.md).
+- **Waiting on a device or instrument:** 5, 6, 9, 10 and the `cpu` check in 2.
+- **Waiting on the author:** 4, 8, 12.
+- **Waiting on tooling:** 13, 14, 15.
+- **Closed:** 1, 3, 7, 11 and the JM-1 source question (permanently unconfirmed, see `data/measurements/SOURCES.md`).
 
 ## All items
 
 | # | Item | State | Needs |
 |---|---|---|---|
-| 1 | CI on GitHub | Workflow updated (installs numpy and scipy, runs the full acceptance suite); not yet run on GitHub | Push the repo and confirm Actions are green |
+| 1 | CI on GitHub | Done: one test workflow and one release workflow, green on `main` | Nothing |
 | 2 | EEL compile, limiter ceiling, tail, CPU, NaN tests | Done offline via `tests/eel` (eel2py): ceiling, true-peak, THD, tail and NaN soak pass on all six; `cpu` stays `not_run` | Optional: confirm on real WDL or ysfx; `cpu` needs a device |
 | 3 | Response-error check | Done: VDC times IRS reproduces the stored correction (0.03 dB RMS); checks live in `build/response.py` | Nothing |
-| 4 | Speaker boost cap (+8 dB) | Unchanged. Generator now in `build/generator`; +10/+12 variants not built | Decide whether to build them, then a device test |
-| 5 | Protection V6 loudness (IR peak 2.24 against 1.25) | Explained and fixed in the v7 candidate: low-frequency sections folded into the IRS, L1 1.20 (calculated) | Device check of the VDC-to-convolver level path |
-| 6 | Limiter true-peak | v7 candidate: worst 8x overshoot +0.25 dB (v5 baseline +1.7 to +1.95 dB noise); latency 79 samples | Device and CPU test before promoting |
-| 7 | 44.1 kHz bank | Refit promoted in 6.1.0; listening check reported by the author | None; there is no instrument measurement |
-| 8 | Profile EEL (Pop, EDM and others) | Not in the repo; no unstable path found by reading | A symptom description; fixes are in [the notes](../candidates/v6/profile-eel-notes.md); then a device test |
-| 9 | Device evidence | All six builds `untested` | One pass or fail per build (build, device, date, result) |
+| 4 | Speaker boost cap (+8 dB) | Unchanged; +10/+12 variants not built | Decide whether to build them, then a device test |
+| 5 | Protection V6 level path | The 110 Hz high-pass and low shelf now sit in the IRS (L1 1.20). Assumes the effect chain is floating point with no clamp between VDC and convolver | Device check of the VDC-to-convolver level path and loud-input clipping |
+| 6 | Limiter true-peak | Shared v7 core shipped: worst 8x overshoot +0.25 dB, latency 79 samples (calculated). One gate, <= 0.5 dB | Device and CPU test; automate the EEL-vs-reference cross-check |
+| 7 | 44.1 kHz bank | Refit shipped in 6.1.0; v7 speaker banks refit to the 48 kHz response; listening check reported by the author | None; there is no instrument measurement |
+| 8 | Profile EEL (Pop, EDM and others) | Not shipped; suspects are listed in [Method](METHOD.md) | A symptom description, then a device test |
+| 9 | Device evidence | All v7.0.0 builds `untested`; the IEM HD A/B/C blind listening result is recorded in `device-tests.json` where reported | One pass or fail per build (build, device, date, result) |
 | 10 | Acoustic measurements | None | A mic measurement, or the site keeps saying "calculated" |
-| 11 | Self-hosted fonts | Done in UI 7.0.0: Plus Jakarta Sans (400, 600, 800) and JetBrains Mono (400, 700), latin subset, in `site/assets/fonts/` via `tools/fetch_fonts.sh` | Nothing |
+| 11 | Self-hosted fonts | Done: Plus Jakarta Sans and JetBrains Mono, latin subset, via `tools/fetch_fonts.sh` | Nothing |
 | 12 | v1 to v4 history | The archive lists them as "no record in repo" | Old notes or files |
-| 13 | Release v6.1.0 | Built and frozen in the repo | Tag `v6.1.0` and confirm the release workflow is green |
-| 14 | KZ EDX Pro · GHD candidate | In `candidates/v6/iem-ghd`; offline gates pass (calculated) | Limiter figures match v5 exactly (unexplained), CPU, `init_done` in JamesDSP, one listening check |
+| 13 | v7 byte reproducibility | `build/generator/build_v5.py` reproduces v5 byte for byte. Nothing in CI regenerates the v7 files (`build_cand.py`, `build_spk_fold.py`, `gen_eel.py`) | A CI step that regenerates and compares |
+| 14 | Stored profile stats | `chainMax` and related stats were computed on the 120-point site grid and can miss narrow peaks | Compute them on a fine grid inside `build/build.py` |
+| 15 | Release links | `downloads/6.0.1/` does not exist, so the archive link for 6.0.1 is dead | Point 6.0.1 at its GitHub Release or at 6.0.0 |

@@ -6,3 +6,7 @@
 | JM-1_with_Harman_filters.csv | JM-1 base (B&K 5128 DF) with Harman bass/treble shelves applied | Hybrid, community-made. Provenance reported by the project owner; AutoEq location NOT confirmed. Not normalised to 1 kHz (+1.62 dB there) |
 | 5128_Diffuse_field.csv | B&K 5128 diffuse field | reference only |
 Source URLs and retrieval dates are still to be added.
+
+## JM-1 provenance
+
+The JM-1 target CSV was supplied without a source URL, rig or conversion note. Its provenance is permanently unconfirmed. It was a comparison candidate for the IEM HD target only; the shipped HD target is Harman IE 2019.
