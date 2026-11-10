@@ -81,7 +81,7 @@ return exp + calc + off + device + ac;
 }
 function metrics(p) {
 const s = p.stats;
-return '<span class="v7-profile-metrics" role="group" aria-label="Calculated profile metrics">' + [
+return '<span class="profile-metrics" role="group" aria-label="Calculated profile metrics">' + [
 [s.rms.toFixed(2) + " dB", "RMS target error", "RMS gap between the predicted response and the target (calculated)"],
 [s.chainMax.toFixed(1) + " dB", "Chain maximum", "Highest gain of the VDC and impulse response together"],
 [String(s.sections), "VDC sections", "Biquad sections in the VDC"],
