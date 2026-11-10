@@ -30,22 +30,17 @@ box-shadow:var(--lift)}
 
 .bar .n{background:repeating-linear-gradient(90deg,var(--mut) 0 3px,transparent 3px 6px);opacity:.55}
 
-.evx-m{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+.evx-m{width:100%;font-size:13px}
 
 .evx-m th,.evx-m td{padding:10px 6px;text-align:center;border-bottom:1px solid var(--bd)}
 
-.evx-m thead th{
-font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--bd2)}
+.evx-m thead th{text-transform:uppercase}
 
-.evx-m thead tr:first-child th{border-bottom:0;padding-bottom:0}
+.evx-m thead tr:first-child th{padding-bottom:0}
 
-.evx-m thead .grp{color:var(--tx2);letter-spacing:.14em;border-bottom:1px solid var(--bd2)}
+.evx-m tbody th{text-align:left;padding-left:2px;min-width:132px}
 
-.evx-m tbody th{text-align:left;font-weight:500;color:var(--tx);padding-left:2px;min-width:132px}
-
-.evx-m tbody th small{display:block;margin-top:2px;font-weight:400;font-size:11.5px;line-height:1.4;color:var(--mut)}
-
-.evx-m tbody tr:last-child th,.evx-m tbody tr:last-child td{border-bottom:0}
+.evx-m tbody th small{display:block;margin-top:2px;line-height:1.4}
 
 .dot{
 display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font:700 12px/1 var(--mono);
@@ -63,13 +58,11 @@ background:color-mix(in srgb,var(--danger,#e5675b) 14%,transparent)}
 
 .dot.not_run,.dot.untested{border-style:dashed;border-color:var(--mut);color:var(--mut)}
 
-.evx-lg{display:flex;flex-wrap:wrap;gap:8px 16px;margin:0;padding:0;list-style:none;font-size:12px;color:var(--tx2)}
+.evx-lg{display:flex;flex-wrap:wrap;gap:8px 16px;margin:0;list-style:none;font-size:12px;color:var(--tx2)}
 
 .evx-lg li{display:flex;align-items:center;gap:6px}
 
-.evx-lg .dot{width:18px;height:18px;font-size:10px}
-
-.evx-m button.dot{cursor:pointer;background:none;padding:0}
+.evx-m button.dot{cursor:pointer;padding:0}
 
 .evx-m button.dot.pass{background:var(--tx)}
 
@@ -89,9 +82,7 @@ background:color-mix(in srgb,var(--acc) 7%,transparent);font-size:13px;line-heig
 
 .dcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));margin:0;padding:0;list-style:none}
 
-.dcard{
-display:grid;gap:4px;height:100%;padding:16px;border:1px solid var(--bd2);border-radius:var(--r-md,14px);
-background:var(--surface);box-shadow:var(--lift);color:var(--tx);text-decoration:none;transition:border-color .18s,transform .18s}
+.dcard{gap:4px;height:100%}
 
 .dcard:hover{border-color:color-mix(in srgb,var(--acc) 50%,var(--bd2))}
 
@@ -99,13 +90,9 @@ background:var(--surface);box-shadow:var(--lift);color:var(--tx);text-decoration
 .dcard:hover{transform:translateY(-1px)}
 }
 
-.dcard .k{font:600 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.dcard .k{font:600 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 
-.dcard b{font-size:16px;letter-spacing:-.01em}
-
-.dcard span.d{font-size:13px;line-height:1.5;color:var(--tx2)}
-
-.dcard .go{margin-top:6px;font-size:12.5px;font-weight:600;color:var(--acc)}
+.dcard b{letter-spacing:-.01em}
 
 .dpg{max-width:1080px}
 
@@ -123,14 +110,13 @@ text-decoration:none}
 
 .dh .src:hover{color:var(--acc)}
 
-.dtabs{
-display:flex;gap:8px;margin:0 -16px 22px;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.dtabs{gap:8px;margin:0 -16px 22px;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 
 .dtabs::-webkit-scrollbar{display:none}
 
 .dtabs a{
-flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--bd2);border-radius:99px;
-background:var(--surface);color:var(--tx2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--bd2);border-radius:99px;
+background:var(--surface);color:var(--tx2);font-size:13px;font-weight:500;text-decoration:none}
 
 .dtabs a[aria-current=page]{background:var(--tx);border-color:var(--tx);color:var(--bg)}
 
@@ -166,7 +152,7 @@ color:var(--tx2);text-decoration:none;line-height:1.4}
 .dtoc details>summary::after{content:none}
 }
 
-.prose{min-width:0;max-width:74ch}
+.prose{min-width:0}
 
 .prose h2{margin:2em 0 .5em;font-size:22px;letter-spacing:-.02em;scroll-margin-top:84px}
 
@@ -194,7 +180,7 @@ border:1px solid var(--bd);overflow-wrap:anywhere}
 
 .prose .tw{margin:0 0 1.4em;border:1px solid var(--bd2);border-radius:var(--r-md,14px);box-shadow:var(--lift)}
 
-.prose table{margin:0;min-width:520px}
+.prose table{margin:0}
 
 .prose th{white-space:nowrap}
 
@@ -230,11 +216,9 @@ border:1px solid var(--bd2);color:var(--tx2);background:none}
 
 .st-not_run,.st-untested{border-style:dashed;color:var(--mut)}
 
-.dnav{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:36px 0 0}
+.dnav{display:grid;gap:12px;margin:36px 0 0}
 
-.dnav a{
-display:grid;gap:2px;min-height:64px;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--r-md,14px);
-background:var(--surface);text-decoration:none;color:var(--tx)}
+.dnav a{gap:2px}
 
 .dnav a:hover{border-color:color-mix(in srgb,var(--acc) 50%,var(--bd2))}
 
@@ -264,22 +248,19 @@ background:var(--surface);text-decoration:none;color:var(--tx)}
 }
 
 .evx-m tbody th{
-font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;white-space:normal;color:var(--tx);
-width:46%}
+font-family:var(--sans);font-size:13.5px;font-weight:600;text-transform:none;white-space:normal;color:var(--tx);width:46%}
 
 .evx-m tbody th small{
 font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;white-space:normal;color:var(--mut)}
 
 @media(max-width:560px){
-.evx-m tbody th small{display:none}
 .evx-m th,.evx-m td{padding:8px 2px}
 .dot{width:24px;height:24px}
-.evx-m tbody th{width:auto;min-width:0;padding-right:8px}
+.evx-m tbody th{min-width:0}
 }
 
 @media(max-width:560px){
-.evx-m tbody th{width:34%;font-size:13px}
-.evx-m thead th{letter-spacing:.04em}
+.evx-m tbody th{width:34%}
 }
 
 /* == evidence matrix v2: quiet marks, exceptions stand out == */
