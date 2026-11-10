@@ -1,0 +1,9 @@
+{
+  "name": "hyperaudio-tests",
+  "private": true,
+  "description": "Browser test tooling only. Not shipped.",
+  "devDependencies": {
+    "playwright": "*",
+    "axe-core": "*"
+  }
+}
