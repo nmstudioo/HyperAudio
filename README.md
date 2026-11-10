@@ -1,5 +1,5 @@
 <p align="center">
-<img src="site/assets/brand/github-cover.png" alt="HyperAudio: calibrated DSP profiles for RootlessJamesDSP" width="100%">
+<img src=".github/github-cover.png" alt="HyperAudio: calibrated DSP profiles for RootlessJamesDSP" width="100%">
 </p>
 
 <p align="center">

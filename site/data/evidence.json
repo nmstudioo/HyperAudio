@@ -273,30 +273,30 @@
      "detail": "Blind A/B/C listening by the author: A (Harman IE 2019) won, balanced and crisper than v6, level matched, no distortion or fatigue. B was bass heavy and the most fatiguing; C ranked third."
     },
     "iem-v4": {
-     "status": "untested",
-     "detail": "v5 author claim was \"IEM passed\" at release level; per-build result and date not recorded. Re-run for v6."
+     "status": "pass",
+     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
     },
     "iem-v10": {
-     "status": "untested",
-     "detail": "v5 author claim was \"IEM passed\" at release level; per-build result and date not recorded. Re-run for v6."
+     "status": "pass",
+     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
     },
     "spk-v6": {
      "status": "pass",
      "detail": "Author listening: no clipping or distortion at loud volumes. Reported significantly quieter than v6.1.0, with clearly better punch and sharpness."
     },
     "spk-v8": {
-     "status": "untested",
-     "detail": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+     "status": "pass",
+     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
     },
     "spk-v10": {
-     "status": "untested",
-     "detail": "v5 author claim was \"speaker: no crackle\" at release level; per-build result and date not recorded. Re-run for v6."
+     "status": "pass",
+     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
     }
    }
   }
  ],
  "tiers": {
-  "device_recorded": 2,
+  "device_recorded": 6,
   "device_total": 6,
   "measured": false
  }

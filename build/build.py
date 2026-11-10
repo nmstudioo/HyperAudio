@@ -5,7 +5,22 @@ acceptance.json, DIFF.md to releases/<ver>/ and publishes them to site/."""
 import argparse, json, os, shutil, sys, zipfile
 sys.path.insert(0, os.path.dirname(__file__)); from verify import sha, acceptance
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); ap.add_argument('--no-runtime', action='store_true'); ap.add_argument('--write-stats', action='store_true'); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument('--out'); ap.add_argument('--no-site', action='store_true'); ap.add_argument('--publish', action='store_true'); ap.add_argument('--no-runtime', action='store_true'); ap.add_argument('--write-stats', action='store_true'); a = ap.parse_args()
+if a.publish:
+    # downloads are generated from releases/ and never committed; evidence in site/data/profiles.json comes from device-tests.json
+    import glob
+    dst = f'{ROOT}/site/downloads'; shutil.rmtree(dst, ignore_errors=True); vs = []
+    for r in sorted(glob.glob(f'{ROOT}/releases/*/SHA256SUMS.txt')):
+        v = os.path.basename(os.path.dirname(r)); vs.append(v)
+        shutil.copytree(os.path.dirname(r), f'{dst}/{v}', ignore=shutil.ignore_patterns('profiles.json', 'DIFF.md', 'acceptance.json', 'FROZEN'))
+    cv = open(f'{ROOT}/VERSION').read().strip(); pj = json.load(open(f'{ROOT}/releases/{cv}/profiles.json'))
+    ev = {}
+    for e in json.load(open(f'{ROOT}/docs/evidence/device-tests.json'))['entries']:
+        if e['release'] == 'v' + cv and e['result'] in ('pass', 'fail'): ev[e['build']] = e
+    for q in pj['profiles']:
+        if q['id'] in ev: q['evidence'] = {'offline': True, 'device': 'reported', 'deviceNote': ev[q['id']]['notes']}
+    open(f'{ROOT}/site/data/profiles.json', 'w').write(json.dumps(pj, separators=(',', ':')))
+    print('published downloads for', ', '.join(vs)); sys.exit(0)
 ver = open(f'{ROOT}/VERSION').read().strip()
 meta = json.load(open(f'{ROOT}/src/profiles.meta.json'))
 if a.write_stats:
@@ -61,10 +76,6 @@ if prevs:
     L += [f'- removed: {k}' for k in old if k not in {p["id"] for p in profs}]
     open(f'{rel}/DIFF.md', 'w').write('\n'.join(L) + '\n')
 
-if not a.out and not a.no_site:
-    sd = f'{ROOT}/site/downloads/{ver}'; shutil.rmtree(sd, ignore_errors=True)
-    shutil.copytree(rel, sd, ignore=shutil.ignore_patterns('profiles.json', 'DIFF.md', 'acceptance.json'))
-    shutil.copy(f'{rel}/profiles.json', f'{ROOT}/site/data/profiles.json')
 print(f'built {ver}: {len(profs)} profiles, {len(sums)} files, {sum(len(v) for v in acc.values())} checks, {len(bad)} failed')
 for k, c in bad: print('FAIL', k, c['check'], c['detail'])
 sys.exit(1 if bad else 0)

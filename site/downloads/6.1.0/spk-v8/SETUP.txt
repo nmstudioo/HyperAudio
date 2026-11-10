@@ -1,6 +1,0 @@
-HyperAudio 6.1.0 - Redmi 12 · Cinema V8
-RootlessJamesDSP order: VDC > Convolver (IRS) > Liveprog (EEL).
-1) ViPER-DDC: load SPK_v8_OG.vdc
-2) Convolver: load SPK_v8_S.irs, optimization Original
-3) Liveprog: load SPK_v8.eel
-Convolver preamp 0 dB, EEL post gain 0 dB. Leave True Peak Detect on.

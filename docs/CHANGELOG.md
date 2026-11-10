@@ -4,7 +4,7 @@ What changed in each version, newest first. Profile files are frozen per release
 
 ## v7.0.0
 
-Calculated and offline-checked only; no device tests for these files yet.
+Calculated and offline-checked. Author-reported listening passes for all six builds are recorded in `docs/evidence/device-tests.json`; there is no acoustic measurement.
 
 - Shared limiter core v7 in all six scripts: 16-tap Kaiser true-peak detector, centre-aligned lookahead, worst 8x overshoot +0.25 dB (v5: +1.7 to +1.95 dB), +0.15 ms latency.
 - IEM HD target: Harman IE 2019 (new fit).

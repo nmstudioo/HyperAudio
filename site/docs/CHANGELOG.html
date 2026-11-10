@@ -33,7 +33,7 @@
 <article class="prose">
 
 <h2 id="v7-0-0">v7.0.0<a class="ha" href="#v7-0-0" aria-label="Link to this section">#</a></h2>
-<p>Calculated and offline-checked only; no device tests for these files yet.</p>
+<p>Calculated and offline-checked. Author-reported listening passes for all six builds are recorded in <code>docs/evidence/device-tests.json</code>; there is no acoustic measurement.</p>
 <ul><li>Shared limiter core v7 in all six scripts: 16-tap Kaiser true-peak detector, centre-aligned lookahead, worst 8x overshoot +0.25 dB (v5: +1.7 to +1.95 dB), +0.15 ms latency.</li><li>IEM HD target: Harman IE 2019 (new fit).</li><li>Speakers: the 110 Hz high-pass and low shelf moved from the VDC into the IRS (chain response unchanged); max pole radius 0.971 to 0.980; Protection V6 IRS L1 2.24 to 1.20.</li><li>IEM Spatial V4 and Reference V10: new limiter only.</li></ul>
 <h3 id="site">Site<a class="ha" href="#site" aria-label="Link to this section">#</a></h3>
 <ul><li>Folded the first v7 overlay (<code>v7-ui.js</code>, <code>v7-ui.css</code>) into <code>app.js</code> and <code>base.css</code>; no MutationObservers, no runtime copy rewrites.</li><li>Response chart: fixed vertical scale per output, high-pass band on speaker profiles, display-only 1/6 and 1/3 octave smoothing, same-output overlay, spoken readout for keyboard users.</li><li>One evidence chip component (calculated, offline checks, device record, acoustic) used in the files step and the evidence cards.</li><li>Sticky download dock on small screens while choosing a profile.</li><li>Self-hosted fonts, a content security policy, a service worker cache keyed to a separate <code>UI_VERSION</code>, and behaviour tests (<code>tests/ui-behavior.js</code>).</li></ul>

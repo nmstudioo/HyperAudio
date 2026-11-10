@@ -7,6 +7,7 @@ err = []
 def need(c, m):
     if not c: err.append(m)
 cur_v = open(f'{ROOT}/VERSION').read().strip()
+subprocess.run([sys.executable, f'{ROOT}/build/build.py', '--publish'], check=True)  # site/downloads is generated, never committed
 # 1 release hashes: SHA256SUMS vs files, profiles.json vs files, site copy vs release
 for rd in sorted(d for d in glob.glob(f'{ROOT}/releases/*') if os.path.isfile(f'{d}/SHA256SUMS.txt')):
     v = os.path.basename(rd)
@@ -19,13 +20,6 @@ for rd in sorted(d for d in glob.glob(f'{ROOT}/releases/*') if os.path.isfile(f'
         for f in p['files'] + [p['bundle']]:
             fp = f'{rd}/' + f['path'].split(v + '/', 1)[1]
             need(os.path.exists(fp) and sha(fp) == f['sha256'] and os.path.getsize(fp) == f['bytes'], f'{v}: profiles.json mismatch {f["name"]}')
-    sd = f'{ROOT}/site/downloads/{v}'
-    if os.path.isdir(sd):
-        for f in os.listdir(sd):
-            if os.path.isfile(f'{rd}/{f}'): need(sha(f'{sd}/{f}') == sha(f'{rd}/{f}'), f'{v}: site copy differs {f}')
-        for f in glob.glob(f'{sd}/*/*'): need(os.path.exists(f'{rd}/' + f.split(sd + '/')[1]) and sha(f) == sha(f'{rd}/' + f.split(sd + '/')[1]), f'{v}: site copy differs {f}')
-        for f in glob.glob(f'{rd}/*/*'): need(os.path.isfile(f'{sd}/' + f.split(rd + '/')[1]), f'{v}: site copy missing {f.split(rd + "/")[1]}')
-    else: need(v != cur_v, f'{v}: site/downloads/{v} missing')
 cur = open(f'{ROOT}/VERSION').read().strip()
 need(json.load(open(f'{ROOT}/site/data/profiles.json'))['version'] == cur, 'site/data/profiles.json version != VERSION')
 # 2 rebuild into temp dir; member files must match published release hashes (reproducibility)
