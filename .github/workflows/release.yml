@@ -21,14 +21,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Input must equal VERSION
         run: test "$VER" = "$(cat VERSION)" || { echo "input $VER != VERSION $(cat VERSION)"; exit 1; }
-      - name: Build with runtime acceptance (slow; refuses a FROZEN release)
-        run: python3 build/build.py
-      - name: Regenerate site data and gate
-        run: python3 tools/ship.py
-      - name: Freeze
-        run: python3 build/freeze.py
-      - name: Gate again (verifies the frozen hash)
-        run: python3 tests/check.py
+      - name: Build, regenerate, freeze and gate (slow; refuses a FROZEN release)
+        run: python3 tools/ship.py --release
       - name: Push release branch
         run: |
           git config user.name "github-actions[bot]"
@@ -60,7 +54,7 @@ jobs:
         run: python3 build/build.py --out /tmp/rel
       - name: Release must be frozen and match the rebuild
         run: |
-          test -f releases/$(cat VERSION)/FROZEN || { echo "run python3 build/freeze.py and commit first"; exit 1; }
+          test -f releases/$(cat VERSION)/FROZEN || { echo "run python3 tools/ship.py --release and commit first"; exit 1; }
           diff <(sort releases/$(cat VERSION)/SHA256SUMS.txt) <(sort /tmp/rel/SHA256SUMS.txt)
       - name: Release notes from docs/CHANGELOG.md
         run: |

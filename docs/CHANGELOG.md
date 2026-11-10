@@ -24,7 +24,7 @@ Calculated and offline-checked only; no device tests for these files yet.
 ### Added
 
 - Single version source: `build/stamp.py` stamps `VERSION` into `index.html`, `versions.json` and `sw.js`; CI fails on stale stamps.
-- Release automation: a `vX.Y.Z` tag runs `.github/workflows/release.yml` (GitHub Release with zips, checksums, acceptance and diff); `build/freeze.py` and a FROZEN hash guard.
+- Release automation: a `vX.Y.Z` tag runs `.github/workflows/release.yml` (GitHub Release with zips, checksums, acceptance and diff); `tools/ship.py --release` (freeze) and a FROZEN hash guard.
 - Offline support: a service worker (network first, cache fallback).
 - Accessibility gate: `tests/a11y.js` (built-in checks plus axe-core in CI).
 - Evidence panel: a per-profile check matrix generated from `acceptance.json` into `site/data/evidence.json`.
