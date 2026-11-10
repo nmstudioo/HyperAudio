@@ -62,7 +62,25 @@ def sw(s):
     s = re.sub(r"^const VERSION = .*$", f"const VERSION = '{ver}', CACHE = 'hyperaudio-' + VERSION + '-{h.hexdigest()[:8]}';", s, count=1, flags=re.M)
     return re.sub(r"const SHELL = \[.*?\];", lambda m: 'const SHELL = [' + ', '.join("'%s'" % u for u in sh) + '];', s, count=1, flags=re.S)
 
-T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav}
+def readme(s):
+    pj = json.load(open(f'{ROOT}/releases/{ver}/profiles.json')); sz = {'all': pj['all']['bytes']}
+    sz.update({q['id']: q['bundle']['bytes'] for q in pj['profiles']})
+    acc = json.load(open(f'{ROOT}/releases/{ver}/acceptance.json'))['results']; c = {}
+    for v in acc.values():
+        for x in v: c[x['status']] = c.get(x['status'], 0) + 1
+    n = len(next(iter(acc.values())))
+    s = re.sub(r'VERSION-\d+\.\d+\.\d+-', f'VERSION-{ver}-', s)
+    s = re.sub(r'alt="Version \d+\.\d+\.\d+"', f'alt="Version {ver}"', s)
+    s = re.sub(r'releases/\d+\.\d+\.\d+/', f'releases/{ver}/', s)
+    s = re.sub(r'HyperAudio_\d+\.\d+\.\d+_', f'HyperAudio_{ver}_', s)
+    s = re.sub(r'sha256sum -c \d+\.\d+\.\d+/', f'sha256sum -c {ver}/', s)
+    s = re.sub(r'(HyperAudio_[\d.]+_([\w-]+)\.zip\)) \| [\d.]+ KB \|', lambda m: f'{m[1]} | {sz[m[2]] / 1024:.1f} KB |' if m[2] in sz else m[0], s)
+    line = f"**Offline, automated.** {n} checks on each of {len(acc)} builds in [`acceptance.json`](releases/{ver}/acceptance.json): {c.get('pass', 0)} pass, {c.get('warn', 0)} warn, {c.get('not_run', 0)} not run (`cpu`)."
+    s = re.sub(r'\*\*Offline, automated\.\*\* [^\n]*', lambda m: line, s)
+    ds = sorted((d for d in os.listdir(f'{ROOT}/releases') if os.path.isfile(f'{ROOT}/releases/{d}/SHA256SUMS.txt')), key=lambda x: tuple(int(i) for i in x.split('.')), reverse=True)
+    return re.sub(r'(Frozen, versioned releases with checksums \()[^)]*(\))', lambda m: m[1] + ', '.join(ds) + m[2], s)
+
+T = {'site/index.html': index, 'site/data/versions.json': versions, 'site/sw.js': sw, 'site/assets/js/nav.js': nav, 'README.md': readme}
 check = '--check' in sys.argv; bad = []
 for p, f in T.items():
     fp = f'{ROOT}/{p}'

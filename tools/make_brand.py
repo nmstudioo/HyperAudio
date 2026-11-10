@@ -67,13 +67,13 @@ def art(W,H):
 <linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{AMB}" stop-opacity=".30"/><stop offset="1" stop-color="{AMB}" stop-opacity="0"/></linearGradient>
 <linearGradient id="cg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffdca0"/><stop offset=".6" stop-color="{AMB}"/><stop offset="1" stop-color="#e59a20"/></linearGradient>'''+defs()
     return svg(W,H,b,d,'HyperAudio: calibrated DSP profiles for RootlessJamesDSP')
-w(B+'/github-cover.svg',art(1280,640));w(B+'/og-image.svg',art(1200,630))
+w(ROOT+'/.github/github-cover.svg',art(1280,640));w(B+'/og-image.svg',art(1200,630))
 # maskable: full-bleed tile, mark in safe zone
 mk=f'<rect width="512" height="512" fill="url(#at)"/>'+mark(0,0,512,tile=False,pad=2.4,sw=2.2)
 w(I+'/maskable.svg',svg(512,512,mk,defs(),'HyperAudio'))
 # rasterise
 from playwright.sync_api import sync_playwright
-jobs=[(B+'/github-cover.svg',B+'/github-cover.png',1280,640),(B+'/og-image.svg',B+'/og-image.png',1200,630),(B+'/logo-mark.svg',I+'/icon-512.png',512,512),(B+'/logo-mark.svg',I+'/icon-192.png',192,192),(I+'/maskable.svg',I+'/maskable-512.png',512,512),(I+'/maskable.svg',I+'/apple-touch-icon.png',180,180),(I+'/favicon.svg',I+'/favicon-32.png',32,32),(I+'/favicon.svg',I+'/favicon-48.png',48,48)]
+jobs=[(ROOT+'/.github/github-cover.svg',ROOT+'/.github/github-cover.png',1280,640),(B+'/og-image.svg',B+'/og-image.png',1200,630),(B+'/logo-mark.svg',I+'/icon-512.png',512,512),(B+'/logo-mark.svg',I+'/icon-192.png',192,192),(I+'/maskable.svg',I+'/maskable-512.png',512,512),(I+'/maskable.svg',I+'/apple-touch-icon.png',180,180),(I+'/favicon.svg',I+'/favicon-32.png',32,32),(I+'/favicon.svg',I+'/favicon-48.png',48,48)]
 import tempfile;T=tempfile.mkdtemp()
 with sync_playwright() as p:
     br=p.chromium.launch();pg=br.new_page()
