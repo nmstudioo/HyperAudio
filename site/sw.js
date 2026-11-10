@@ -1,4 +1,4 @@
-const VERSION = '7.0.0', CACHE = 'hyperaudio-' + VERSION + '-2f7a3584';
+const VERSION = '7.0.0', CACHE = 'hyperaudio-' + VERSION + '-af9c2caf';
 const SHELL = ['./', 'archive.html', 'assets/css/base.css', 'assets/css/docs.css', 'assets/css/fonts.css', 'assets/css/nav.css', 'assets/css/tokens.css', 'assets/fonts/jetbrains-mono-latin-400-normal.woff2', 'assets/fonts/jetbrains-mono-latin-700-normal.woff2', 'assets/fonts/plus-jakarta-sans-latin-400-normal.woff2', 'assets/fonts/plus-jakarta-sans-latin-600-normal.woff2', 'assets/fonts/plus-jakarta-sans-latin-800-normal.woff2', 'assets/icons/favicon.svg', 'assets/js/app.js', 'assets/js/chart.js', 'assets/js/docs.js', 'assets/js/nav.js', 'assets/js/pages.js', 'assets/js/theme-init.js', 'changelog.html', 'compare.html', 'data/choose.json', 'data/evidence.json', 'data/profiles.json', 'data/versions.json', 'docs/index.html', 'finder.html', 'index.html', 'manifest.webmanifest'];
 const MAX_RUNTIME = 60;
 const cacheable = u => !/\.(zip|eel|irs|vdc)$/i.test(u.pathname) && !u.pathname.includes('/downloads/');

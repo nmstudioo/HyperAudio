@@ -274,11 +274,11 @@
     },
     "iem-v4": {
      "status": "pass",
-     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+     "detail": "Author-reported listening pass. Not an instrument measurement."
     },
     "iem-v10": {
      "status": "pass",
-     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+     "detail": "Author-reported listening pass. Not an instrument measurement."
     },
     "spk-v6": {
      "status": "pass",
@@ -286,11 +286,11 @@
     },
     "spk-v8": {
      "status": "pass",
-     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+     "detail": "Author-reported listening pass. Not an instrument measurement."
     },
     "spk-v10": {
      "status": "pass",
-     "detail": "Author-reported listening pass; recorded 2026-11-10. Not an instrument measurement."
+     "detail": "Author-reported listening pass. Not an instrument measurement."
     }
    }
   }
