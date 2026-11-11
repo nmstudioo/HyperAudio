@@ -6,7 +6,8 @@ Rebuild every release artifact from source and verify it against the published c
 
 ```
 python3 build/build.py --out /tmp/rel        # rebuild into a scratch directory; never overwrites a frozen release
-diff /tmp/rel/SHA256SUMS.txt releases/<VERSION>/SHA256SUMS.txt && echo identical
+version=$(cat VERSION)
+diff "/tmp/rel/SHA256SUMS.txt" "releases/$version/SHA256SUMS.txt" && echo identical
 python3 build/build.py --publish             # copy releases/ into site/downloads/ for local serving
 python3 tests/check.py        # hashes, links, JS syntax, rebuild parity
 ```

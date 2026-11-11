@@ -34,7 +34,8 @@
 
 <h2 id="rebuild">Rebuild<a class="ha" href="#rebuild" aria-label="Link to this section">#</a></h2>
 <div class="cb"><pre tabindex="0"><code>python3 build/build.py --out /tmp/rel        # rebuild into a scratch directory; never overwrites a frozen release
-diff /tmp/rel/SHA256SUMS.txt releases/&lt;VERSION&gt;/SHA256SUMS.txt &amp;&amp; echo identical
+version=$(cat VERSION)
+diff "/tmp/rel/SHA256SUMS.txt" "releases/$version/SHA256SUMS.txt" &amp;&amp; echo identical
 python3 build/build.py --publish             # copy releases/ into site/downloads/ for local serving
 python3 tests/check.py        # hashes, links, JS syntax, rebuild parity</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
 <h2 id="verify">Verify<a class="ha" href="#verify" aria-label="Link to this section">#</a></h2>
