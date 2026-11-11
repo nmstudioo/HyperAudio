@@ -710,3 +710,7 @@ text-overflow:ellipsis}
 }
 
 :root .btn.pri{background:var(--tx)!important;color:var(--bg)!important;border-color:var(--tx)!important}
+
+/* == footer: copyright wraps instead of clipping == */
+.sf .sf-in{min-width:0}
+.sf .sf-in .sf-cp{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding-inline:12px;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;text-align:center}
