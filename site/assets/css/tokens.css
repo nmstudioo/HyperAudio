@@ -12,3 +12,4 @@
 :root[data-theme="dark"]{
 --shadow-hover:0 1px 3px rgba(0,0,0,0.4),0 6px 16px rgba(0,0,0,0.35);
 --shadow-image:0 2px 6px -2px rgba(0,0,0,0.5),0 10px 30px -10px rgba(0,0,0,0.6)}
+:root{--t-1:10px;--t-2:12px;--t-3:13px;--t-4:14px;--t-5:16px;--t-6:18px;--t-7:22px}
