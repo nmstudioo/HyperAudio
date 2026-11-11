@@ -185,7 +185,7 @@ foot.innerHTML = '<div class="sf-in">' +
 '</span></div>' +
 '<p class="sf-facts"><span>Offline checks</span> <span>No acoustic measurement recorded</span> <span>Tested by Noushad Mostafa</span></p>' +
 '<nav class="sf-n" aria-label="Footer"><a href="/HyperAudio/docs/">Docs</a><a href="/HyperAudio/changelog.html">Changelog</a><a href="/HyperAudio/docs/EVIDENCE.html">Evidence</a></nav>' +
-'<p class="sf-cp">© ' + year + ' Noushad Mostafa<span class="n-ver"></span></p>' +
+'<p class="sf-cp">Created by Noushad M. © ' + year + ' HyperAudio<span class="n-ver"></span></p>' +
 '</div>';
 B.appendChild(foot);
 function themeSync() {
