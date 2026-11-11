@@ -33,11 +33,13 @@
 <article class="prose">
 
 <h2 id="rebuild">Rebuild<a class="ha" href="#rebuild" aria-label="Link to this section">#</a></h2>
-<div class="cb"><pre tabindex="0"><code>python3 build/build.py        # writes releases/&lt;VERSION&gt;/ and publishes to site/
+<div class="cb"><pre tabindex="0"><code>python3 build/build.py --out /tmp/rel        # rebuild into a scratch directory; never overwrites a frozen release
+diff /tmp/rel/SHA256SUMS.txt releases/&lt;VERSION&gt;/SHA256SUMS.txt &amp;&amp; echo identical
+python3 build/build.py --publish             # copy releases/ into site/downloads/ for local serving
 python3 tests/check.py        # hashes, links, JS syntax, rebuild parity</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
 <h2 id="verify">Verify<a class="ha" href="#verify" aria-label="Link to this section">#</a></h2>
-<div class="cb"><pre tabindex="0"><code>cd releases &amp;&amp; sha256sum -c 6.0.0/SHA256SUMS.txt</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
-<p>Run it from <code>releases/</code> so the <code>6.0.0/</code> paths in the checksum file resolve. It covers each profile file; the zips are not listed.</p>
+<div class="cb"><pre tabindex="0"><code>cd releases &amp;&amp; sha256sum -c 7.0.0/SHA256SUMS.txt</code></pre><button type="button" class="cp" aria-label="Copy code"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
+<p>Run it from <code>releases/</code> so the <code>7.0.0/</code> paths in the checksum file resolve. It covers each profile file; the zips are not listed.</p>
 <h2 id="frozen-releases">Frozen releases<a class="ha" href="#frozen-releases" aria-label="Link to this section">#</a></h2>
 <p>Releases with a <code>FROZEN</code> file are never rebuilt in place. Zip bytes depend on the zip tool, so the check compares member-file hashes for frozen releases instead of the zip hashes.</p>
 <nav class="dnav" aria-label="Previous and next"><a class="prv" href="OPEN.html"><span class="k">&larr; Previous</span><b>Open items</b></a><a class="nxt" href="RELEASING.html"><span class="k">Next &rarr;</span><b>Releasing</b></a></nav></article>

@@ -5,17 +5,19 @@ Rebuild every release artifact from source and verify it against the published c
 ## Rebuild
 
 ```
-python3 build/build.py        # writes releases/<VERSION>/ and publishes to site/
+python3 build/build.py --out /tmp/rel        # rebuild into a scratch directory; never overwrites a frozen release
+diff /tmp/rel/SHA256SUMS.txt releases/<VERSION>/SHA256SUMS.txt && echo identical
+python3 build/build.py --publish             # copy releases/ into site/downloads/ for local serving
 python3 tests/check.py        # hashes, links, JS syntax, rebuild parity
 ```
 
 ## Verify
 
 ```
-cd releases && sha256sum -c 6.0.0/SHA256SUMS.txt
+cd releases && sha256sum -c 7.0.0/SHA256SUMS.txt
 ```
 
-Run it from `releases/` so the `6.0.0/` paths in the checksum file resolve. It covers each profile file; the zips are not listed.
+Run it from `releases/` so the `7.0.0/` paths in the checksum file resolve. It covers each profile file; the zips are not listed.
 
 ## Frozen releases
 

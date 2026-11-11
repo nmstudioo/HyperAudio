@@ -59,6 +59,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Limiter gate policy regression
         run: python3 tests/eel/gate_policy_test.py
+      - name: CI scope detection tests
+        run: python3 tests/test_ci_scope.py
       - name: Restore runtime acceptance result
         id: acc
         uses: actions/cache@v6
