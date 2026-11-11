@@ -143,7 +143,7 @@ g += `<text x="${m.l - 8}" y="${m.t - 13}" text-anchor="end" font-size="9" lette
 c.series.forEach((s, si) => {
 if (s.hidden) return;
 if (s.area) {
-df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".30"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".08"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
+df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".16"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".04"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
 const z = Y(Math.min(Math.max(0, y0), y1)),
 px = s.pts.map((p) => X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1));
 g += `<path d="M${X(s.pts[0][0])} ${z}L${smooth(s.pts.map((p) => [X(p[0]), Y(p[1])])).slice(1)}L${X(s.pts[s.pts.length - 1][0])} ${z}Z" fill="url(#ag${host.id}${si})" clip-path="url(#cp${host.id})"/>`;
@@ -151,8 +151,9 @@ g += `<path d="M${X(s.pts[0][0])} ${z}L${smooth(s.pts.map((p) => [X(p[0]), Y(p[1
 const xy = s.pts.map((p) => [X(Math.min(Math.max(p[0], x0), x1)), Y(p[1])]),
 d = s.dots ? xy.map((q, i) => (i ? "L" : "M") + q[0].toFixed(1) + " " + q[1].toFixed(1)).join("") : smooth(xy);
 const pri = !!s.area;
-if (pri && !s.dots)
+if (pri && !s.dots && !matchMedia("(pointer:coarse)").matches) {
 g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${(s.w || 2) + 4}" stroke-linecap="round" opacity=".5" filter="url(#gl${host.id})" clip-path="url(#cp${host.id})"/>`;
+}
 g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.w || 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round" ${ha && !pri && !s.dots ? 'opacity=".7"' : ""} clip-path="url(#cp${host.id})"/>`;
 if (s.dots)
 s.pts.forEach(
