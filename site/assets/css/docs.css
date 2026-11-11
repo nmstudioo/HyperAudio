@@ -394,3 +394,34 @@ transition:var(--tr-ui)}
 .dnav{grid-template-columns:1fr 1fr}
 .dnav .nxt{grid-column:2}
 }
+
+/* == docs v3: aligned cards, collapsible toc, prev/next == */
+:root .dcards{margin:0;padding:0;width:100%;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px}
+:root .dcards li{margin:0;padding:0;list-style:none;min-width:0}
+:root .dcards li::marker,:root .dcards li::before{content:none}
+:root .dcard{position:relative;width:100%;box-sizing:border-box;padding:16px;gap:6px;border:1px solid var(--bd2);border-radius:var(--r-control);background:var(--surface);box-shadow:none}
+:root .dcard .k{align-self:flex-start;padding:3px 8px;border:1px solid var(--bd2);border-radius:var(--r-pill);font-size:10px;letter-spacing:.08em;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;max-width:100%;white-space:nowrap}
+:root .dcard b{font-size:16px;color:var(--tx)}
+:root .dcard span.d{font-size:13.5px;line-height:1.5;color:var(--tx2);display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+:root .dcard .go{margin-top:auto;padding-top:6px;font-size:13px;font-weight:600}
+:root .dcard:active{border-color:var(--acc);background:var(--acc-bg);transform:scale(.99)}
+:root .dnav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:32px 0 0}
+:root .dnav a{display:flex;flex-direction:column;gap:4px;min-width:0;min-height:64px;box-sizing:border-box;padding:12px 14px;border:1px solid var(--bd2);border-radius:var(--r-control);background:var(--surface);color:var(--tx);text-decoration:none;text-align:left}
+:root .dnav a.nxt{grid-column:2;text-align:right;align-items:flex-end}
+:root .dnav a:only-child{grid-column:1/-1}
+:root .dnav .k{font:600 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
+:root .dnav b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;color:var(--tx)}
+:root .dnav a:active{border-color:var(--acc);background:var(--acc-bg)}
+@media (hover:hover){:root .dnav a:hover,:root .dcard:hover{border-color:var(--acc)}}
+@media (max-width:359px){:root .dnav{grid-template-columns:1fr}:root .dnav a.nxt{grid-column:1}}
+@media (max-width:900px){
+:root .dtoc{position:static;margin-top:24px}
+:root .dtoc details>summary{pointer-events:auto;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:48px;box-sizing:border-box;padding:0 14px;border:1px solid var(--bd2);border-radius:var(--r-control);background:var(--surface);color:var(--tx);list-style:none}
+:root .dtoc details>summary::-webkit-details-marker{display:none}
+:root .dtoc details>summary::after{content:"";display:block;width:7px;height:7px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s ease}
+:root .dtoc details[open]>summary::after{transform:rotate(-135deg)}
+:root .dtoc ol{margin:8px 0 0 6px}
+:root .dtoc a{display:flex;align-items:center;min-height:44px;box-sizing:border-box;padding:0 14px;border-left:2px solid transparent;margin-left:-1px;font-size:14px;color:var(--tx2)}
+:root .dtoc a.on{border-left-color:var(--acc);background:var(--acc-bg);color:var(--tx)}
+:root .dtoc li.l3 a{padding-left:28px}
+}
