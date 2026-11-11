@@ -34,3 +34,5 @@ if (t && window.matchMedia("(max-width: 999px)").matches) t.removeAttribute("ope
 var t = document.querySelector(".dtabs"), a = t && t.querySelector("[aria-current=page]");
 if (a) t.scrollLeft += a.getBoundingClientRect().left - t.getBoundingClientRect().left - (t.clientWidth - a.offsetWidth) / 2;
 })();
+
+;(function(){try{if(matchMedia("(max-width:900px)").matches){var d=document.querySelector(".dtoc details");if(d)d.removeAttribute("open")}}catch(e){}})();
