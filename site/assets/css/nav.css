@@ -710,3 +710,11 @@ text-overflow:ellipsis}
 }
 
 :root .btn.pri{background:var(--tx)!important;color:var(--bg)!important;border-color:var(--tx)!important}
+
+/* == sidebar icons: light tint, not solid blobs == */
+.ni [fill="currentColor"]{fill-opacity:.12}
+.nl:hover .ni [fill="currentColor"],.nb:hover .ni [fill="currentColor"]{fill-opacity:.2}
+a[aria-current] > .ni [fill="currentColor"],.nl[aria-current] .ni [fill="currentColor"]{fill-opacity:.3}
+.nl .ni{color:var(--tx2)}
+.nl:hover .ni{color:var(--tx)}
+.nl[aria-current] .ni{color:var(--acc)}
