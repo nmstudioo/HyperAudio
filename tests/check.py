@@ -49,6 +49,9 @@ r = subprocess.run(['node', f'{ROOT}/tests/links.js'], capture_output=True, text
 sw = open(f'{ROOT}/site/sw.js', encoding='utf-8').read(); m = re.search(r'const SHELL = \[(.*?)\];', sw, re.S)
 for u in re.findall(r"'([^']+)'", m[1] if m else ''): need(os.path.exists(f'{ROOT}/site/{u}') or u == './', f'sw.js SHELL entry missing on disk: {u}')
 need(bool(m), 'sw.js SHELL list not found')
+need(len(re.findall(r"(?m)^const VERSION =", sw)) == 1, 'sw.js must contain exactly one VERSION declaration')
+r = subprocess.run(['node', '--check', f'{ROOT}/site/sw.js'], capture_output=True, text=True)
+need(r.returncode == 0, f'sw.js syntax: {r.stderr[:200]}')
 # 4 JS syntax
 for js in glob.glob(f'{ROOT}/site/assets/js/*.js'):
     r = subprocess.run(['node', '--check', js], capture_output=True, text=True); need(r.returncode == 0, f'JS syntax {js}: {r.stderr[:200]}')
