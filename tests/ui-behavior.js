@@ -67,8 +67,9 @@ ok(await page.evaluate(() => document.fonts.check('600 16px "Plus Jakarta Sans"'
 }
 ok(!errors.length, `${name}: page errors/CSP violations:\n  ` + errors.slice(0, 5).join("\n  "));
 await page.goto(base + "index.html", { waitUntil: "networkidle" });
-ok((await page.$$eval("#steps a.step", (a) => a.length)) === 3, `${name}: home needs 3 step links`);
+ok((await page.$$eval("#steps a.lp-card", (a) => a.length)) === 3, `${name}: home needs 3 step links`);
 ok((await page.$$eval("#snd", (a) => a.length)) === 0, `${name}: picker must not be on home`);
+await page.goto(base + "faq.html", { waitUntil: "networkidle" });
 await page.goto(base + "index.html#setup");
 await page.waitForURL(/setup\.html/);
 await page.goto(base + "compare.html", { waitUntil: "networkidle" });
