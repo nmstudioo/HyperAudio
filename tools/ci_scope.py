@@ -12,12 +12,12 @@ def changed():
     else: return None
     r = subprocess.run(['git', 'diff', '--name-only', '--no-renames', rng], capture_output=True, text=True)
     return r.stdout.split() if r.returncode == 0 else None
-f = changed()
-if f is None or any(x.startswith(ALL) for x in f): dsp = gen = site = True
-else:
-    dsp = any(x.startswith(DSP) for x in f); gen = any(x.startswith(GEN) for x in f); site = any(x.startswith(SITE) for x in f)
-print('files:', 'ALL (fail-safe)' if f is None else len(f))
-out = {'dsp': dsp, 'gen': gen, 'site': site}
-for k, v in out.items(): print('%s=%s' % (k, str(v).lower()))
-if os.environ.get('GITHUB_OUTPUT'):
-    open(os.environ['GITHUB_OUTPUT'], 'a').write(''.join('%s=%s\n' % (k, str(v).lower()) for k, v in out.items()))
+def classify(f):
+    if f is None or any(x.startswith(ALL) for x in f): return {'dsp': True, 'gen': True, 'site': True}
+    return {'dsp': any(x.startswith(DSP) for x in f), 'gen': any(x.startswith(GEN) for x in f), 'site': any(x.startswith(SITE) for x in f)}
+if __name__ == '__main__':
+    f = changed(); out = classify(f)
+    print('files:', 'ALL (fail-safe)' if f is None else len(f))
+    for k, v in out.items(): print('%s=%s' % (k, str(v).lower()))
+    if os.environ.get('GITHUB_OUTPUT'):
+        open(os.environ['GITHUB_OUTPUT'], 'a').write(''.join('%s=%s\n' % (k, str(v).lower()) for k, v in out.items()))
