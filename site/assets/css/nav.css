@@ -659,3 +659,35 @@ display:inline;min-height:0;margin:0 0 0 var(--space-2);padding:0;border:none;bo
 box-shadow:none;font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
 
 .sf .sf-in .sf-cp .n-ver:empty{display:none}
+
+/* ui polish: ghost controls, compact chart controls, footer, mobile drawer */
+:root .btn,:root .ibtn,:root .nb,:root .seg,:root .tgt button,:root .legend button,:root .cmp-ovl select{background:color-mix(in srgb,var(--tx) 4%,transparent);border:1px solid var(--bd2);box-shadow:none}
+:root .btn:active,:root .nb:active,:root .tgt button:active{transform:scale(.97)}
+:root .chartbox{backdrop-filter:none;-webkit-backdrop-filter:none}
+:root .chartbox svg{display:block;overflow:visible}
+:root .cmp-hook .seg button,:root .cmp-hook .cmp-ovl select,:root .cmp-hook .tgt button{min-height:40px;font-size:12.5px}
+:root .cmp-hook .seg{padding:2px}
+:root .cmp-hook .tgt{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+:root .cmp-hook .tgt button{justify-content:flex-start;padding:0 10px;min-width:0;white-space:nowrap}
+:root .sf .sf-in .sf-facts span{display:block}
+:root .sf .sf-in .sf-n a{font-weight:500;font-size:13px;color:var(--tx2);text-decoration-color:var(--bd)}
+:root .sf .sf-in .sf-cp .n-ver{display:block;width:max-content;margin:8px auto 0;padding:3px 10px;border:1px solid var(--bd2);border-radius:var(--r-pill);background:var(--acc-bg);font-size:10.5px}
+:root .sf .sf-in .sf-cp .n-ver::before{display:none}
+@media (max-width:767px){
+:root .sb{width:min(86vw,340px);border-radius:0 var(--r-xl) var(--r-xl) 0}
+:root .sb-scrim{background:color-mix(in oklab,black 38%,transparent);backdrop-filter:none;-webkit-backdrop-filter:none}
+:root .sb-top{gap:8px}
+:root .sb-brand .n-logo{width:32px;height:32px}
+:root .sb-bt b{font-size:15px}
+:root .sb-bt small{font-size:10px;letter-spacing:.06em}
+:root .sb .tg-x,:root .sb-tg{width:40px;height:40px;border:0;background:transparent}
+:root .sb .sb-badge{white-space:nowrap;font-size:10px;letter-spacing:.05em;padding:6px 10px;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+:root .sb .sb-h{font-size:10px;letter-spacing:.12em}
+:root .sb .nl{min-height:44px;font-size:15px;gap:12px;border-color:transparent}
+:root .sb .nl .ni{width:18px;height:18px}
+:root .sb .nl[aria-current]{background:var(--acc-bg);box-shadow:none;border-color:transparent}
+:root .sb .nl[aria-current]::before{left:-12px;box-shadow:none}
+:root .sb .n-chip-b small{font-size:10px;letter-spacing:.08em}
+:root .sb .sb-ctl [data-n-theme]{display:inline-grid}
+:root .sb-ctl .nb{width:40px;height:40px;border-radius:var(--r-control)}
+}
