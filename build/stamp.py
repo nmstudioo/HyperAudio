@@ -59,7 +59,8 @@ def sw(s):
     sh = shell(); h = hashlib.sha256()
     for f in sh[1:]:
         if os.path.exists(f'{ROOT}/site/{f}'): h.update(open(f'{ROOT}/site/{f}', 'rb').read())
-    s = re.sub(r"^const VERSION = .*$", f"const VERSION = '{ver}', CACHE = 'hyperaudio-' + VERSION + '-{h.hexdigest()[:8]}';", s, count=1, flags=re.M)
+    s = re.sub(r"(?m)^const VERSION = [^\n]*(?:\n|$)", "", s)
+    s = f"const VERSION = '{ver}', CACHE = 'hyperaudio-' + VERSION + '-{h.hexdigest()[:8]}';\n" + s
     return re.sub(r"const SHELL = \[.*?\];", lambda m: 'const SHELL = [' + ', '.join("'%s'" % u for u in sh) + '];', s, count=1, flags=re.S)
 
 def readme(s):
