@@ -2751,3 +2751,10 @@ box-shadow:var(--lift),0 14px 28px -20px color-mix(in srgb,var(--acc) 60%,transp
 .cmp-ovl{display:flex;flex-wrap:wrap;align-items:center;width:100%;min-width:0;gap:var(--space-2)}
 .cmp-ovl select{flex:1 1 9rem;width:auto;min-width:0;max-width:100%}
 }
+
+/* == page heads: one system for guide + docs + tools == */
+:root .pghead .eyebrow,:root .dh .eyebrow,:root main.pg > .eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tx2)}
+:root .pghead .eyebrow::before,:root .dh .eyebrow::before,:root main.pg > .eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:var(--acc)}
+:root .pghead h1,:root .dh h1,body.n-pg main.pg > h1{margin:14px 0 12px;font-size:clamp(2rem,6.5vw,3.25rem);font-weight:800;letter-spacing:-.035em;line-height:1.04;text-wrap:balance}
+:root .pghead .lead,:root .dh .lead,body.n-pg main.pg > .lead{max-width:56ch;margin:0;color:var(--tx2);font-size:clamp(1rem,2.4vw,1.125rem);line-height:1.55;text-wrap:pretty}
+:root .pghead{padding-bottom:var(--space-5)}
