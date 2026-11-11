@@ -4,7 +4,7 @@ const pages = [
 "index.html",
 "compare.html",
 "finder.html",
-"archive.html",
+"archive.html","setup.html","apply.html","files.html","evidence.html","faq.html",
 "changelog.html",
 ];
 (async () => {
@@ -25,6 +25,22 @@ await p.waitForTimeout(400);
 const r = await p.evaluate(() => {
 const f = document.querySelector(".sf-in");
 if (!f) return { err: "no footer" };
+const drawerTheme = document.querySelector(".sb .sb-ctl [data-n-theme]");
+const headerTheme = document.querySelector(".mh [data-n-theme]");
+const cp = f.querySelector(".sf-cp");
+const copyText = cp && cp.firstChild ? cp.firstChild.textContent.trim() : "";
+const copyRange = cp && cp.firstChild ? document.createRange() : null;
+if (copyRange) copyRange.selectNodeContents(cp.firstChild);
+const cpRect = cp ? cp.getBoundingClientRect() : null;
+const copyRects = copyRange ? [...copyRange.getClientRects()] : [];
+const copyrightClipped = !cp || !copyRects.length ||
+copyRects.some(q => q.left < cpRect.left - 1 || q.right > cpRect.right + 1) ||
+cp.scrollWidth > cp.clientWidth + 1;
+const drawerThemeHidden = innerWidth >= 768 || !drawerTheme ||
+getComputedStyle(drawerTheme).display === "none";
+const headerThemeVisible = innerWidth >= 768 || (!!headerTheme &&
+getComputedStyle(headerTheme).display !== "none");
+const copyrightOk = copyText === "© " + new Date().getFullYear() + " Noushad Mostafa";
 const sr = document.querySelector(".sf").getBoundingClientRect(),
 mid = sr.left + sr.width / 2,
 off = [];
@@ -71,6 +87,11 @@ logo,
 imgOk,
 links: f.querySelectorAll(".sf-n a, .sf-l a").length,
 over: document.documentElement.scrollWidth > innerWidth,
+drawerThemeHidden,
+headerThemeVisible,
+copyrightOk,
+copyrightText: copyText,
+copyrightClipped,
 };
 });
 if (
@@ -79,7 +100,11 @@ r.off.length ||
 r.logo !== 1 ||
 !r.imgOk ||
 r.links < 1 ||
-r.over
+r.over ||
+!r.drawerThemeHidden ||
+!r.headerThemeVisible ||
+!r.copyrightOk ||
+r.copyrightClipped
 ) {
 bad++;
 console.log("FOOTER", pg, w, th, JSON.stringify(r));

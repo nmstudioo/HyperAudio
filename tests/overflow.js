@@ -4,7 +4,7 @@ const pages = [
 "index.html",
 "compare.html",
 "finder.html",
-"archive.html",
+"archive.html","setup.html","apply.html","files.html","evidence.html","faq.html",
 "changelog.html",
 "docs/index.html",
 "docs/EVIDENCE.html",

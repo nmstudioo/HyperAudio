@@ -443,3 +443,30 @@ transition:var(--tr-ui)}
 :root .dcard[href*="releasing" i]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4M7 9l5-5 5 5M5 20h14'/%3E%3C/svg%3E")}
 :root .dcard[href*="reproducing" i]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12a8 8 0 1 1-2.300-5.700M20 4v4h-4'/%3E%3C/svg%3E")}
 :root .dcard[href*="changelog" i]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E")}
+
+/* == guide pages == */
+:root .pghead{padding-top:var(--space-6);padding-bottom:0}
+:root .pghead h1{margin:6px 0 8px}
+:root .rel-l{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+:root .rel-l li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 14px;padding:14px 16px;border:1px solid var(--bd2);border-radius:var(--r-control);background:var(--surface)}
+:root .rel-l b{font-size:16px;color:var(--tx)}
+:root .rel-l small{display:block;margin-top:2px;font:500 12px var(--mono);color:var(--tx2)}
+:root .rel-a{display:flex;flex-wrap:wrap;gap:8px}
+
+/* == guide pages: section title already in page header == */
+:root .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:root .flow>.sec-h{margin-top:0;justify-content:flex-end}
+
+/* == guide pages: hide duplicate section titles == */
+.pghead + .flow > .sec-h {
+    margin-top: 0;
+    justify-content: flex-end;
+}
+.pghead + .flow > .sec-h > div:first-child {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

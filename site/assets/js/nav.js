@@ -50,12 +50,11 @@ var G = [
 var T = [
 ["compare.html", "Compare", "merge"],
 ["finder.html", "Finder", "search"],
-["archive.html", "Archive", "box"],
 ["docs/index.html", "Docs", "book"],
 ["changelog.html", "Changelog", "log"],
 ];
 var gHref = function (id) {
-return (home ? "" : base + "index.html") + "#" + id;
+return base + id + ".html";
 };
 var tAttr = function (t) {
 return (base ? t[0] === "docs/index.html" : t[0] === file) ? ' aria-current="page"' : "";
@@ -369,3 +368,5 @@ n.setAttribute("aria-label", "Active profile: " + p.name);
 .catch(function () {});
 })();
 ;(function(){try{if("serviceWorker"in navigator&&location.protocol!=="file:"){var s=document.currentScript&&document.currentScript.src;if(s)navigator.serviceWorker.register(new URL("../../sw.js",s).href).catch(function(){})}}catch(e){}})();
+
+;(function(){try{var f=(location.pathname.split("/").pop()||"").replace(/\.html$/,"");document.querySelectorAll("[data-k]").forEach(function(a){if(a.dataset.k===f)a.setAttribute("aria-current","page")})}catch(e){}})();

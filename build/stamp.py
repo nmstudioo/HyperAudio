@@ -36,7 +36,7 @@ def nav(s):
     return re.sub(r'(<p class="sf-l"><a href=")[^"]*(")', lambda m: m[1] + OWNER_SITE + m[2], s)
 
 import hashlib, posixpath
-PAGES = ['index.html', 'compare.html', 'finder.html', 'archive.html', 'changelog.html', 'docs/index.html']
+PAGES = ['index.html', 'compare.html', 'finder.html', 'archive.html', 'setup.html', 'apply.html', 'files.html', 'evidence.html', 'faq.html', 'changelog.html', 'docs/index.html']
 EXTRA = ['data/evidence.json', 'data/profiles.json', 'data/versions.json', 'data/choose.json', 'manifest.webmanifest']
 ASSET = ('.css', '.js', '.woff2', '.svg', '.webmanifest')
 def shell():
