@@ -1,6 +1,6 @@
 (function () {
 "use strict";
-const $ = (s, r = document) => r.querySelector(s),
+const $ = (s, r = document) => r.querySelector(s) || (r === document ? document.createElement("div") : null),
 $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (s) =>
 String(s).replace(

@@ -651,8 +651,9 @@ text-decoration-color:var(--bd2);transition:var(--tr-ui)}
 .sf .sf-in .sf-n a:hover{color:var(--acc);text-decoration-color:var(--acc)}
 
 .sf .sf-in .sf-cp{
-margin:0;padding-top:var(--space-4);border-top:1px solid var(--bd);width:100%;max-width:400px;font:500 10.5px/1.7 var(--mono);
-letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:center;text-wrap:balance}
+margin:0;padding:var(--space-4) var(--space-3) 0;border-top:1px solid var(--bd);width:100%;max-width:100%;
+box-sizing:border-box;font:500 10.5px/1.7 var(--mono);letter-spacing:.02em;text-transform:none;overflow-wrap:normal;word-break:normal;
+color:var(--mut);text-align:center;text-wrap:balance}
 
 .sf .sf-in .sf-cp .n-ver{
 display:inline;min-height:0;margin:0 0 0 var(--space-2);padding:0;border:none;border-radius:0;background:transparent;
@@ -704,7 +705,7 @@ text-overflow:ellipsis}
 :root .sb .nl[aria-current]{background:var(--acc-bg);box-shadow:none;border-color:transparent}
 :root .sb .nl[aria-current]::before{left:-12px;box-shadow:none}
 :root .sb .n-chip-b small{font-size:10px;letter-spacing:.08em}
-:root .sb .sb-ctl [data-n-theme]{display:inline-grid}
+
 :root .sb-ctl .nb{width:40px;height:40px;border-radius:var(--r-control)}
 }
 
