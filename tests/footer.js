@@ -40,7 +40,7 @@ const drawerThemeHidden = innerWidth >= 768 || !drawerTheme ||
 getComputedStyle(drawerTheme).display === "none";
 const headerThemeVisible = innerWidth >= 768 || (!!headerTheme &&
 getComputedStyle(headerTheme).display !== "none");
-const copyrightOk = copyText === "© " + new Date().getFullYear() + " Noushad Mostafa";
+const copyrightOk = copyText === "Created by Noushad M. © " + new Date().getFullYear() + " HyperAudio";
 const sr = document.querySelector(".sf").getBoundingClientRect(),
 mid = sr.left + sr.width / 2,
 off = [];

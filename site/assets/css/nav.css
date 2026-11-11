@@ -710,3 +710,29 @@ text-overflow:ellipsis}
 }
 
 :root .btn.pri{background:var(--tx)!important;color:var(--bg)!important;border-color:var(--tx)!important}
+
+/* == sidebar icons: light tint, not solid blobs == */
+.ni [fill="currentColor"]{fill-opacity:.12}
+.nl:hover .ni [fill="currentColor"],.nb:hover .ni [fill="currentColor"]{fill-opacity:.2}
+a[aria-current] > .ni [fill="currentColor"],.nl[aria-current] .ni [fill="currentColor"]{fill-opacity:.3}
+.nl .ni{color:var(--tx2)}
+.nl:hover .ni{color:var(--tx)}
+.nl[aria-current] .ni{color:var(--acc)}
+
+/* == footer: copyright wraps instead of clipping == */
+.sf .sf-in{min-width:0}
+.sf .sf-in .sf-cp{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding-inline:12px;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;text-align:center}
+
+/* == mobile drawer matches desktop sidebar scale == */
+@media (max-width:767px){
+.sb{width:min(80vw,300px);gap:12px}
+.sb .sb-bt b{font-size:14px!important}
+.sb .sb-bt small,.sb .sb-badge,.sb .n-chip-b small{font-size:10px!important;letter-spacing:.12em}
+.sb .sb-h{font:600 10px var(--mono)!important;letter-spacing:.16em;padding:0 12px;margin:8px 0 4px}
+.sb .nl{min-height:44px;gap:12px;padding:0 12px;font:500 13.5px var(--sans)!important}
+.sb .nl .nt{font-size:13.5px!important}
+.sb .nl .ni{width:18px!important;height:18px!important}
+.sb .n-chip{padding:8px 10px;gap:10px}
+.sb .n-chip-t{font-size:12.5px!important}
+.sb .sb-ctl .nb{width:40px;height:40px}
+}
