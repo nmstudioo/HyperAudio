@@ -475,8 +475,8 @@ transition:var(--tr-ui)}
 
 /* == landing: premium hero + choreography == */
 .lp{position:relative;overflow:hidden;isolation:isolate}
-.lp-aura{position:absolute;inset:-30%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 25% 30%,rgba(176,122,42,.22),transparent 70%),radial-gradient(35% 30% at 78% 20%,rgba(176,122,42,.14),transparent 70%),radial-gradient(45% 40% at 60% 85%,rgba(120,120,160,.12),transparent 70%);animation:lp-drift 18s ease-in-out infinite alternate;filter:blur(10px)}
-@keyframes lp-drift{to{transform:translate3d(4%,3%,0) scale(1.08) rotate(3deg)}}
+.lp-aura{position:absolute;inset:0;z-index:-1;pointer-events:none;background-size:100% 100%,100% 100%,100% 100%;background-repeat:no-repeat;background-image:radial-gradient(40% 35% at 25% 30%,rgba(176,122,42,.22),transparent 70%),radial-gradient(35% 30% at 78% 20%,rgba(176,122,42,.14),transparent 70%),radial-gradient(45% 40% at 60% 85%,rgba(120,120,160,.12),transparent 70%);animation:lp-drift 18s ease-in-out infinite alternate}
+@keyframes lp-drift{to{background-position:6% 4%,-5% 6%,3% -4%;background-size:115% 115%,110% 110%,120% 120%}}
 .lp h1{overflow:hidden;padding-bottom:.08em}
 .lp-w{display:block;opacity:0;transform:translateY(105%) rotate(2deg);animation:lp-up .9s cubic-bezier(.2,.8,.2,1) forwards}
 .lp-w:nth-child(2){animation-delay:.12s}
