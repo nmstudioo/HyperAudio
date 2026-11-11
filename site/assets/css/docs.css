@@ -425,3 +425,9 @@ transition:var(--tr-ui)}
 :root .dtoc a.on{border-left-color:var(--acc);background:var(--acc-bg);color:var(--tx)}
 :root .dtoc li.l3 a{padding-left:28px}
 }
+
+/* == docs v3b: toc above content on small screens == */
+@media (max-width:900px){
+:root .dgrid.has-toc{gap:16px}
+:root .dtoc{order:-1;margin:0}
+}
