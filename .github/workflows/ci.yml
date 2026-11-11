@@ -123,6 +123,29 @@ jobs:
           path: shots/
           if-no-files-found: ignore
           retention-days: 14
+      - name: Visual diff vs main (informational)
+        if: github.event_name == 'pull_request' && !cancelled()
+        continue-on-error: true
+        timeout-minutes: 12
+        run: |
+          git clone -q --depth 1 --branch main "https://github.com/${{ github.repository }}.git" _base
+          if [ -d site/downloads ]; then cp -r site/downloads _base/site/downloads; fi
+          python3 -m http.server 8766 --directory _base/site >/dev/null 2>&1 &
+          curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8766/
+          node tests/shots_all.js http://localhost:8766/ shots_base
+          node tests/shots_all.js http://localhost:8765/ shots_pr
+          python3 -m venv ~/v && ~/v/bin/pip install -q pillow
+          ~/v/bin/python tests/visual_diff.py shots_base shots_pr shots_diff 0.02 || true
+          { echo '### Visual diff vs main'; echo '```'; tail -40 shots_diff/report.txt 2>/dev/null || echo 'no report'; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: github.event_name == 'pull_request' && !cancelled()
+        with:
+          name: visual-diff
+          path: |
+            shots_diff/
+            shots_pr/
+          if-no-files-found: ignore
+          retention-days: 14
 
   deploy:
     needs: [prep, verify, dsp, browser]
