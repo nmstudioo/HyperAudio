@@ -18,7 +18,7 @@ const errors = [];
 page.on("pageerror", (e) => errors.push("pageerror: " + e.message));
 page.on("console", (m) => { if (m.type() === "error") errors.push("console: " + m.text()); });
 await page.addInitScript(() => document.addEventListener("securitypolicyviolation", (e) => console.error("CSP violation: " + e.violatedDirective + " " + e.blockedURI)));
-await page.goto(base + "index.html", { waitUntil: "networkidle" });
+await page.goto(base + "setup.html", { waitUntil: "networkidle" });
 await page.waitForSelector("#snd .snd-c");
 for (const dev of ["iem", "spk"]) {
 await page.click(`[data-out="${dev}"]`);
@@ -66,6 +66,11 @@ ok(await page.evaluate(() => document.fonts.check('600 16px "Plus Jakarta Sans"'
 }
 }
 ok(!errors.length, `${name}: page errors/CSP violations:\n  ` + errors.slice(0, 5).join("\n  "));
+await page.goto(base + "index.html", { waitUntil: "networkidle" });
+ok((await page.$$eval("#steps a.step", (a) => a.length)) === 3, `${name}: home needs 3 step links`);
+ok((await page.$$eval("#snd", (a) => a.length)) === 0, `${name}: picker must not be on home`);
+await page.goto(base + "index.html#setup");
+await page.waitForURL(/setup\.html/);
 await page.goto(base + "compare.html", { waitUntil: "networkidle" });
 await page.waitForSelector("#b option", { state: "attached" });
 await page.selectOption("#a", "spk-v8");

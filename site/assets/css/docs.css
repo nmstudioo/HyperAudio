@@ -470,3 +470,8 @@ transition:var(--tr-ui)}
     clip: rect(0 0 0 0);
     white-space: nowrap;
 }
+
+/* == slim home: 3-step strip == */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.steps .step{display:flex;align-items:center;gap:12px;padding:16px;text-decoration:none;color:inherit}
+.steps .step b{font-family:var(--mono,monospace);opacity:.6}
