@@ -64,10 +64,12 @@ jobs:
         uses: actions/cache@v6
         with:
           path: /tmp/rel
-          key: acceptance-v1-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'tests/eel/**', 'requirements.txt') }}
+          key: acceptance-v2-${{ hashFiles('src/profiles/**', 'src/profiles.meta.json', 'VERSION', 'releases/**', 'build/build.py', 'build/response.py', 'build/verify.py', 'build/derive_stats.py', 'tests/eel/**', 'requirements.txt') }}
       - name: Full build with runtime acceptance and drift diff
         if: steps.acc.outputs.cache-hit != 'true'
         run: python3 build/build.py --out /tmp/rel
+      - name: Validate acceptance result (fresh or restored from cache)
+        run: python3 tests/check_acceptance.py /tmp/rel/acceptance.json
       - name: Generator reproduction vs releases/5.0.0 (informational)
         if: needs.prep.outputs.gen == 'true'
         continue-on-error: true
@@ -90,7 +92,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-chromium-webkit-${{ hashFiles('.github/workflows/ci.yml') }}
+          key: playwright-${{ runner.os }}-chromium-webkit-${{ hashFiles('.github/workflows/ci.yml', 'package-lock.json') }}
       - name: Install browser test tools
         run: |
           npm ci
