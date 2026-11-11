@@ -57,7 +57,8 @@ data = {k: meta[k] for k in ('released', 'status', 'freq')}; data = {'version': 
 sums.sort(key=lambda s: s.split('  ')[1])
 open(f'{rel}/SHA256SUMS.txt', 'w').write('\n'.join(sums) + '\n')
 json.dump(data, open(f'{rel}/profiles.json', 'w'), separators=(',', ':'))
-bad = [(k, c) for k, v in acc.items() for c in v if c['status'] == 'fail']
+OK_NOT_RUN = {'cpu'} | ({'eel.compile', 'limiter.ceiling', 'limiter.true_peak', 'tail', 'nan_soak'} if a.no_runtime else set())
+bad = [(k, c) for k, v in acc.items() for c in v if c['status'] == 'fail' or (c['status'] == 'not_run' and c['check'] not in OK_NOT_RUN)]
 json.dump(dict(version=ver, results=acc), open(f'{rel}/acceptance.json', 'w'), indent=1)
 
 # diff vs previous release
