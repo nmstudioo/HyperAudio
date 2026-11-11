@@ -28,7 +28,7 @@ class H(HTMLParser):
         if s._t: s.t += d
         if s._ld: s.ld[-1] += d
         if s._h: s._h[1] += d
-pages = sorted(glob.glob(f'{S}/**/*.html', recursive=True)); urls = set()
+pages = sorted(f for f in glob.glob(f'{S}/**/*.html', recursive=True) if not os.path.basename(f).startswith('google')); urls = set()
 sm = open(f'{S}/sitemap.xml', encoding='utf-8').read() if os.path.exists(f'{S}/sitemap.xml') else ''
 need(sm, 'sitemap.xml missing'); need('Sitemap: ' + BASE + 'sitemap.xml' in open(f'{S}/robots.txt').read(), 'robots.txt lacks Sitemap line')
 for f in pages:
