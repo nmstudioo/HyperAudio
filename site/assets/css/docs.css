@@ -556,3 +556,13 @@ transition:var(--tr-ui)}
 .lp-end p{margin:0 auto 22px;opacity:.7;max-width:44ch}
 .lp-end .hero-cta{justify-content:center}
 @media (min-width:720px){.lp-g3{grid-template-columns:repeat(3,minmax(0,1fr))}.lp-g2{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-g4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* == landing: contrast-safe step cards == */
+.lp-card .lp-n{opacity:1;color:var(--tx2)}
+.lp-card span{opacity:1;color:var(--tx2)}
+.lp-card em{opacity:1;color:var(--mut)}
+.lp-card b{color:var(--tx)}
+.lp-more .lp-h p,.lp-f p,.lp-d p,.lp-t span,.lp-end p,.lp-band span{opacity:1;color:var(--tx2)}
+.lp-o{opacity:1;color:color-mix(in srgb,var(--tx) 14%,transparent)}
+.lp-on .lp-flow .lp-s{transition-delay:0s!important}
+.lp-on .lp-flow .lp-s{transition-duration:.35s}
