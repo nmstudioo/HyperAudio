@@ -718,3 +718,7 @@ a[aria-current] > .ni [fill="currentColor"],.nl[aria-current] .ni [fill="current
 .nl .ni{color:var(--tx2)}
 .nl:hover .ni{color:var(--tx)}
 .nl[aria-current] .ni{color:var(--acc)}
+
+/* == footer: copyright wraps instead of clipping == */
+.sf .sf-in{min-width:0}
+.sf .sf-in .sf-cp{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding-inline:12px;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;text-align:center}
