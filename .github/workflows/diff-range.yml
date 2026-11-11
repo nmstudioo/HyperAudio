@@ -1,0 +1,26 @@
+name: diff-range
+on: { workflow_dispatch: { inputs: { base: { default: '835b12c' } } } }
+permissions: { contents: read }
+jobs:
+  diff:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with: { ref: '${{ inputs.base }}', path: base }
+      - uses: actions/checkout@v7
+        with: { path: head }
+      - uses: actions/setup-node@v7
+        with: { node-version: 24 }
+      - run: |
+          cd head && npm ci && npx playwright install --with-deps chromium webkit
+          for d in base head; do (cd $d && python3 build/build.py --publish || true); done
+          python3 -m http.server 8766 --directory base/site >/dev/null 2>&1 &
+          python3 -m http.server 8765 --directory head/site >/dev/null 2>&1 &
+          sleep 3
+          node tests/shots_all.js http://localhost:8766/ ../shots_base
+          node tests/shots_all.js http://localhost:8765/ ../shots_pr
+          python3 -m venv ~/v && ~/v/bin/pip install -q pillow
+          ~/v/bin/python tests/visual_diff.py ../shots_base ../shots_pr ../shots_diff 0.02 || true
+      - uses: actions/upload-artifact@v7
+        with: { name: visual-diff, path: 'shots_diff/', retention-days: 14 }
