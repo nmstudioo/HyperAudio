@@ -144,6 +144,7 @@ def make_wav_header(data_size):
 
 def direct_dtft(signal, freqs, sr, chunk=32):
     sig = np.asarray(signal, dtype=np.float64)
+    freqs = np.asarray(freqs, dtype=np.float64)
     n = np.arange(len(sig), dtype=np.float64)
 
     out = np.empty(len(freqs), dtype=np.complex128)
