@@ -13,14 +13,15 @@ jobs:
       - uses: actions/setup-node@v7
         with: { node-version: 24 }
       - run: |
-          cd head && npm ci && npx playwright install --with-deps chromium webkit
-          for d in base head; do (cd $d && python3 build/build.py --publish || true); done
+          (cd head && npm ci && npx playwright install --with-deps chromium webkit)
+          for d in base head; do (cd $d && python3 build/build.py --publish); done
           python3 -m http.server 8766 --directory base/site >/dev/null 2>&1 &
           python3 -m http.server 8765 --directory head/site >/dev/null 2>&1 &
-          sleep 3
-          node tests/shots_all.js http://localhost:8766/ ../shots_base
-          node tests/shots_all.js http://localhost:8765/ ../shots_pr
+          curl -fsS --retry 10 --retry-connrefused -o /dev/null http://localhost:8766/
+          curl -fsS --retry 10 --retry-connrefused -o /dev/null http://localhost:8765/
+          (cd head && node tests/shots_all.js http://localhost:8766/ ../shots_base)
+          (cd head && node tests/shots_all.js http://localhost:8765/ ../shots_pr)
           python3 -m venv ~/v && ~/v/bin/pip install -q pillow
-          ~/v/bin/python tests/visual_diff.py ../shots_base ../shots_pr ../shots_diff 0.02 || true
+          ~/v/bin/python head/tests/visual_diff.py shots_base shots_pr shots_diff 0.02 || true
       - uses: actions/upload-artifact@v7
         with: { name: visual-diff, path: 'shots_diff/', retention-days: 14 }
