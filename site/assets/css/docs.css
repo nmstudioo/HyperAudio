@@ -566,3 +566,4 @@ transition:var(--tr-ui)}
 .lp-o{opacity:1;color:color-mix(in srgb,var(--tx) 14%,transparent)}
 .lp-on .lp-flow .lp-s{transition-delay:0s!important}
 .lp-on .lp-flow .lp-s{transition-duration:.35s}
+.lp-band .btn span{color:inherit;opacity:1}
