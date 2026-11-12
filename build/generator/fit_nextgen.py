@@ -44,7 +44,7 @@ MID_BAND = (300.0, 3000.0)
 
 IRS_PATH = ROOT / "src/profiles/iem-hd/EDX_HD.irs"
 RAW_PATH = HERE / "inputs/data/Raw/kz_edx_pro_raw_nextgen.txt"
-TARGET_PATH = HERE / "inputs/data/target/kz_edx_pro_target.txt"
+TARGET_PATH = HERE / "inputs/data/target/kz_edx_pro_hybrid_target.txt"
 DEFAULT_OUT = HERE / "out/iem_nextgen/EDX_HD_NextGEN_candidate.vdc"
 
 
