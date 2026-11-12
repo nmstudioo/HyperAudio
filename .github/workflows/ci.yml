@@ -72,6 +72,13 @@ jobs:
         run: python3 build/build.py --out /tmp/rel
       - name: Validate acceptance result (fresh or restored from cache)
         run: python3 tests/check_acceptance.py /tmp/rel/acceptance.json
+
+      - name: NextGEN IEM VDC fitter
+        run: python3 build/generator/fit_nextgen.py
+      - name: Upload NextGEN candidate artifact
+        uses: actions/upload-artifact@v7
+        with: { name: nextgen-candidate, path: build/generator/out/iem_nextgen/, if-no-files-found: ignore }
+
       - name: Generator reproduction vs releases/5.0.0 (informational)
         if: needs.prep.outputs.gen == 'true'
         continue-on-error: true
