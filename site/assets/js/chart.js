@@ -143,7 +143,7 @@ g += `<text x="${m.l - 8}" y="${m.t - 13}" text-anchor="end" font-size="9" lette
 c.series.forEach((s, si) => {
 if (s.hidden) return;
 if (s.area) {
-df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".16"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".04"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
+df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".09"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".025"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
 const z = Y(Math.min(Math.max(0, y0), y1)),
 px = s.pts.map((p) => X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1));
 g += `<path d="M${X(s.pts[0][0])} ${z}L${smooth(s.pts.map((p) => [X(p[0]), Y(p[1])])).slice(1)}L${X(s.pts[s.pts.length - 1][0])} ${z}Z" fill="url(#ag${host.id}${si})" clip-path="url(#cp${host.id})"/>`;
