@@ -2764,3 +2764,5 @@ box-shadow:var(--lift),0 14px 28px -20px color-mix(in srgb,var(--acc) 60%,transp
 :root .pghead h1{margin:12px 0 14px}
 :root .pghead .lead{max-width:52ch}
 :root .chartbox{background:var(--elev);border:1px solid var(--bd);box-shadow:none}
+/*su2*/
+:root .snd{scroll-padding-inline:16px;padding:10px 16px 16px;margin-top:-8px;margin-bottom:-6px}
