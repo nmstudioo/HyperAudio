@@ -2758,3 +2758,11 @@ box-shadow:var(--lift),0 14px 28px -20px color-mix(in srgb,var(--acc) 60%,transp
 :root .pghead h1,:root .dh h1,body.n-pg main.pg > h1{margin:14px 0 12px;font-size:clamp(2rem,6.5vw,3.25rem);font-weight:800;letter-spacing:-.035em;line-height:1.04;text-wrap:balance}
 :root .pghead .lead,:root .dh .lead,body.n-pg main.pg > .lead{max-width:56ch;margin:0;color:var(--tx2);font-size:clamp(1rem,2.4vw,1.125rem);line-height:1.55;text-wrap:pretty}
 :root .pghead{padding-bottom:var(--space-5)}
+/*su1*/
+:root .pghead{padding-top:var(--space-6);padding-bottom:var(--space-5);margin-bottom:var(--space-6)}
+:root .pghead .eyebrow{margin-bottom:4px}
+:root .pghead h1{margin:12px 0 14px}
+:root .pghead .lead{max-width:52ch}
+:root .chartbox{background:var(--elev);border:1px solid var(--bd);box-shadow:none}
+/*su2*/
+:root .snd{scroll-padding-inline:16px;padding:10px 16px 16px;margin-top:-8px;margin-bottom:-6px}

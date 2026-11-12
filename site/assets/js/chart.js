@@ -132,18 +132,18 @@ g += `<rect x="${xa}" y="${m.t}" width="${xb - xa}" height="${bh}" fill="var(--t
 if (b.label && xb - xa > 34) g += `<text x="${(xa + xb) / 2}" y="${H - m.b - 8}" text-anchor="middle" font-size="9" letter-spacing=".08em" fill="var(--tx2)">${b.label}</text>`;
 });
 for (let v = y0; v <= y1; v += ys)
-g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="${v === 0 ? "var(--tx)" : "var(--tx)"}" stroke-opacity="${v === 0 ? 0.3 : 0.07}" stroke-width="1"/><text x="${m.l - 8}" y="${Y(v) + 3.5}" text-anchor="end" font-size="10.5" fill="${v === 0 ? "var(--tx2)" : "var(--mut)"}" style="font-variant-numeric:tabular-nums">${v > 0 ? "+" : v < 0 ? "\u2212" : ""}${Math.abs(v)}</text>`;
+g += `<line x1="${m.l}" x2="${W - m.r}" y1="${P(Y(v))}" y2="${P(Y(v))}" stroke="${v === 0 ? "var(--tx)" : "var(--tx)"}" stroke-opacity="${v === 0 ? 0.3 : 0.05}" stroke-width="1"/><text x="${m.l - 8}" y="${Y(v) + 3.5}" text-anchor="end" font-size="10.5" fill="${v === 0 ? "var(--tx2)" : "var(--mut)"}" style="font-variant-numeric:tabular-nums">${v > 0 ? "+" : v < 0 ? "\u2212" : ""}${Math.abs(v)}</text>`;
 [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
 .filter((v) => v >= x0 * 0.999 && v <= x1 * 1.001)
 .forEach((v) => {
 const major = v === 100 || v === 1000 || v === 10000;
-g += `<line y1="${m.t}" y2="${H - m.b}" x1="${P(X(v))}" x2="${P(X(v))}" stroke="var(--tx)" stroke-opacity="${major ? 0.1 : 0.045}"/><text x="${X(v)}" y="${H - 7}" text-anchor="middle" font-size="10.5" fill="${major ? "var(--tx2)" : "var(--mut)"}">${v >= 1000 ? v / 1000 + "k" : v}</text>`;
+g += `<line y1="${m.t}" y2="${H - m.b}" x1="${P(X(v))}" x2="${P(X(v))}" stroke="var(--tx)" stroke-opacity="${major ? 0.07 : 0.03}"/><text x="${X(v)}" y="${H - 7}" text-anchor="middle" font-size="10.5" fill="${major ? "var(--tx2)" : "var(--mut)"}">${v >= 1000 ? v / 1000 + "k" : v}</text>`;
 });
 g += `<text x="${m.l - 8}" y="${m.t - 13}" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--mut)">dB</text>`;
 c.series.forEach((s, si) => {
 if (s.hidden) return;
 if (s.area) {
-df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".16"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".04"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
+df += `<linearGradient id="ag${host.id}${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".09"/><stop offset=".55" stop-color="${s.color}" stop-opacity=".025"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`;
 const z = Y(Math.min(Math.max(0, y0), y1)),
 px = s.pts.map((p) => X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1));
 g += `<path d="M${X(s.pts[0][0])} ${z}L${smooth(s.pts.map((p) => [X(p[0]), Y(p[1])])).slice(1)}L${X(s.pts[s.pts.length - 1][0])} ${z}Z" fill="url(#ag${host.id}${si})" clip-path="url(#cp${host.id})"/>`;
@@ -152,7 +152,7 @@ const xy = s.pts.map((p) => [X(Math.min(Math.max(p[0], x0), x1)), Y(p[1])]),
 d = s.dots ? xy.map((q, i) => (i ? "L" : "M") + q[0].toFixed(1) + " " + q[1].toFixed(1)).join("") : smooth(xy);
 const pri = !!s.area;
 if (pri && !s.dots && !matchMedia("(pointer:coarse)").matches) {
-g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${(s.w || 2) + 4}" stroke-linecap="round" opacity=".5" filter="url(#gl${host.id})" clip-path="url(#cp${host.id})"/>`;
+g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${(s.w || 2) + 4}" stroke-linecap="round" opacity=".2" filter="url(#gl${host.id})" clip-path="url(#cp${host.id})"/>`;
 }
 g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.w || 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round" ${ha && !pri && !s.dots ? 'opacity=".7"' : ""} clip-path="url(#cp${host.id})"/>`;
 if (s.dots)
