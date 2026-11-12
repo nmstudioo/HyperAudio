@@ -72,6 +72,16 @@ jobs:
         run: python3 build/build.py --out /tmp/rel
       - name: Validate acceptance result (fresh or restored from cache)
         run: python3 tests/check_acceptance.py /tmp/rel/acceptance.json
+      - name: NextGEN IRS builder
+        run: python3 build/generator/build_irs_nextgen.py
+
+      - name: Upload NextGEN IRS artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: nextgen-irs
+          path: build/generator/out/iem_nextgen/
+          if-no-files-found: error
+
       - name: Generator reproduction vs releases/5.0.0 (informational)
         if: needs.prep.outputs.gen == 'true'
         continue-on-error: true
