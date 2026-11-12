@@ -1,0 +1,123 @@
+{
+  "status": "candidate_validated_for_review",
+  "fit_convention": {
+    "method": "target_iem median alignment",
+    "median_alignment_hz": [
+      300.0,
+      3000.0
+    ],
+    "above_16khz": "held at the last correction value at or below 16 kHz",
+    "absolute_reference_used_for_fit": false
+  },
+  "inputs": {
+    "raw_path": "build/generator/inputs/data/Raw/kz_edx_pro_raw_nextgen.txt",
+    "raw_sha256": "e18088585e99a8f8b6cff3aeea4478ac042e0dbbdb48d2087731b78fdb78807d",
+    "target_path": "build/generator/inputs/data/target/kz_edx_pro_target.txt",
+    "target_sha256": "737888b8f3cc9f36e26b93fb7dd880530491b11810e3fb164b2cf5da111c9706",
+    "irs_path": "src/profiles/iem-hd/EDX_HD.irs",
+    "irs_sha256": "cf4aa68cbc005b50960d6c91392829f6fa3bbf7f385bf1c54a8f948968cc0620",
+    "irs_preserved_without_rescaling_or_peakfix": true
+  },
+  "optimizer": {
+    "sections": 10,
+    "pole_radius_limit": 0.985,
+    "optimization_pole_radius_limit": 0.9848,
+    "max_44khz_vs_48khz_bank_difference_db": 0.3,
+    "sample_rates_hz": [
+      44100,
+      48000
+    ]
+  },
+  "normalization": {
+    "gain_db_applied_to_vdc": -1.6765641911623803,
+    "chain_peak_48khz_db_30_16k": -0.4999999815806568,
+    "chain_peak_44khz_db_30_16k": -0.5019200060076774,
+    "target_chain_peak_db": -0.5
+  },
+  "pole_radii": {
+    "sr_44100_max": 0.952174127457788,
+    "sr_48000_max": 0.9559700779836154,
+    "sr_44100_per_section": [
+      0.952174127457788,
+      0.5317000968591225,
+      0.8193432339380121,
+      0.7365247504327332,
+      0.5403568607873874,
+      0.8628343404153545,
+      0.9285710225933179,
+      0.9206344231018087,
+      0.8935226594776429,
+      0.9513139571140538
+    ],
+    "sr_48000_per_section": [
+      0.9559700779836154,
+      0.5796438044178511,
+      0.828850259093885,
+      0.7400361930338271,
+      0.562816554482897,
+      0.872951764417714,
+      0.9341224036495431,
+      0.9242565991108749,
+      0.9003907957103959,
+      0.9551517303549211
+    ]
+  },
+  "response_error_db": {
+    "absolute_reference_rms_30_16k": 7.759961734230952,
+    "absolute_reference_max_abs_30_16k": 8.806902279833663,
+    "median_aligned_rms_30_16k": 0.21951382556510743,
+    "median_aligned_max_abs_30_16k": 1.1229063533320662,
+    "absolute_error_median_300_3000_hz": -7.770258365286936,
+    "bank_difference_max_abs_db_30_20k": 0.05055096378490376,
+    "bands": [
+      {
+        "band_hz": [
+          20,
+          100
+        ],
+        "aligned_rms_db": 0.14686503763610734,
+        "absolute_rms_db": 7.727490635984287
+      },
+      {
+        "band_hz": [
+          100,
+          500
+        ],
+        "aligned_rms_db": 0.06290790728499958,
+        "absolute_rms_db": 7.74860443700388
+      },
+      {
+        "band_hz": [
+          500,
+          2000
+        ],
+        "aligned_rms_db": 0.08131240310853431,
+        "absolute_rms_db": 7.754894499291173
+      },
+      {
+        "band_hz": [
+          2000,
+          6000
+        ],
+        "aligned_rms_db": 0.32294204990913766,
+        "absolute_rms_db": 7.805136945576136
+      },
+      {
+        "band_hz": [
+          6000,
+          10000
+        ],
+        "aligned_rms_db": 0.24604036319464587,
+        "absolute_rms_db": 7.686426242988347
+      },
+      {
+        "band_hz": [
+          10000,
+          16000
+        ],
+        "aligned_rms_db": 0.5114327313532135,
+        "absolute_rms_db": 7.736951754508706
+      }
+    ]
+  }
+}
