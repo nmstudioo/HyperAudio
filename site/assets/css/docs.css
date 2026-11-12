@@ -566,3 +566,7 @@ transition:var(--tr-ui)}
 .lp-o{opacity:1;color:color-mix(in srgb,var(--tx) 14%,transparent)}
 .lp-on .lp-flow .lp-s{transition-delay:0s!important}
 .lp-on .lp-flow .lp-s{transition-duration:.35s}
+.lp-band .btn span{color:inherit;opacity:1}
+/*lpmi*/
+.lp-f .lp-mi{display:block;box-sizing:border-box;width:44px;height:44px;padding:11px;margin:0 0 8px;border-radius:var(--r-md);color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--bg))}
+.lp-f .lp-o{font-size:34px;line-height:1}
